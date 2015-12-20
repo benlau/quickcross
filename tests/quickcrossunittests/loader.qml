@@ -5,7 +5,7 @@ Item {
 
     Component.onCompleted: {
         var i,num;
-        var properties = ["os", "isAndroid", "isLinux", "isIOS", "isMac", "isWindows"];
+        var properties = ["os", "isAndroid", "isLinux", "isIOS", "isMac", "isWindows", "dp"];
 
         for (i in properties) {
             console.log("Device." + properties[i] + " =", Device[properties[i]]);

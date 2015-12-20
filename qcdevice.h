@@ -19,6 +19,7 @@ class QCDevice : public QObject
     Q_PROPERTY(bool isMac READ isMac)
     Q_PROPERTY(bool isIOS READ isIOS)
     Q_PROPERTY(bool isWindows READ isWindows)
+    Q_PROPERTY(qreal dp READ dp)
         
 public:
     explicit QCDevice(QObject *parent = 0);
@@ -34,6 +35,8 @@ public:
     bool isMac() const;
 
     bool isWindows() const;
+
+    qreal dp() const;
 
 signals:
 

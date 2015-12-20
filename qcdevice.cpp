@@ -9,6 +9,13 @@
 #include <QtGlobal>
 #include "qcdevice.h"
 
+#ifdef Q_OS_ANDROID
+#include <QAndroidJniEnvironment>
+#include <QAndroidJniObject>
+#endif
+
+static qreal m_dp = 1;
+
 /*!
  * \qmltype Device
  * \instantiates QCDevice
@@ -20,6 +27,12 @@
 QCDevice::QCDevice(QObject *parent) : QObject(parent)
 {
 
+#ifdef Q_OS_ANDROID
+    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");
+    QAndroidJniObject resource = activity.callObjectMethod("getResources","()Landroid/content/res/Resources;");
+    QAndroidJniObject metrics = resource.callObjectMethod("getDisplayMetrics","()Landroid/util/DisplayMetrics;");
+    m_dp = metrics.getField<float>("density");
+#endif
 }
 
 QString QCDevice::os() const
@@ -71,5 +84,10 @@ bool QCDevice::isWindows() const
 #else
     return false;
 #endif
+}
+
+qreal QCDevice::dp() const
+{
+    return m_dp;
 }
 
