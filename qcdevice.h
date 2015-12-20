@@ -1,6 +1,13 @@
 #ifndef QCDEVICE_H
 #define QCDEVICE_H
 
+/* QuickCross Project
+ * License: APACHE-2.0
+ * Author: Ben Lau
+ * Project Site: https://github.com/benlau/quickcross
+ *
+ */
+
 #include <QObject>
 
 class QCDevice : public QObject

@@ -14,7 +14,7 @@
  * \instantiates QCDevice
  * \inherits QtObject
  *
- * \brief Provier of device related information
+ * \brief Provider of device related information
  */
 
 QCDevice::QCDevice(QObject *parent) : QObject(parent)
