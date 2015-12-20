@@ -19,10 +19,14 @@ static qreal m_dp = 1;
 /*!
  * \qmltype Device
  * \instantiates QCDevice
- * \inherits QtObject
+ * \inqmlmodule QuickCross
+ * \inherits QObject
  *
  * \brief Provider of device related information
+ * It is a singleton component
+ *
  */
+
 
 QCDevice::QCDevice(QObject *parent) : QObject(parent)
 {
@@ -35,10 +39,21 @@ QCDevice::QCDevice(QObject *parent) : QObject(parent)
 #endif
 }
 
+/*!
+ * \qmlproperty string Device::os
+ * This property hold the product name of the operating system this application is running in.
+ * It is equivalent to QSysInfo::productType()
+ *
+ */
+
 QString QCDevice::os() const
 {
     return QSysInfo::productType();
 }
+
+/*!
+ * \qmlproperty bool Device::isAndroid
+ */
 
 bool QCDevice::isAndroid() const
 {
@@ -49,6 +64,10 @@ bool QCDevice::isAndroid() const
 #endif
 }
 
+/*!
+ * \qmlproperty bool Device::isLinux
+ */
+
 bool QCDevice::isLinux() const
 {
 #ifdef Q_OS_LINUX
@@ -58,6 +77,10 @@ bool QCDevice::isLinux() const
 #endif
 }
 
+/*!
+ * \qmlproperty bool Device::isIOS
+ */
+
 bool QCDevice::isIOS() const
 {
 #ifdef Q_OS_IOS
@@ -66,6 +89,10 @@ bool QCDevice::isIOS() const
     return false;
 #endif
 }
+
+/*!
+ * \qmlproperty bool Device::isMac
+ */
 
 bool QCDevice::isMac() const
 {
@@ -77,6 +104,10 @@ bool QCDevice::isMac() const
 
 }
 
+/*!
+ * \qmlproperty bool Device::isWindows
+ */
+
 bool QCDevice::isWindows() const
 {
 #ifdef Q_OS_WIN32
@@ -85,6 +116,15 @@ bool QCDevice::isWindows() const
     return false;
 #endif
 }
+
+/*!
+ * \qmlproperty real Device::dp
+ *
+ * This property hold the density independent pixel (DP) of the Android device this application is running.
+ *
+ * It is valid only in Android system. In other system, the default value is 1.
+ *
+ */
 
 qreal QCDevice::dp() const
 {

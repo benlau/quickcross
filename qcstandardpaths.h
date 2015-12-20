@@ -10,6 +10,10 @@
 
 #include <QObject>
 
+/*!
+  \class QCStandardPaths
+ */
+
 class QCStandardPaths : public QObject
 {
     Q_OBJECT

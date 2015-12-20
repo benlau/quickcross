@@ -1,0 +1,11 @@
+/*!
+    \page index.html
+    \title QuickCross Project
+
+Components
+
+    \list
+      \li \l Device
+      \li \l StandardPaths
+   \endlist
+ */
