@@ -65,7 +65,7 @@ QStringList QCStandardPaths::standardLocations(int standardLocation) const
 }
 
 /*!
-    \qmlmethod array StandardPaths::writableLocation(int standardLocation)
+    \qmlmethod string StandardPaths::writableLocation(int standardLocation)
 
     It is equivalent to QStandardPaths::writableLocation()
 
@@ -77,7 +77,7 @@ QString QCStandardPaths::writableLocation(int standardLocation) const
 }
 
 /*!
-    \qmlmethod array StandardPaths::displayName(int standardLocation)
+    \qmlmethod string StandardPaths::displayName(int standardLocation)
 
     It is equivalent to QStandardPaths::displayName()
 
