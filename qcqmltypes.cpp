@@ -24,7 +24,6 @@ class QCQmlTypes {
 
 public:
     QCQmlTypes() {
-        // QADevice is a exception. Won't register by QAQmlTypes.
 
         qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
                                            "Device", deviceProvider);
