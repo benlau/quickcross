@@ -1,0 +1,22 @@
+{
+  "name": "com.github.benlau.quickcross",
+  "description": "QML Cross Platform Utility Library",
+  "author": {
+    "name": "Ben Lau",
+    "email": "xbenlau@gmail.com"
+  },
+  "repository": {
+    "type": "GITHUB",
+    "url": "https://github.com/benlau/quickcross.git"
+  },
+  "version": {
+    "label": "1.0.0",
+    "revision": "1",
+    "fingerprint": ""
+  },
+  "dependencies": [
+  ],
+  "license": "APACHE_2_0",
+  "pri_filename": "quickcross.pri",
+  "webpage": ""
+}
