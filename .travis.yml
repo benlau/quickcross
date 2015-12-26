@@ -16,5 +16,5 @@ script:
     - qmake
     - make
     - ls
-    - ./quickcrossunittests
+    - ./tst_quickcrossunittests
 
