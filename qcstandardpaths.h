@@ -9,6 +9,7 @@
  */
 
 #include <QObject>
+#include <QStringList>
 
 /*!
   \class QCStandardPaths
