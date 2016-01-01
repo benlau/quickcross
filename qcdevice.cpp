@@ -52,7 +52,7 @@ QString QCDevice::os() const
 
 #ifdef Q_OS_LINUX
     // Don't return a distribution name
-    res = "linux"
+    res = "linux";
 #else
     res = QSysInfo::productType();
 #endif
