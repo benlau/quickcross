@@ -1,6 +1,7 @@
 #include <QString>
 #include <QtTest>
 #include <QQmlApplicationEngine>
+#include "qcdevice.h"
 
 class QuickCrossUnitTests : public QObject
 {
@@ -16,6 +17,7 @@ private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
     void loader();
+    void device();
 
 private:
     QList<QQmlError> warnings;
@@ -54,6 +56,20 @@ void QuickCrossUnitTests::loader()
     Q_ASSERT(warnings.size() == 0);
 }
 
+void QuickCrossUnitTests::device()
+{
+    QCDevice* device = new QCDevice();
+
+#ifdef Q_OS_LINUX
+    QVERIFY(device->os() == "linux");
+#endif
+
+#ifdef Q_OS_MAC
+    QVERIFY(device->os() == "osx");
+#endif
+
+    delete device;
+}
 
 int main(int argc, char *argv[])
 {

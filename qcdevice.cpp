@@ -48,7 +48,16 @@ QCDevice::QCDevice(QObject *parent) : QObject(parent)
 
 QString QCDevice::os() const
 {
-    return QSysInfo::productType();
+    QString res = "unknown";
+
+#ifdef Q_OS_LINUX
+    // Don't return a distribution name
+    res = "linux"
+#else
+    res = QSysInfo::productType();
+#endif
+
+    return res;
 }
 
 /*!
