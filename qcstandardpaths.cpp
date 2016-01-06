@@ -43,8 +43,15 @@
         AppLocalDataLocation = DataLocation
     };
 
-
   \endcode
+
+Example:
+
+\code
+
+console.log(StandardPaths.standardLocations(StandardPaths.ConfigLocation)); // Get standard location patsh of config.
+
+\endcode
 
  */
 
