@@ -2,6 +2,17 @@
 #include "qcdevice.h"
 #include "qcstandardpaths.h"
 #include "qcrect.h"
+#include "qcline.h"
+
+template<typename T>
+static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+
+    T* object = new T();
+
+    return object;
+}
 
 static QObject *rectProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
@@ -43,6 +54,9 @@ public:
 
         qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
                                            "Rect", rectProvider);
+
+        qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
+                                           "Line", provider<QCLine> );
 
     }
 };

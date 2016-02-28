@@ -8,5 +8,6 @@ Singleton Components
       \li \l Device
       \li \l StandardPaths
       \li \l Rect
+      \li \l Line
    \endlist
  */

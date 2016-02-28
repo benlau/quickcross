@@ -2,6 +2,12 @@
 #include <QStandardPaths>
 #include "qcstandardpaths.h"
 
+/* QuickCross Project
+ * License: APACHE-2.0
+ * Author: Ben Lau
+ * Project Site: https://github.com/benlau/quickcross
+ *
+ */
 
 /*!
  * \qmltype StandardPaths

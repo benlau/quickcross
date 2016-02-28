@@ -17,7 +17,8 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 DISTFILES += \
     ../../README.md \
     qml/loader.qml \
-    qml/tst_Rect.qml
+    qml/tst_Rect.qml \
+    qml/tst_Line.qml
 
 include(../../quickcross.pri)
 include(vendor/vendor.pri)
