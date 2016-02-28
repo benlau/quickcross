@@ -1,6 +1,16 @@
 #include <QtQml>
 #include "qcdevice.h"
 #include "qcstandardpaths.h"
+#include "qcrect.h"
+
+static QObject *rectProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+
+    QCRect* object = new QCRect();
+
+    return object;
+}
 
 static QObject *deviceProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
@@ -30,6 +40,9 @@ public:
 
         qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
                                            "StandardPaths", standardPathsProvider);
+
+        qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
+                                           "Rect", rectProvider);
 
     }
 };

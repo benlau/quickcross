@@ -2,10 +2,11 @@
     \page index.html
     \title QuickCross Project
 
-Components
+Singleton Components
 
     \list
       \li \l Device
       \li \l StandardPaths
+      \li \l Rect
    \endlist
  */

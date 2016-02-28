@@ -28,7 +28,7 @@ void QuickCrossUnitTests::loader()
 
     connect(&engine,SIGNAL(warnings(QList<QQmlError>)),
             this,SLOT(onWarning(QList<QQmlError>)));
-    QString source = QString(SRCDIR) + "/loader.qml";
+    QString source = QString(SRCDIR) + "/qml/loader.qml";
 
     engine.load(QUrl::fromLocalFile(source));
 

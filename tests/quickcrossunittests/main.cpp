@@ -5,10 +5,11 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication app(argc,argv);
+    QGuiApplication app(argc,argv);
 
     TestRunner runner;
     runner.add<QuickCrossUnitTests>();
+    runner.add(QString(SRCDIR) + "/qml");
 
     bool error = runner.exec(app.arguments());
 

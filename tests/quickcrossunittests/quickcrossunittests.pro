@@ -1,4 +1,4 @@
-QT       += testlib qml
+QT       += testlib qml qmltest
 
 QT       -= gui
 
@@ -16,7 +16,8 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 DISTFILES += \
     ../../README.md \
-    loader.qml
+    qml/loader.qml \
+    qml/tst_Rect.qml
 
 include(../../quickcross.pri)
 include(vendor/vendor.pri)
