@@ -5,14 +5,16 @@ compiler:
   - gcc
 before_install:
     - sudo add-apt-repository --yes ppa:beineri/opt-qt542
+    - sudo add-apt-repository --yes "deb http://download.opensuse.org/repositories/home:/benlau/xUbuntu_15.10 ./"
     - sudo apt-get update -qq
     - apt-cache search qt5
-    - sudo apt-get install -qq qt54quickcontrols  qt54declarative qt54script qt54graphicaleffects
+    - sudo apt-get install -qq qt54quickcontrols  qt54declarative qt54script qt54graphicaleffects qpm
     - sh -e /etc/init.d/xvfb start
 
 script:
     - source /opt/qt54/bin/qt54-env.sh
     - cd tests/quickcrossunittests
+    - qpm install
     - qmake
     - make
     - ls
