@@ -1,27 +1,8 @@
-#include <QString>
-#include <QtTest>
 #include <QQmlApplicationEngine>
+#include <QtCore>
+#include <QTest>
 #include "qcdevice.h"
-
-class QuickCrossUnitTests : public QObject
-{
-    Q_OBJECT
-
-public:
-    QuickCrossUnitTests();
-
-public Q_SLOTS:
-    void onWarning(const QList<QQmlError> & warnings);
-
-private Q_SLOTS:
-    void initTestCase();
-    void cleanupTestCase();
-    void loader();
-    void device();
-
-private:
-    QList<QQmlError> warnings;
-};
+#include "quickcrossunittests.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -70,12 +51,3 @@ void QuickCrossUnitTests::device()
 
     delete device;
 }
-
-int main(int argc, char *argv[])
-{
-    QCoreApplication app(argc,argv);
-    QuickCrossUnitTests tc;
-    return QTest::qExec(&tc, argc, argv);
-}
-
-#include "tst_quickcrossunittests.moc"

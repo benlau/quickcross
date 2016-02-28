@@ -36,3 +36,4 @@ Makefile*
 build-*
 build/
 docs/html
+vendor
