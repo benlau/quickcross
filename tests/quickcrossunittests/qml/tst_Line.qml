@@ -28,4 +28,14 @@ TestCase {
         Line.setAngle(line1, 0);
         compare(Line.angle(line1), 0);
     }
+
+    function test_translate() {
+        var line1 = Line.create(0,5,0,10);
+        Line.translate(line1, 3,4);
+        compare(line1.x1, 3);
+        compare(line1.y1, 9);
+        compare(line1.x2, 3);
+        compare(line1.y2, 14);
+
+    }
 }

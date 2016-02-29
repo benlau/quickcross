@@ -38,6 +38,8 @@ public slots:
 
     void setAngle(QJSValue line,qreal angle) const;
 
+    void translate(QJSValue line, qreal dx, qreal dy) const;
+
 };
 
 #endif // QCLINE_H

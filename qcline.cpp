@@ -179,6 +179,21 @@ void QCLine::setAngle(QJSValue line, qreal angle) const
 }
 
 /*!
+    \qmlmethod void Line::translate(object line, real dx, real dy)
+
+    Translates this line the distance specified by dx and dy.
+
+ */
+
+void QCLine::translate(QJSValue line, qreal dx, qreal dy) const
+{
+    QLineF l = toLine(line);
+    l.translate(dx, dy);
+
+    setJSValue(line, l);
+}
+
+/*!
     \qmlmethod qreal Line::angle(object line)
 
     Get the angle of the line
