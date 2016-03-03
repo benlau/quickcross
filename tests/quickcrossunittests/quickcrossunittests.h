@@ -19,6 +19,7 @@ private Q_SLOTS:
     void cleanupTestCase();
     void loader();
     void device();
+    void imageLoader();
 
 private:
     QList<QQmlError> warnings;

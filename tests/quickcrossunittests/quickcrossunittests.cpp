@@ -3,6 +3,8 @@
 #include <QTest>
 #include "qcdevice.h"
 #include "quickcrossunittests.h"
+#include "qcimageloader.h"
+#include "automator.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -50,4 +52,34 @@ void QuickCrossUnitTests::device()
 #endif
 
     delete device;
+}
+
+void QuickCrossUnitTests::imageLoader()
+{
+    QCImageLoader *loader = QCImageLoader::instance();
+
+    // Clear loaded images
+    loader->clear();
+
+    // No. of loaded image = 0
+    QVERIFY(loader->count() == 0);
+
+    loader->load(QString(SRCDIR) + "img");
+    QVERIFY(loader->count() == 0); // Not loaded yet
+
+    QVERIFY(loader->running());
+
+    Automator::waitUntil(loader, "running", false);
+
+    QCOMPARE(loader->count(), 1);
+
+    QVERIFY(loader->contains("qt-logo-medium.png"));
+    QVERIFY(loader->contains("qt-logo-medium"));
+    QVERIFY(!loader->contains("not-existed"));
+
+    QImage image = loader->image("qt-logo-medium.png");
+    QCOMPARE(image.width(), 381);
+    QCOMPARE(image.height(), 500);
+
+    QVERIFY (loader->image("qt-logo-medium") == image);
 }
