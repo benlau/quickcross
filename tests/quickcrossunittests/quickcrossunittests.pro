@@ -18,7 +18,8 @@ DISTFILES += \
     ../../README.md \
     qml/loader.qml \
     qml/tst_Rect.qml \
-    qml/tst_Line.qml
+    qml/tst_Line.qml \
+    qml/tst_ImageLoader.qml
 
 include(../../quickcross.pri)
 include(vendor/vendor.pri)

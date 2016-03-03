@@ -3,6 +3,7 @@
 #include "qcstandardpaths.h"
 #include "qcrect.h"
 #include "qcline.h"
+#include "qcimageloaderwrapper.h"
 
 template<typename T>
 static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
@@ -57,6 +58,9 @@ public:
 
         qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
                                            "Line", provider<QCLine> );
+
+        qmlRegisterSingletonType<QCImageLoaderWrapper>("QuickCross", 1, 0,
+                                           "ImageLoader", provider<QCImageLoaderWrapper> );
 
     }
 };
