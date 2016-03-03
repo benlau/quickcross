@@ -5,6 +5,7 @@
 #include "quickcrossunittests.h"
 #include "qcimageloader.h"
 #include "automator.h"
+#include "qcimageprovider.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -86,4 +87,51 @@ void QuickCrossUnitTests::imageLoader()
     QCOMPARE(image.height(), 500);
 
     QVERIFY (loader->image("qt-logo-medium") == image);
+}
+
+void QuickCrossUnitTests::imageProvider()
+{
+    QCImageLoader *loader = QCImageLoader::instance();
+
+    // Clear loaded images
+    loader->clear();
+    QVERIFY(!loader->isLoaded());
+
+    // No. of loaded image = 0
+    QVERIFY(loader->count() == 0);
+
+    loader->load(QString(SRCDIR) + "img");
+    QVERIFY(loader->count() == 0); // Not loaded yet
+
+    QVERIFY(loader->running());
+    QVERIFY(!loader->isLoaded());
+
+    Automator::waitUntil(loader, "running", false);
+
+    QVERIFY(loader->isLoaded());
+
+    QCOMPARE(loader->count(), 1);
+
+    QQmlApplicationEngine engine;
+
+    engine.addImageProvider("custom", new QCImageProvider());
+
+    connect(&engine,SIGNAL(warnings(QList<QQmlError>)),
+            this,SLOT(onWarning(QList<QQmlError>)));
+    QString source = QString(SRCDIR) + "/qml/imageProvider.qml";
+
+    engine.load(QUrl::fromLocalFile(source));
+
+
+    QVERIFY(engine.rootObjects().size() > 0);
+    Automator automator(&engine);
+
+    QObject* image = automator.findObject("image");
+    QVERIFY(image);
+    QSize size = image->property("sourceSize").value<QSize>();
+    QCOMPARE(size.width(), 381);
+    QCOMPARE(size.height(), 500);
+
+    Q_ASSERT(warnings.size() == 0);
+
 }

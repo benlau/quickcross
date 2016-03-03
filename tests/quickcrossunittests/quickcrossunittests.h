@@ -21,6 +21,8 @@ private Q_SLOTS:
     void device();
     void imageLoader();
 
+    void imageProvider();
+
 private:
     QList<QQmlError> warnings;
 };

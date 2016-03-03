@@ -6,7 +6,8 @@ HEADERS += \
     $$PWD/qcrect.h \
     $$PWD/qcline.h \
     $$PWD/qcimageloader.h \
-    $$PWD/qcimageloaderwrapper.h
+    $$PWD/qcimageloaderwrapper.h \
+    $$PWD/qcimageprovider.h
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
@@ -15,6 +16,7 @@ SOURCES += \
     $$PWD/qcrect.cpp \
     $$PWD/qcline.cpp \
     $$PWD/qcimageloader.cpp \
-    $$PWD/qcimageloaderwrapper.cpp
+    $$PWD/qcimageloaderwrapper.cpp \
+    $$PWD/qcimageprovider.cpp
 
 DISTFILES +=
