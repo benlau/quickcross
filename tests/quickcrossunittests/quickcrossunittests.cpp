@@ -60,6 +60,7 @@ void QuickCrossUnitTests::imageLoader()
 
     // Clear loaded images
     loader->clear();
+    QVERIFY(!loader->isLoaded());
 
     // No. of loaded image = 0
     QVERIFY(loader->count() == 0);
@@ -68,8 +69,11 @@ void QuickCrossUnitTests::imageLoader()
     QVERIFY(loader->count() == 0); // Not loaded yet
 
     QVERIFY(loader->running());
+    QVERIFY(!loader->isLoaded());
 
     Automator::waitUntil(loader, "running", false);
+
+    QVERIFY(loader->isLoaded());
 
     QCOMPARE(loader->count(), 1);
 

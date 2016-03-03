@@ -11,6 +11,7 @@ class QCImageLoader : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool running READ running NOTIFY runningChanged)
+    Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
 
 public:
     explicit QCImageLoader(QObject *parent = 0);
@@ -30,8 +31,11 @@ public:
 
     bool contains(QString key) const;
 
+    bool isLoaded() const;
+
 signals:
     void runningChanged();
+    void isLoadedChanged();
 
 public slots:
 
@@ -41,6 +45,7 @@ private slots:
 private:
     void updateRunning();
     void realLoad(QString path);
+    void setIsLoaded(bool isLoaded);
 
     int m_count;
 
@@ -49,6 +54,7 @@ private:
 
     // no. of pending queue
     int m_pending;
+    bool m_isLoaded;
 
 };
 

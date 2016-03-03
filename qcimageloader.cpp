@@ -27,6 +27,7 @@ QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
     m_count = 0;
     m_pending = 0;
     m_running = false;
+    m_isLoaded = false;
 }
 
 QCImageLoader* QCImageLoader::instance()
@@ -149,6 +150,10 @@ void QCImageLoader::onFinished(const QVariant &result)
 
     m_pending--;
     updateRunning();
+
+    if (!m_isLoaded) {
+        setIsLoaded(true);
+    }
 }
 
 void QCImageLoader::updateRunning()
@@ -159,5 +164,16 @@ void QCImageLoader::updateRunning()
         m_running = value;
         emit runningChanged();
     }
+}
+
+bool QCImageLoader::isLoaded() const
+{
+    return m_isLoaded;
+}
+
+void QCImageLoader::setIsLoaded(bool isLoaded)
+{
+    m_isLoaded = isLoaded;
+    emit isLoadedChanged();
 }
 
