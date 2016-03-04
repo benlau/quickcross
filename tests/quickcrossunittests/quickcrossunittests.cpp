@@ -72,7 +72,9 @@ void QuickCrossUnitTests::imageLoader()
     QVERIFY(loader->running());
     QVERIFY(!loader->isLoaded());
 
-    Automator::waitUntil(loader, "running", false);
+    QVERIFY(loader->waitForLoaded(10000));
+
+    QVERIFY(!loader->running());
 
     QCOMPARE(loader->count(), 1);
 

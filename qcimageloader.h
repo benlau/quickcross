@@ -33,9 +33,12 @@ public:
 
     bool isLoaded() const;
 
+    bool waitForLoaded(int timeout = 10000);
+
 signals:
     void runningChanged();
     void isLoadedChanged();
+    void loaded();
 
 public slots:
 

@@ -6,6 +6,7 @@
 #include <QVariant>
 #include <QtCore>
 #include <QQueue>
+#include <QEventLoop>
 #include "qcimageloader.h"
 
 
@@ -154,6 +155,7 @@ void QCImageLoader::onFinished(const QVariant &result)
 
     if (!m_isLoaded) {
         setIsLoaded(true);
+        emit loaded();
     }
 }
 
@@ -169,6 +171,26 @@ void QCImageLoader::updateRunning()
 
 bool QCImageLoader::isLoaded() const
 {
+    return m_isLoaded;
+}
+
+bool QCImageLoader::waitForLoaded(int timeout)
+{
+    if (m_isLoaded) {
+        return true;
+    }
+
+    QTimer timer;
+    timer.setInterval(timeout);
+
+    QEventLoop loop;
+    connect(&timer,SIGNAL(timeout()),
+            &loop, SLOT(quit()));
+    connect(this, SIGNAL(loaded()),
+            &loop, SLOT(quit()));
+    timer.start();
+    loop.exec();
+
     return m_isLoaded;
 }
 
