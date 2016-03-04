@@ -52,6 +52,7 @@ int QCImageLoader::count() const
 void QCImageLoader::clear()
 {
     m_images.clear();
+    m_isLoaded = false;
 }
 
 void QCImageLoader::load(QString path)

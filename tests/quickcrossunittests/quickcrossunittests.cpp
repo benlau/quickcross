@@ -74,9 +74,11 @@ void QuickCrossUnitTests::imageLoader()
 
     Automator::waitUntil(loader, "running", false);
 
+    QCOMPARE(loader->count(), 1);
+
+    Automator::waitUntil(loader, "isLoaded", true);
     QVERIFY(loader->isLoaded());
 
-    QCOMPARE(loader->count(), 1);
 
     QVERIFY(loader->contains("qt-logo-medium.png"));
     QVERIFY(loader->contains("qt-logo-medium"));
@@ -108,9 +110,12 @@ void QuickCrossUnitTests::imageProvider()
 
     Automator::waitUntil(loader, "running", false);
 
-    QVERIFY(loader->isLoaded());
 
     QCOMPARE(loader->count(), 1);
+
+    Automator::waitUntil(loader, "isLoaded", true);
+    QVERIFY(loader->isLoaded());
+
 
     QQmlApplicationEngine engine;
 
