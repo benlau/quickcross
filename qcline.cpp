@@ -28,22 +28,6 @@ static void setJSValue(QJSValue& value, const QLineF& line) {
 
 }
 
-static QLineF toLine(const QVariantMap& map) {
-    QLineF res;
-
-    QPointF p1,p2;
-
-    p1.setX(map["x1"].toDouble());
-    p1.setY(map["y1"].toDouble());
-    p2.setX(map["x2"].toDouble());
-    p2.setY(map["y2"].toDouble());
-
-    res.setP1(p1);
-    res.setP2(p2);
-
-    return res;
-}
-
 static QLineF toLine(const QJSValue& value) {
     QLineF res;
 

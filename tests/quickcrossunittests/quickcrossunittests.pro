@@ -27,3 +27,5 @@ include(vendor/vendor.pri)
 
 HEADERS += \
     quickcrossunittests.h
+
+QMAKE_CXXFLAGS += -Wall -Werror
