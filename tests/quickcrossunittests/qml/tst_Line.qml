@@ -8,8 +8,16 @@ TestCase {
     function test_create() {
         var line1 = Line.create(Qt.point(5,5), Qt.point(12,13));
         var line2 = Line.create(5,5,12,13);
+        var line3 = Line.create(Qt.point(4,5));
+        var line4 = Line.create(line3);
 
         compare(Line.equals(line1,line2), true);
+        compare(line3.x1, 0);
+        compare(line3.y1, 0);
+        compare(line3.x2, 4);
+        compare(line3.y2, 5);
+
+        compare(Line.equals(line3,line4), true);
     }
 
     function test_length() {
@@ -36,6 +44,28 @@ TestCase {
         compare(line1.y1, 9);
         compare(line1.x2, 3);
         compare(line1.y2, 14);
-
     }
+
+    function test_translateToOrigin() {
+        var line1 = Line.create(4,5,7,10);
+        Line.translateToOrigin(line1);
+        compare(line1.x1, 0);
+        compare(line1.y1, 0);
+        compare(line1.x2, 3);
+        compare(line1.y2, 5);
+    }
+
+    function test_dxdy() {
+        var line1 = Line.create(3,5,4,10);
+        compare(Line.dx(line1) , 1);
+        compare(Line.dy(line1) , 5);
+    }
+
+    function test_p1p2() {
+        var line1 = Line.create(3,5,4,10);
+
+        compare(Line.p1(line1), Qt.point(3,5));
+        compare(Line.p2(line1), Qt.point(4,10));
+    }
+
 }

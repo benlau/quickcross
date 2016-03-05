@@ -106,6 +106,34 @@ QVariantMap QCLine::create(qreal x1, qreal y1, qreal x2, qreal y2) const
 }
 
 /*!
+    \qmlmethod object Line::create(point p2)
+
+    Constructs a line object that represents the line between (0, 0) and p2.
+
+ */
+
+QVariantMap QCLine::create(const QPointF &p2) const
+{
+    QLineF line(QPointF(0,0), p2);
+    return toMap(line);
+}
+
+/*!
+    \qmlmethod object Line::create(object line)
+
+    Constructs a line object that is a clone of other line
+
+ */
+
+QVariantMap QCLine::create(const QVariantMap &line) const
+{
+    QLineF l(line["x1"].toReal(), line["y1"].toReal(),
+             line["x2"].toReal() , line["y2"].toReal());
+
+    return toMap(l);
+}
+
+/*!
     \qmlmethod bool Line::equals(object line1, object line2)
 
     Returns true if the line1 is same as line2.
@@ -191,6 +219,75 @@ void QCLine::translate(QJSValue line, qreal dx, qreal dy) const
     l.translate(dx, dy);
 
     setJSValue(line, l);
+}
+
+/*!
+    \qmlmethod void Line::translateToOrigin(object line)
+
+    Translates this line to origin (0,0) as start point
+ */
+
+void QCLine::translateToOrigin(QJSValue line) const
+{
+    QLineF l = toLine(line);
+    QPointF pt = l.p1();
+
+    qreal dx = pt.x();
+    qreal dy = pt.y();
+    l.translate(-dx, -dy);
+
+    setJSValue(line, l);
+}
+
+/*!
+    \qmlmethod real Line::dx(object line)
+
+    Returns the horizontal component of the line's vector.
+
+ */
+
+qreal QCLine::dx(QJSValue line) const
+{
+    QLineF l = toLine(line);
+
+    return l.dx();
+}
+
+/*!
+    \qmlmethod real Line::dy(object line)
+
+    Returns the vertical component of the line's vector.
+
+ */
+
+qreal QCLine::dy(QJSValue line) const
+{
+    QLineF l = toLine(line);
+
+    return l.dy();
+}
+
+/*! \qmlmethod point Line::p1(object line)
+
+    Returns the line's start point.
+ */
+QPointF QCLine::p1(QJSValue line) const
+{
+    QLineF l = toLine(line);
+
+    return l.p1();
+}
+
+/*! \qmlmethod point Line::p2(object line)
+
+    Returns the line's end point.
+ */
+
+QPointF QCLine::p2(QJSValue line) const
+{
+    QLineF l = toLine(line);
+
+    return l.p2();
 }
 
 /*!

@@ -24,7 +24,12 @@ signals:
 
 public slots:
     QVariantMap create(const QPointF& p1, const QPointF& p2) const;
+
     QVariantMap create(qreal x1, qreal y1, qreal x2, qreal y2) const;
+
+    QVariantMap create(const QPointF& p2) const;
+
+    QVariantMap create(const QVariantMap& line) const;
 
     bool equals(const QJSValue& line1, const QJSValue& line2) const;
 
@@ -39,6 +44,16 @@ public slots:
     void setAngle(QJSValue line,qreal angle) const;
 
     void translate(QJSValue line, qreal dx, qreal dy) const;
+
+    void translateToOrigin(QJSValue line) const;
+
+    qreal dx(QJSValue line) const;
+
+    qreal dy(QJSValue line) const;
+
+    QPointF p1(QJSValue line) const;
+
+    QPointF p2(QJSValue line) const;
 
 };
 
