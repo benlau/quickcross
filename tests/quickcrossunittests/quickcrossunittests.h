@@ -19,7 +19,9 @@ private Q_SLOTS:
     void cleanupTestCase();
     void loader();
     void device();
+
     void imageLoader();
+    void imageLoader_qrc();
 
     void imageProvider();
 

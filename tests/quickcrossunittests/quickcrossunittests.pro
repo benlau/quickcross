@@ -29,3 +29,6 @@ HEADERS += \
     quickcrossunittests.h
 
 QMAKE_CXXFLAGS += -Wall -Werror
+
+RESOURCES += \
+    quickcrossunittests.qrc

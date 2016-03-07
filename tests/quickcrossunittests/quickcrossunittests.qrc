@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/unittests">
+        <file>img/qt-logo-medium.png</file>
+    </qresource>
+</RCC>

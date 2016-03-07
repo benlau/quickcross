@@ -93,6 +93,32 @@ void QuickCrossUnitTests::imageLoader()
     QVERIFY (loader->image("qt-logo-medium") == image);
 }
 
+void QuickCrossUnitTests::imageLoader_qrc()
+{
+    QCImageLoader *loader = QCImageLoader::instance();
+
+    // Clear loaded images
+    loader->clear();
+    QVERIFY(!loader->isLoaded());
+
+    // No. of loaded image = 0
+    QVERIFY(loader->count() == 0);
+
+    loader->load(":unittests/img");
+    QVERIFY(loader->count() == 0); // Not loaded yet
+
+    loader->waitForLoaded();
+    QCOMPARE(loader->count(), 1);
+
+    loader->clear();
+
+    loader->load("qrc:///unittests/img");
+    QVERIFY(loader->count() == 0); // Not loaded yet
+
+    loader->waitForLoaded();
+    QCOMPARE(loader->count(), 1);
+}
+
 void QuickCrossUnitTests::imageProvider()
 {
     QCImageLoader *loader = QCImageLoader::instance();

@@ -106,6 +106,11 @@ void QCImageLoader::load(QString path)
         }
     };
 
+    QUrl url(path);
+    if (url.scheme() == "qrc") {
+        path = QString(":") + url.path();
+    }
+
     Runnable *runnable = new Runnable();
     runnable->setAutoDelete(true);
     runnable->owner = this;
