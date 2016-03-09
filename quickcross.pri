@@ -20,3 +20,7 @@ SOURCES += \
     $$PWD/qcimageprovider.cpp
 
 DISTFILES +=
+
+android {
+    QT += androidextras
+}
