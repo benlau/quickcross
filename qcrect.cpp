@@ -1,12 +1,13 @@
-#include <QtCore>
-#include "qcrect.h"
-
 /* QuickCross Project
  * License: APACHE-2.0
  * Author: Ben Lau
  * Project Site: https://github.com/benlau/quickcross
  *
  */
+
+#include <QtCore>
+#include "qcrect.h"
+
 
 /*!
  * \qmltype Rect

@@ -1,6 +1,14 @@
 #ifndef QCIMAGELOADER_H
 #define QCIMAGELOADER_H
 
+/* QuickCross Project
+ * License: APACHE-2.0
+ * Author: Ben Lau
+ * Project Site: https://github.com/benlau/quickcross
+ *
+ */
+
+
 #include <QObject>
 #include <QImage>
 #include <QMap>

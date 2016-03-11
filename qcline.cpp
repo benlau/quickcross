@@ -1,12 +1,12 @@
-#include <QtCore>
-#include "qcline.h"
-
 /* QuickCross Project
  * License: APACHE-2.0
  * Author: Ben Lau
  * Project Site: https://github.com/benlau/quickcross
  *
  */
+
+#include <QtCore>
+#include "qcline.h"
 
 static QVariantMap toMap(const QLineF& line) {
     QVariantMap m;
