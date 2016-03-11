@@ -15,6 +15,7 @@
 #include <QQueue>
 #include <QEventLoop>
 #include "qcimageloader.h"
+#include "priv/qcmainthreadrunner.h"
 
 
 static QString removeSuffix(QString fileName) {
@@ -69,11 +70,11 @@ void QCImageLoader::load(QString path)
     public:
         QPointer<QCImageLoader> owner;
         QString root;
+        QMap<QString, QImage> images;
 
         void run() {
             QStringList filters;
             QQueue<QString> queue;
-            QMap<QString, QImage> images;
 
             queue.enqueue(root);
             filters << "*.png" << "*.jpg";
@@ -105,11 +106,18 @@ void QCImageLoader::load(QString path)
                 }
             }
 
-            if (!owner.isNull()) {
-                QMetaObject::invokeMethod(owner.data(), "onFinished", Qt::QueuedConnection,
-                                          Q_ARG(QVariant , QVariant::fromValue(images)));
+            QCMainThreadRunner::runOnMainThread(Runnable::cleanup, this);
+        }
+
+        static void cleanup(void *data) {
+            Runnable* runnable = (Runnable*) data;
+
+            if (!runnable->owner.isNull()) {
+                QMetaObject::invokeMethod(runnable->owner.data(), "onFinished", Qt::DirectConnection,
+                                          Q_ARG(QVariant , QVariant::fromValue(runnable->images)));
             }
 
+            delete runnable;
         }
     };
 
@@ -118,8 +126,9 @@ void QCImageLoader::load(QString path)
         path = QString(":") + url.path();
     }
 
+    QCMainThreadRunner::prepare();
     Runnable *runnable = new Runnable();
-    runnable->setAutoDelete(true);
+    runnable->setAutoDelete(false);
     runnable->owner = this;
     runnable->root = path;
 
