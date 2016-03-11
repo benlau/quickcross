@@ -6,6 +6,7 @@
 #include "qcimageloader.h"
 #include "automator.h"
 #include "qcimageprovider.h"
+#include "priv/qcmainthreadrunner.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -167,4 +168,33 @@ void QuickCrossUnitTests::imageProvider()
 
     Q_ASSERT(warnings.size() == 0);
 
+}
+
+void QuickCrossUnitTests::mainThreadRunner()
+{
+    QCMainThreadRunner::prepare();
+
+    static bool success = false;
+
+    class Inner {
+    public:
+        static void test(void* data) {
+            Q_UNUSED(data);
+            success = QThread::currentThread() == QCoreApplication::instance()->thread();
+        }
+    };
+
+    class Runnable : public QRunnable {
+    public:
+        virtual void run() {
+            QCMainThreadRunner::runOnMainThread(Inner::test, 0);
+        }
+    };
+
+    Runnable* runnable = new Runnable();
+    runnable->setAutoDelete(true);
+    QThreadPool::globalInstance()->start(runnable);
+
+    Automator::wait(100);
+    QVERIFY(success);
 }
