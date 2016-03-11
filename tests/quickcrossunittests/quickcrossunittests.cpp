@@ -1,11 +1,13 @@
 #include <QQmlApplicationEngine>
 #include <QtCore>
 #include <QTest>
+#include <QImageReader>
 #include "qcdevice.h"
 #include "quickcrossunittests.h"
 #include "qcimageloader.h"
 #include "automator.h"
 #include "qcimageprovider.h"
+#include "qcimagereader.h"
 #include "priv/qcmainthreadrunner.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
@@ -197,4 +199,39 @@ void QuickCrossUnitTests::mainThreadRunner()
 
     Automator::wait(100);
     QVERIFY(success);
+}
+
+void QuickCrossUnitTests::imageReader()
+{
+    QImageReader reader;
+    reader.setFileName(":/unittests/img/qt-logo-medium.png");
+
+    QVERIFY(reader.canRead());
+
+    QQmlApplicationEngine engine;
+    Automator automator(&engine);
+
+    engine.addImageProvider("custom", new QCImageProvider());
+
+    connect(&engine,SIGNAL(warnings(QList<QQmlError>)),
+            this,SLOT(onWarning(QList<QQmlError>)));
+
+    QString source = QString(SRCDIR) + "/qml/imageReader.qml";
+
+    engine.load(QUrl::fromLocalFile(source));
+
+    QVERIFY(engine.rootObjects().size() > 0);
+
+    QCImageReader* reader1 = qobject_cast<QCImageReader*>(automator.findObject("reader1"));
+    QVERIFY(reader1);
+
+    QVERIFY(!reader1->isFetched());
+
+    reader1->fetch();
+
+    QVERIFY(automator.waitUntil(reader1, "isFetched", true));
+
+    QVERIFY(reader1->size() == QSize(381,500));
+
+    Q_ASSERT(warnings.size() == 0);
 }

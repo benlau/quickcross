@@ -11,6 +11,7 @@
 #include "qcrect.h"
 #include "qcline.h"
 #include "qcimageloaderwrapper.h"
+#include "qcimagereader.h"
 
 template<typename T>
 static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
@@ -69,6 +70,7 @@ public:
         qmlRegisterSingletonType<QCImageLoaderWrapper>("QuickCross", 1, 0,
                                            "ImageLoader", provider<QCImageLoaderWrapper> );
 
+        qmlRegisterType<QCImageReader>("QuickCross", 1, 0, "ImageReader");
     }
 };
 

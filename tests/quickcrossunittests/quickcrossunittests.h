@@ -27,6 +27,8 @@ private Q_SLOTS:
 
     void mainThreadRunner();
 
+    void imageReader();
+
 private:
     QList<QQmlError> warnings;
 };
