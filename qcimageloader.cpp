@@ -106,7 +106,7 @@ void QCImageLoader::load(QString path)
                 }
             }
 
-            QCMainThreadRunner::runOnMainThread(Runnable::cleanup, this);
+            QCMainThreadRunner::start(Runnable::cleanup, this);
         }
 
         static void cleanup(void *data) {

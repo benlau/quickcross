@@ -189,7 +189,7 @@ void QuickCrossUnitTests::mainThreadRunner()
     class Runnable : public QRunnable {
     public:
         virtual void run() {
-            QCMainThreadRunner::runOnMainThread(Inner::test, 0);
+            QCMainThreadRunner::start(Inner::test, 0);
         }
     };
 

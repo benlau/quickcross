@@ -24,7 +24,7 @@ void QCMainThreadRunner::prepare()
     instance();
 }
 
-void QCMainThreadRunner::runOnMainThread(QCMainThreadRunner::Callback func, void *data)
+void QCMainThreadRunner::start(QCMainThreadRunner::Callback func, void *data)
 {
     QVariant f = QVariant::fromValue<void*>((void*) func );
     QVariant d = QVariant::fromValue<void*>((void*) data );

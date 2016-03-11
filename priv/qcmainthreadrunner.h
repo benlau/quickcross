@@ -17,7 +17,7 @@ public:
     /// Run a function with custom data on main thread. If it is already in main thread, it will be executed in next tick.
     /** @threadsafe
      */
-    static void runOnMainThread(Callback func, void* data);
+    static void start(Callback func, void* data);
 
 signals:
 

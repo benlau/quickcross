@@ -48,7 +48,7 @@ void QCImageReader::fetch()
             res["canRead"] = reader.canRead();
             res["size"] = reader.size();
 
-            QCMainThreadRunner::runOnMainThread(Runnable::cleanup, this);
+            QCMainThreadRunner::start(Runnable::cleanup, this);
         }
 
         static void cleanup(void *data) {
