@@ -60,6 +60,8 @@ public slots:
     /// Read image from the source
     void read();
 
+    void clear();
+
 signals:
     void fetched();
     void completed();

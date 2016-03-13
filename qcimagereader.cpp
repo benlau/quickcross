@@ -118,6 +118,17 @@ void QCImageReader::read()
     QThreadPool::globalInstance()->start(runnable);
 }
 
+void QCImageReader::clear()
+{
+    setIsError(false);
+    setIsReady(false);
+    setIsFetched(false);
+    setIsCompleted(false);
+    setSize(QSize());
+    setImage(QImage());
+    setSource(QString());
+}
+
 void QCImageReader::onFetchFinished(QVariantMap map)
 {
     setCanRead(map["canRead"].toBool());
@@ -202,8 +213,11 @@ QString QCImageReader::source() const
 
 void QCImageReader::setSource(const QString &source)
 {
+    if (!source.isNull()) {
+        clear();
+    }
     m_source = source;
-    void sourceChanged();
+    emit sourceChanged();
 }
 
 bool QCImageReader::isFetched() const

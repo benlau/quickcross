@@ -219,6 +219,8 @@ void QuickCrossUnitTests::imageReader()
 
     QVERIFY(reader.canRead());
 
+    //Read from absolute path
+
     QQmlApplicationEngine engine;
     Automator automator(&engine);
 
@@ -246,10 +248,32 @@ void QuickCrossUnitTests::imageReader()
 
     reader1->read();
 
-    automator.waitUntil(reader1,"isReady", true);
+    Automator::waitUntil(reader1,"isReady", true);
 
     QImage image = reader1->image();
     QVERIFY(image.size() == QSize(381,500));
+
+    //Read from resource path
+
+    reader1->setSource(":/unittests/img/qt-logo-medium.png");
+
+    QVERIFY(!reader1->isFetched());
+    QVERIFY(!reader1->isError());
+    QVERIFY(!reader1->isCompleted());
+    QVERIFY(!reader1->isReady());
+    QVERIFY(reader1->size() == QSize());
+    QVERIFY(reader1->image().isNull());
+
+    reader1->fetch();
+    QVERIFY(Automator::waitUntil(reader1, "isFetched", true));
+
+    QVERIFY(reader1->size() == QSize(381,500));
+
+    reader1->read();
+    QVERIFY(Automator::waitUntil(reader1, "isReady", true));
+    QVERIFY(!reader1->image().isNull());
+    QVERIFY(image.size() == QSize(381,500));
+
 
     Q_ASSERT(warnings.size() == 0);
 }
