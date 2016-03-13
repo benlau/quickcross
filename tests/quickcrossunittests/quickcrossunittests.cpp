@@ -41,6 +41,8 @@ void QuickCrossUnitTests::utils()
 
     QVERIFY(QCUtils::isImageProviderUrl("image://camera/1"));
     QVERIFY(!QCUtils::isImageProviderUrl("/test"));
+
+    QVERIFY(QCUtils::imageProviderId("image://custom/1123") == "custom");
 }
 
 void QuickCrossUnitTests::loader()
@@ -220,6 +222,11 @@ void QuickCrossUnitTests::imageReader()
 {
     //Read from absolute path
 
+    QCImageLoader* loader = QCImageLoader::instance();
+    loader->clear();
+    loader->load(QString(SRCDIR) + "img");
+    QVERIFY(loader->waitForLoaded(10000));
+
     QQmlApplicationEngine engine;
     Automator automator(&engine);
 
@@ -274,6 +281,21 @@ void QuickCrossUnitTests::imageReader()
     QVERIFY(!reader1->image().isNull());
     QVERIFY(image.size() == QSize(381,500));
 
+    // Image Provider
+    reader1->setSource("image://custom/qt-logo-medium");
+
+    reader1->fetch();
+    QVERIFY(Automator::waitUntil(reader1, "isFetched", true));
+    QVERIFY(reader1->canRead());
+
+    // Size is not available from image provider without really read it.
+    QVERIFY(reader1->size() == QSize());
+
+    reader1->read();
+    QVERIFY(Automator::waitUntil(reader1, "isReady", true));
+    QVERIFY(!reader1->image().isNull());
+    QVERIFY(image.size() == QSize(381,500));
+    QVERIFY(reader1->size() == QSize(381,500));
 
     Q_ASSERT(warnings.size() == 0);
 }

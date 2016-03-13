@@ -12,7 +12,9 @@ public:
 
     static QString normalizeResourceUrl(const QString& url);
 
+    static QString imageProviderId(const QString& url);
 
+    static QString imageProviderRequestId(const QString& url);
 };
 
 #endif // QCUTILS_H

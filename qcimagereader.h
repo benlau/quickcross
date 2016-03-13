@@ -5,10 +5,12 @@
 #include <QSize>
 #include <QVariantMap>
 #include <QImage>
+#include <QQmlEngine>
+#include <QQmlParserStatus>
 
 /// Wrapper of QImageReader with asynchronous loading
 
-class QCImageReader : public QObject
+class QCImageReader : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     Q_PROPERTY(bool canRead READ canRead NOTIFY canReadChanged)
@@ -20,6 +22,8 @@ class QCImageReader : public QObject
     Q_PROPERTY(bool isError READ isError WRITE setIsError NOTIFY isErrorChanged)
     Q_PROPERTY(bool isCompleted READ isCompleted WRITE setIsCompleted NOTIFY isCompletedChanged)
     Q_PROPERTY(QString errorString READ errorString WRITE setErrorString NOTIFY errorStringChanged)
+
+    Q_INTERFACES(QQmlParserStatus)
 
 public:
     explicit QCImageReader(QObject *parent = 0);
@@ -81,6 +85,10 @@ private slots:
     void onReadImageFinished(QVariantMap map);
 
 private:
+
+    void classBegin();
+    void componentComplete();
+
     bool m_canRead;
     QSize m_size;
     bool m_isFetched;
@@ -91,6 +99,8 @@ private:
     bool m_isError;
     bool m_isCompleted;
     QString m_errorString;
+
+    QQmlEngine* m_engine;
 };
 
 #endif // QCIMAGEREADER_H

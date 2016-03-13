@@ -33,3 +33,22 @@ QString QCUtils::normalizeResourceUrl(const QString &url)
     }
 
 }
+
+QString QCUtils::imageProviderId(const QString &url)
+{
+    QUrl u(url);
+
+    return u.host();
+}
+
+QString QCUtils::imageProviderRequestId(const QString &url)
+{
+    QUrl u(url);
+
+    QString path = u.path();
+    if (path.indexOf("/") == 0) {
+        path.remove(0,1);
+    }
+
+    return path;
+}
