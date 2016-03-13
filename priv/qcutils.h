@@ -10,6 +10,9 @@ public:
 
     static bool isResourceUrl(const QString& url);
 
+    static QString normalizeResourceUrl(const QString& url);
+
+
 };
 
 #endif // QCUTILS_H

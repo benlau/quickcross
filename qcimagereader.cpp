@@ -3,6 +3,7 @@
 #include <QThreadPool>
 #include <QImageReader>
 #include "priv/qcmainthreadrunner.h"
+#include "priv/qcutils.h"
 #include "qcimagereader.h"
 
 QCImageReader::QCImageReader(QObject *parent) : QObject(parent)
@@ -70,7 +71,7 @@ void QCImageReader::fetch()
     Runnable* runnable = new Runnable();
     runnable->setAutoDelete(false);
     runnable->owner = this;
-    runnable->source = m_source;
+    runnable->source = QCUtils::normalizeResourceUrl(m_source);
 
     QThreadPool::globalInstance()->start(runnable);
 }
@@ -113,7 +114,7 @@ void QCImageReader::read()
     Runnable* runnable = new Runnable();
     runnable->setAutoDelete(false);
     runnable->owner = this;
-    runnable->source = m_source;
+    runnable->source = QCUtils::normalizeResourceUrl(m_source);
 
     QThreadPool::globalInstance()->start(runnable);
 }
@@ -124,6 +125,7 @@ void QCImageReader::clear()
     setIsReady(false);
     setIsFetched(false);
     setIsCompleted(false);
+    setCanRead(false);
     setSize(QSize());
     setImage(QImage());
     setSource(QString());

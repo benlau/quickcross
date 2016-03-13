@@ -35,6 +35,10 @@ void QuickCrossUnitTests::utils()
     QVERIFY(QCUtils::isResourceUrl(":test"));
     QVERIFY(!QCUtils::isResourceUrl("/test"));
 
+    QVERIFY(QCUtils::normalizeResourceUrl("qrc:///test") == ":/test");
+    QVERIFY(QCUtils::normalizeResourceUrl(":test") == ":test");
+    QVERIFY(QCUtils::normalizeResourceUrl("/test") == "/test");
+
     QVERIFY(QCUtils::isImageProviderUrl("image://camera/1"));
     QVERIFY(!QCUtils::isImageProviderUrl("/test"));
 }
@@ -214,11 +218,6 @@ void QuickCrossUnitTests::mainThreadRunner()
 
 void QuickCrossUnitTests::imageReader()
 {
-    QImageReader reader;
-    reader.setFileName(":/unittests/img/qt-logo-medium.png");
-
-    QVERIFY(reader.canRead());
-
     //Read from absolute path
 
     QQmlApplicationEngine engine;
@@ -255,12 +254,13 @@ void QuickCrossUnitTests::imageReader()
 
     //Read from resource path
 
-    reader1->setSource(":/unittests/img/qt-logo-medium.png");
+    reader1->setSource("qrc:///unittests/img/qt-logo-medium.png");
 
     QVERIFY(!reader1->isFetched());
     QVERIFY(!reader1->isError());
     QVERIFY(!reader1->isCompleted());
     QVERIFY(!reader1->isReady());
+    QVERIFY(!reader1->canRead());
     QVERIFY(reader1->size() == QSize());
     QVERIFY(reader1->image().isNull());
 
