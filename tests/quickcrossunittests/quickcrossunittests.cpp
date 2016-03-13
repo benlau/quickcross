@@ -9,6 +9,7 @@
 #include "qcimageprovider.h"
 #include "qcimagereader.h"
 #include "priv/qcmainthreadrunner.h"
+#include "priv/qcutils.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -26,6 +27,16 @@ void QuickCrossUnitTests::initTestCase()
 
 void QuickCrossUnitTests::cleanupTestCase()
 {
+}
+
+void QuickCrossUnitTests::utils()
+{
+    QVERIFY(QCUtils::isResourceUrl("qrc:///test"));
+    QVERIFY(QCUtils::isResourceUrl(":test"));
+    QVERIFY(!QCUtils::isResourceUrl("/test"));
+
+    QVERIFY(QCUtils::isImageProviderUrl("image://camera/1"));
+    QVERIFY(!QCUtils::isImageProviderUrl("/test"));
 }
 
 void QuickCrossUnitTests::loader()

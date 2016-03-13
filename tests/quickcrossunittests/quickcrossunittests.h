@@ -17,7 +17,11 @@ public Q_SLOTS:
 private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
+
+    void utils();
+
     void loader();
+
     void device();
 
     void imageLoader();

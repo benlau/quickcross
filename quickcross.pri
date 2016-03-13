@@ -9,7 +9,8 @@ HEADERS += \
     $$PWD/qcimageloaderwrapper.h \
     $$PWD/qcimageprovider.h \
     $$PWD/priv/qcmainthreadrunner.h \
-    $$PWD/qcimagereader.h
+    $$PWD/qcimagereader.h \
+    $$PWD/priv/qcutils.h
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
@@ -21,7 +22,8 @@ SOURCES += \
     $$PWD/qcimageloaderwrapper.cpp \
     $$PWD/qcimageprovider.cpp \
     $$PWD/priv/qcmainthreadrunner.cpp \
-    $$PWD/qcimagereader.cpp
+    $$PWD/qcimagereader.cpp \
+    $$PWD/priv/qcutils.cpp
 
 DISTFILES +=
 
