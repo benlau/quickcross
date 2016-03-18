@@ -21,7 +21,8 @@ DISTFILES += \
     qml/tst_Line.qml \
     qml/tst_ImageLoader.qml \
     qml/imageProvider.qml \
-    qml/imageReader.qml
+    qml/imageReader.qml \
+    qml/tst_JsonReader.qml
 
 include(../../quickcross.pri)
 include(vendor/vendor.pri)

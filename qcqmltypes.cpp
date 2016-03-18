@@ -12,6 +12,7 @@
 #include "qcline.h"
 #include "qcimageloaderwrapper.h"
 #include "qcimagereader.h"
+#include "qcjsonreader.h"
 
 template<typename T>
 static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
@@ -71,6 +72,9 @@ public:
                                            "ImageLoader", provider<QCImageLoaderWrapper> );
 
         qmlRegisterType<QCImageReader>("QuickCross", 1, 0, "ImageReader");
+
+        qmlRegisterType<QCJsonReader>("QuickCross", 1, 0, "JsonReader");
+
     }
 };
 
