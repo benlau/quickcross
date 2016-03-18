@@ -24,5 +24,22 @@ TestCase {
         compare(object.v3 , 3.0);
     }
 
+    JsonReader {
+        id: reader2
+        autoRead: true
+        source: "qrc:///unittests/json/test.json"
+    }
+
+    function test_read_on_completed() {
+        compare(reader2.isReady, true);
+        compare(reader2.isCompleted, true);
+        compare(reader2.isError, false);
+
+        var object = reader2.object;
+        compare(object.v1 , 1);
+        compare(object.v2 , "2");
+        compare(object.v3 , 3.0);
+
+    }
 
 }

@@ -84,6 +84,10 @@ void QCJsonReader::componentComplete()
 {
     m_componentCompleted = true;
     m_engine = qmlEngine(this);
+
+    if (m_autoRead && !m_source.isEmpty()) {
+        read();
+    }
 }
 
 QJSValue QCJsonReader::object() const
