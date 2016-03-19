@@ -43,6 +43,12 @@ void QuickCrossUnitTests::utils()
     QVERIFY(!QCUtils::isImageProviderUrl("/test"));
 
     QVERIFY(QCUtils::imageProviderId("image://custom/1123") == "custom");
+
+
+    QVERIFY(QCUtils::normalizeLocalUrl("qrc:///test") == ":/test");
+    QVERIFY(QCUtils::normalizeLocalUrl(":test") == ":test");
+    QVERIFY(QCUtils::normalizeLocalUrl("/test") == "/test");
+    QVERIFY(QCUtils::normalizeLocalUrl("file:///test") == "/test");
 }
 
 void QuickCrossUnitTests::loader()

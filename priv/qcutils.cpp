@@ -34,6 +34,24 @@ QString QCUtils::normalizeResourceUrl(const QString &url)
 
 }
 
+QString QCUtils::normalizeLocalUrl(const QString &url)
+{
+    if (url.indexOf(":") == 0 || url.indexOf("/") == 0) {
+        return url;
+    }
+
+    QUrl u(url);
+    if (u.scheme() == "qrc") {
+        return QString(":") + u.path();
+    } else if (u.scheme() == "file") {
+        return u.toLocalFile();
+    } else {
+        return url;
+    }
+
+    return url;
+}
+
 QString QCUtils::imageProviderId(const QString &url)
 {
     QUrl u(url);

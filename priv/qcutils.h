@@ -12,6 +12,8 @@ public:
 
     static QString normalizeResourceUrl(const QString& url);
 
+    static QString normalizeLocalUrl(const QString& url);
+
     static QString imageProviderId(const QString& url);
 
     static QString imageProviderRequestId(const QString& url);
