@@ -260,7 +260,7 @@ void QuickCrossUnitTests::imageReader()
 
     reader1->read();
 
-    Automator::waitUntil(reader1,"isReady", true);
+    QVERIFY(Automator::waitUntil(reader1,"isReady", true));
 
     QImage image = reader1->image();
     QVERIFY(image.size() == QSize(381,500));

@@ -50,7 +50,7 @@ static bool isProviderAvailable(QQmlEngine* engine, const QString& source) {
     return provider != 0;
 }
 
-QCImageReader::QCImageReader(QObject *parent) : QObject(parent)
+QCImageReader::QCImageReader(QObject *parent) : QCReader(parent)
 {
     m_canRead = false;
     m_isFetched = false;
@@ -234,7 +234,7 @@ void QCImageReader::onReadImageFinished(QVariantMap map)
         setIsReady(true);
     }
 
-    emit completed();
+    setIsCompleted(true);
 }
 
 void QCImageReader::classBegin()
@@ -247,50 +247,6 @@ void QCImageReader::componentComplete()
     QQmlEngine *engine = qmlEngine(this);
     Q_ASSERT(engine);
     m_engine = engine;
-}
-
-bool QCImageReader::isError() const
-{
-    return m_isError;
-}
-
-void QCImageReader::setIsError(bool isError)
-{
-    m_isError = isError;
-    emit isErrorChanged();
-}
-
-bool QCImageReader::isCompleted() const
-{
-    return m_isCompleted;
-}
-
-void QCImageReader::setIsCompleted(bool isCompleted)
-{
-    m_isCompleted = isCompleted;
-    emit isCompletedChanged();
-}
-
-QString QCImageReader::errorString() const
-{
-    return m_errorString;
-}
-
-void QCImageReader::setErrorString(const QString &errorString)
-{
-    m_errorString = errorString;
-    emit errorStringChanged();
-}
-
-bool QCImageReader::isReady() const
-{
-    return m_isReady;
-}
-
-void QCImageReader::setIsReady(bool isReady)
-{
-    m_isReady = isReady;
-    emit isReadyChanged();
 }
 
 QImage QCImageReader::image() const

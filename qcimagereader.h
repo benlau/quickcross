@@ -7,10 +7,11 @@
 #include <QImage>
 #include <QQmlEngine>
 #include <QQmlParserStatus>
+#include "priv/qcreader.h"
 
 /// Wrapper of QImageReader with asynchronous loading
 
-class QCImageReader : public QObject, public QQmlParserStatus
+class QCImageReader : public QCReader, public QQmlParserStatus
 {
     Q_OBJECT
     Q_PROPERTY(bool canRead READ canRead NOTIFY canReadChanged)
@@ -18,10 +19,6 @@ class QCImageReader : public QObject, public QQmlParserStatus
     Q_PROPERTY(bool isFetched READ isFetched NOTIFY isFetchedChanged)
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(QImage image READ image WRITE setImage NOTIFY imageChanged)
-    Q_PROPERTY(bool isReady READ isReady WRITE setIsReady NOTIFY isReadyChanged)
-    Q_PROPERTY(bool isError READ isError WRITE setIsError NOTIFY isErrorChanged)
-    Q_PROPERTY(bool isCompleted READ isCompleted WRITE setIsCompleted NOTIFY isCompletedChanged)
-    Q_PROPERTY(QString errorString READ errorString WRITE setErrorString NOTIFY errorStringChanged)
 
     Q_INTERFACES(QQmlParserStatus)
 
@@ -44,18 +41,6 @@ public:
     QImage image() const;
     void setImage(const QImage &image);
 
-    bool isReady() const;
-    void setIsReady(bool isReady);
-
-    QString errorString() const;
-    void setErrorString(const QString &errorString);
-
-    bool isCompleted() const;
-    void setIsCompleted(bool isCompleted);
-
-    bool isError() const;
-    void setIsError(bool isError);
-
 public slots:
 
     /// Fetch image information without read the whole image
@@ -68,17 +53,12 @@ public slots:
 
 signals:
     void fetched();
-    void completed();
 
     void sizeChanged();
     void canReadChanged();
     void isFetchedChanged();
     void sourceChanged();
     void imageChanged();
-    void isReadyChanged();
-    void isCompletedChanged();
-    void isErrorChanged();
-    void errorStringChanged();
 
 private slots:
     void onFetchFinished(QVariantMap map);
