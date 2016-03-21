@@ -13,6 +13,7 @@
 #include "qcimageloaderwrapper.h"
 #include "qcimagereader.h"
 #include "qcjsonreader.h"
+#include "qceasingcurve.h"
 
 template<typename T>
 static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
@@ -74,6 +75,9 @@ public:
         qmlRegisterType<QCImageReader>("QuickCross", 1, 0, "ImageReader");
 
         qmlRegisterType<QCJsonReader>("QuickCross", 1, 0, "JsonReader");
+
+        qmlRegisterSingletonType<QCEasingCurve>("QuickCross", 1, 0,
+                                           "EasingCurve", provider<QCEasingCurve> );
 
     }
 };

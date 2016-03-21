@@ -22,7 +22,8 @@ DISTFILES += \
     qml/tst_ImageLoader.qml \
     qml/imageProvider.qml \
     qml/imageReader.qml \
-    qml/tst_JsonReader.qml
+    qml/tst_JsonReader.qml \
+    qml/tst_EasingCurve.qml
 
 include(../../quickcross.pri)
 include(vendor/vendor.pri)
