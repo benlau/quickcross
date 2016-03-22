@@ -21,6 +21,10 @@ public:
     static QString imageProviderRequestId(const QString& url);
 
     static QJSValue loadJavascript(QQmlEngine* engine, const QString& url, const QString &member);
+
+    static QString dirname(const QString& path);
+
+    static QString basename(const QString& path);
 };
 
 #endif // QCUTILS_H

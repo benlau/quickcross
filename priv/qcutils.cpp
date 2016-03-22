@@ -102,3 +102,32 @@ QJSValue QCUtils::loadJavascript(QQmlEngine *engine, const QString &url, const Q
 
     return object;
 }
+
+QString QCUtils::dirname(const QString &path)
+{
+    QFileInfo info(path);
+    QString parent = info.absolutePath();
+    if (parent.isEmpty())
+       parent = "/";
+
+    // No tailing "/" for dirname command
+
+    return parent;
+}
+
+QString QCUtils::basename(const QString &path)
+{
+    QString result = "/";
+    QStringList token = path.split("/");
+
+    int i = token.size() -1;
+    while (i >=0) {
+        QString name = token.at(i--);
+        if (!name.isEmpty()) {
+            result = name;
+            break;
+        }
+    }
+
+    return result;
+}
