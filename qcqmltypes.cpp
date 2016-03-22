@@ -16,6 +16,18 @@
 #include "qceasingcurve.h"
 
 template<typename T>
+static QObject* providerWithEngine(QQmlEngine *engine, QJSEngine *scriptEngine) {
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+
+    T* object = new T();
+    object->setEngine(engine);
+
+    return object;
+}
+
+
+template<typename T>
 static QObject* provider(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
     Q_UNUSED(scriptEngine);
@@ -77,7 +89,7 @@ public:
         qmlRegisterType<QCJsonReader>("QuickCross", 1, 0, "JsonReader");
 
         qmlRegisterSingletonType<QCEasingCurve>("QuickCross", 1, 0,
-                                           "EasingCurve", provider<QCEasingCurve> );
+                                           "EasingCurve", providerWithEngine<QCEasingCurve> );
 
     }
 };

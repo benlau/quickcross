@@ -33,6 +33,9 @@ SOURCES += \
 
 DISTFILES +=
 
+RESOURCES += \
+    $$PWD/quickcross.qrc
+
 android {
     QT += androidextras
 }

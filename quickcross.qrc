@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/QuickCross">
+        <file>js/easingcurve.js</file>
+    </qresource>
+</RCC>
