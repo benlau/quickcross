@@ -1,4 +1,6 @@
+#include <QtCore>
 #include <QUrl>
+#include <QQmlComponent>
 #include "qcutils.h"
 
 bool QCUtils::isImageProviderUrl(const QString &url)
@@ -69,4 +71,34 @@ QString QCUtils::imageProviderRequestId(const QString &url)
     }
 
     return path;
+}
+
+QJSValue QCUtils::loadJavascript(QQmlEngine *engine, const QString &url, const QString &member)
+{
+
+    QString pattern  = "import QtQuick 2.0\nimport \"%1\" as JSObject;QtObject { property var object : JSObject.%2}";
+
+    QString qml = pattern.arg(url).arg(member);
+
+    QObject* holder = 0;
+
+    QQmlComponent comp (engine);
+    comp.setData(qml.toUtf8(),QUrl());
+    holder = comp.create();
+
+    if (!holder) {
+        qWarning() << QString("QuickCross: Failed to load Javscript: %1").arg(url);
+        qWarning() << QString("Error: ") << comp.errorString();
+        return 0;
+    }
+
+    QJSValue object = holder->property("object").value<QJSValue>();
+    holder->deleteLater();
+
+    if (object.isError()) {
+        qWarning() << QString("QuickCross: Failed to load Javascript: %1").arg(url);
+        qWarning() << object.toString();
+    }
+
+    return object;
 }

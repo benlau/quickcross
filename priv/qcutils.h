@@ -2,6 +2,8 @@
 #define QCUTILS_H
 
 #include <QString>
+#include <QQmlEngine>
+#include <QJSValue>
 
 class QCUtils
 {
@@ -17,6 +19,8 @@ public:
     static QString imageProviderId(const QString& url);
 
     static QString imageProviderRequestId(const QString& url);
+
+    static QJSValue loadJavascript(QQmlEngine* engine, const QString& url, const QString &member);
 };
 
 #endif // QCUTILS_H

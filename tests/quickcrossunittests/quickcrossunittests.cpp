@@ -49,6 +49,14 @@ void QuickCrossUnitTests::utils()
     QVERIFY(QCUtils::normalizeLocalUrl(":test") == ":test");
     QVERIFY(QCUtils::normalizeLocalUrl("/test") == "/test");
     QVERIFY(QCUtils::normalizeLocalUrl("file:///test") == "/test");
+
+    QQmlApplicationEngine engine;
+
+    QJSValue loader = QCUtils::loadJavascript(&engine, "qrc:///unittests/js/loader.js" , "create");
+
+    QVERIFY(!loader.isError());
+    QVERIFY(loader.isCallable());
+
 }
 
 void QuickCrossUnitTests::loader()
