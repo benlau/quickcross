@@ -10,6 +10,8 @@ Components:
  3. Rect - Wrapper of QRectF for QML
  4. Line - Wrapper of QLineF for QML
 
+[Class Reference](http://benlau.github.io/quickcross/)
+
 Testing Components:
 
  1. ImageReader - Wrapper of QImageReader
@@ -17,7 +19,7 @@ Testing Components:
  3. ImageProvider - A custom image provider that can preload all the images.
  4. EasingCurve - Wrapper of QEasingCurve
 
-[Class Reference](http://benlau.github.io/quickcross/)
+Those componetns are already available but no document yet. And their API is not frozen for changes.
 
 Installation
 ============
