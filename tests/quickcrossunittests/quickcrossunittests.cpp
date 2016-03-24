@@ -279,7 +279,7 @@ void QuickCrossUnitTests::imageReader()
 
     QVERIFY(!reader1->isFetched());
     QVERIFY(!reader1->isError());
-    QVERIFY(!reader1->isCompleted());
+    QVERIFY(!reader1->isFinished());
     QVERIFY(!reader1->isReady());
     QVERIFY(!reader1->canRead());
     QVERIFY(reader1->size() == QSize());

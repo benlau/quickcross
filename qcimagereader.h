@@ -77,7 +77,7 @@ private:
     QImage m_image;
     bool m_isReady;
     bool m_isError;
-    bool m_isCompleted;
+    bool m_isFinished;
     QString m_errorString;
 
     QQmlEngine* m_engine;

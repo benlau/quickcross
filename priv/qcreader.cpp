@@ -4,7 +4,7 @@ QCReader::QCReader(QObject *parent) : QObject(parent)
 {
     m_isReady = false;
     m_isError = false;
-    m_isCompleted = false;
+    m_isFinished = false;
 }
 
 bool QCReader::isReady() const
@@ -29,18 +29,15 @@ void QCReader::setIsError(bool isError)
     emit isErrorChanged();
 }
 
-bool QCReader::isCompleted() const
+bool QCReader::isFinished() const
 {
-    return m_isCompleted;
+    return m_isFinished;
 }
 
-void QCReader::setIsCompleted(bool isCompleted)
+void QCReader::setIsFinished(bool value)
 {
-    m_isCompleted = isCompleted;
-    emit isCompletedChanged();
-    if (m_isCompleted) {
-        emit completed();
-    }
+    m_isFinished = value;
+    emit isFinishedChanged();
 }
 
 QString QCReader::errorString() const
@@ -57,7 +54,13 @@ void QCReader::setErrorString(const QString &errorString)
 void QCReader::clear()
 {
     setIsReady(false);
-    setIsCompleted(false);
+    setIsFinished(false);
     setIsError(false);
     setErrorString(QString());
+}
+
+void QCReader::finish()
+{
+    setIsFinished(true);
+    emit finished();
 }

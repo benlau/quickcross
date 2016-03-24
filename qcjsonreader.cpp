@@ -45,7 +45,7 @@ void QCJsonReader::read()
     if (m_engine.isNull()) {
         setIsError(true);
         setErrorString("Unexpected error");
-        setIsCompleted(true);
+        finish();
         return;
     }
 
@@ -56,7 +56,7 @@ void QCJsonReader::read()
     if (!file.open(QIODevice::ReadOnly)) {
         setErrorString(file.errorString());
         setIsError(true);
-        setIsCompleted(true);
+        finish();
         return;
     }
 
@@ -67,11 +67,11 @@ void QCJsonReader::read()
     if (value.isError()) {
         setErrorString(value.toString());
         setIsError(true);
-        setIsCompleted(true);
+        finish();
     } else {
         setObject(value);
         setIsReady(true);
-        setIsCompleted(true);
+        finish();
     }
 }
 

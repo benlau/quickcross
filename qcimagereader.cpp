@@ -56,7 +56,7 @@ QCImageReader::QCImageReader(QObject *parent) : QCReader(parent)
     m_isFetched = false;
     m_isReady = false;
     m_isError = false;
-    m_isCompleted = false;
+    m_isFinished = false;
     m_engine = 0;
 }
 
@@ -201,7 +201,7 @@ void QCImageReader::clear()
     setIsError(false);
     setIsReady(false);
     setIsFetched(false);
-    setIsCompleted(false);
+    setIsFinished(false);
     setCanRead(false);
     setImage(QImage());
     setSource(QString());
@@ -234,7 +234,7 @@ void QCImageReader::onReadImageFinished(QVariantMap map)
         setIsReady(true);
     }
 
-    setIsCompleted(true);
+    finish();
 }
 
 void QCImageReader::classBegin()
