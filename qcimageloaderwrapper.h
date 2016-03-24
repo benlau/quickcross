@@ -25,6 +25,8 @@ public:
 
     bool isLoaded() const;
 
+    bool contains(QString key) const;
+
 signals:
     void runningChanged();
     void isLoadedChanged();

@@ -37,6 +37,13 @@ bool QCImageLoaderWrapper::isLoaded() const
     return m_isLoaded;
 }
 
+bool QCImageLoaderWrapper::contains(QString key) const
+{
+    QCImageLoader* loader = QCImageLoader::instance();
+
+    return loader->contains(key);
+}
+
 void QCImageLoaderWrapper::updateRunning()
 {
     QCImageLoader* loader = QCImageLoader::instance();
