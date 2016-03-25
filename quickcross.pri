@@ -13,7 +13,8 @@ HEADERS += \
     $$PWD/priv/qcutils.h \
     $$PWD/qcjsonreader.h \
     $$PWD/priv/qcreader.h \
-    $$PWD/qceasingcurve.h
+    $$PWD/qceasingcurve.h \
+    $$PWD/qcrefresher.h
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
@@ -29,7 +30,8 @@ SOURCES += \
     $$PWD/priv/qcutils.cpp \
     $$PWD/qcjsonreader.cpp \
     $$PWD/priv/qcreader.cpp \
-    $$PWD/qceasingcurve.cpp
+    $$PWD/qceasingcurve.cpp \
+    $$PWD/qcrefresher.cpp
 
 DISTFILES +=
 

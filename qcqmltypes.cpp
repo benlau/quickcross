@@ -14,6 +14,7 @@
 #include "qcimagereader.h"
 #include "qcjsonreader.h"
 #include "qceasingcurve.h"
+#include "qcrefresher.h"
 
 template<typename T>
 static QObject* providerWithEngine(QQmlEngine *engine, QJSEngine *scriptEngine) {
@@ -90,6 +91,9 @@ public:
 
         qmlRegisterSingletonType<QCEasingCurve>("QuickCross", 1, 0,
                                            "EasingCurve", providerWithEngine<QCEasingCurve> );
+
+        qmlRegisterSingletonType<QCRefresher>("QuickCross", 1, 0,
+                                           "Refresher", provider<QCRefresher> );
 
     }
 };
