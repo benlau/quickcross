@@ -9,5 +9,6 @@ Singleton Components
       \li \l StandardPaths
       \li \l Rect
       \li \l Line
+      \li \l ImageReader
    \endlist
  */

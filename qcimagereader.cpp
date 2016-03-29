@@ -1,3 +1,10 @@
+/* QuickCross Project
+ * License: APACHE-2.0
+ * Author: Ben Lau
+ * Project Site: https://github.com/benlau/quickcross
+ *
+ */
+
 #include <QtCore>
 #include <QRunnable>
 #include <QThreadPool>
@@ -7,6 +14,18 @@
 #include "priv/qcmainthreadrunner.h"
 #include "priv/qcutils.h"
 #include "qcimagereader.h"
+
+/*!
+ * \qmltype ImageReader
+ * \instantiates QCImageReader
+ * \inqmlmodule QuickCross
+ * \inherits QObject
+ *
+ * \brief ImageReader is a wrapper of QImageReader that support asynchronous read.
+ *
+ * It is a singleton component
+ *
+ */
 
 static QImage readFromImageProvider(QQmlEngine* engine, const QString source) {
     QImage res;
@@ -81,6 +100,14 @@ void QCImageReader::setSize(const QSize &size)
     m_size = size;
     emit sizeChanged();
 }
+
+
+/*!
+    \qmlmethod void ImageReader::fetch()
+
+    Fetch the information of the image without actually reading the image content.
+ */
+
 
 void QCImageReader::fetch()
 {
