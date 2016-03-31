@@ -79,6 +79,14 @@ QCImageReader::QCImageReader(QObject *parent) : QCReader(parent)
     m_engine = 0;
 }
 
+/*!
+ * \qmlproperty bool ImageReader::canRead
+ *
+ * Returns true if an image can be read for the device (i.e., the image format is supported, and the device seems to contain valid data); otherwise returns false.
+ *
+ * You need to call fetch() before access this property.
+ */
+
 bool QCImageReader::canRead() const
 {
     return m_canRead;
@@ -89,6 +97,15 @@ void QCImageReader::setCanRead(bool canRead)
     m_canRead = canRead;
     emit canReadChanged();
 }
+
+/*! \qmlproperty size ImageReader::size
+
+    Returns the size of the image.
+
+    You need to call fetch() before access this property.
+
+*/
+
 
 QSize QCImageReader::size() const
 {
@@ -101,13 +118,12 @@ void QCImageReader::setSize(const QSize &size)
     emit sizeChanged();
 }
 
-
 /*!
     \qmlmethod void ImageReader::fetch()
 
-    Fetch the information of the image without actually reading the image content.
+    Fetch the information of the image without actually reading the image content. It is asynchronous call.
+    Once it is fetched, it will emit fetched() signal and set isFetched property to true.
  */
-
 
 void QCImageReader::fetch()
 {
@@ -166,6 +182,14 @@ void QCImageReader::fetch()
     QThreadPool::globalInstance()->start(runnable);
 }
 
+/*! \qmlmethod void ImageReader::read()
+
+    Reads an image from the source. On success, it will set the isReady and image property.
+
+    Otherwise, it will set isError to true. You can then access errorString poroperty to find out the type of error that occurred.
+
+ */
+
 void QCImageReader::read()
 {
     class Runnable : public QRunnable {
@@ -223,6 +247,12 @@ void QCImageReader::read()
     QThreadPool::globalInstance()->start(runnable);
 }
 
+/*! \qmlmethod void ImageReader::clear()
+
+  Clear all the content of property then restore to initial status.
+
+ */
+
 void QCImageReader::clear()
 {
     setIsError(false);
@@ -276,6 +306,13 @@ void QCImageReader::componentComplete()
     m_engine = engine;
 }
 
+/*! \qmlproperty QImage ImageReader::image
+
+  This property holds the image read by the reader.
+  You need to call read() before access this property
+
+ */
+
 QImage QCImageReader::image() const
 {
     return m_image;
@@ -291,6 +328,12 @@ void QCImageReader::setImage(const QImage &image)
     }
 }
 
+/*! \qmlproperty url ImageReader::source
+
+  This property holds the location of image.
+
+ */
+
 QString QCImageReader::source() const
 {
     return m_source;
@@ -304,6 +347,12 @@ void QCImageReader::setSource(const QString &source)
     m_source = source;
     emit sourceChanged();
 }
+
+/*! \qmlproperty bool ImageReader::isFetch
+
+  Returns TRUE if the fetch() function is completed. Otherwise, it will returns false.
+
+ */
 
 bool QCImageReader::isFetched() const
 {
