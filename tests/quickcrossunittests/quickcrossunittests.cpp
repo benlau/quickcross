@@ -10,6 +10,7 @@
 #include "qcimagereader.h"
 #include "priv/qcmainthreadrunner.h"
 #include "priv/qcutils.h"
+#include "priv/qcimageloader_p.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -151,6 +152,18 @@ void QuickCrossUnitTests::imageLoader_qrc()
 
     loader->waitForLoaded();
     QCOMPARE(loader->count(), 1);
+}
+
+void QuickCrossUnitTests::imageLoader_filter()
+{
+    QStringList input, output;
+
+    input << "test@1.jpg" << "test@2.jpg";
+
+    output = qcImageLoaderFilter(input, 3);
+    QCOMPARE(output.size(), 1);
+    QVERIFY(output.at(0) == "test@2.jpg");
+
 }
 
 void QuickCrossUnitTests::imageProvider()

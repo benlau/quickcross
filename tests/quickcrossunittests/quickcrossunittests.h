@@ -27,6 +27,8 @@ private Q_SLOTS:
     void imageLoader();
     void imageLoader_qrc();
 
+    void imageLoader_filter();
+
     void imageProvider();
 
     void mainThreadRunner();
