@@ -10,7 +10,7 @@ Time.prototype.start = function() {
 }
 
 Time.prototype.elapsed = function() {
-    return QC.Time.elapsed(this.value);
+    return QC.Time.elapsed(this);
 }
 
 function create() {

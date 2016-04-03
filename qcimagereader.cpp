@@ -21,7 +21,7 @@
  * \inqmlmodule QuickCross
  * \inherits QObject
  *
- * \brief ImageReader is a wrapper of QImageReader that support asynchronous read.
+ * \brief ImageReader is a wrapper of QImageReader that support asynchronous operation and read from image provider.
  *
  * It is a singleton component
  *
