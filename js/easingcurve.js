@@ -1,3 +1,4 @@
+.pragma library
 .import QuickCross 1.0 as QC
 
 var EasingCurve = function(type) {

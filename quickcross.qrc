@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/QuickCross">
         <file>js/easingcurve.js</file>
+        <file>js/time.js</file>
     </qresource>
 </RCC>
