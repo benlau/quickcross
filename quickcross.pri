@@ -16,7 +16,9 @@ HEADERS += \
     $$PWD/qceasingcurve.h \
     $$PWD/qcrefresher.h \
     $$PWD/priv/qcimageloader_p.h \
-    $$PWD/qctime.h
+    $$PWD/qctime.h \
+    $$PWD/QCImageLoader \
+    $$PWD/QCImageProvider
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
