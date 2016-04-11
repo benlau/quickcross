@@ -33,6 +33,7 @@ Item {
         height: Math.max(150 , sourceHeight + 100)
 
         Image {
+            id: image
             anchors.centerIn: parent
             source: component.source
         }
@@ -46,6 +47,12 @@ Item {
             border.color: "red"
             border.width: 10
         }
+    }
+
+    Component.onCompleted: {
+        console.log("Source:", source);
+        console.log("Image Size: ", image.width, image.height);
+        console.log("Source Size: ", image.sourceSize.width, image.sourceSize.height);
     }
 
 
