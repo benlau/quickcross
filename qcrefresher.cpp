@@ -6,6 +6,7 @@ QCRefresher::QCRefresher(QObject* parent) : QObject(parent)
     m_pending = false;
     setFrameRate(60);
     timer.start();
+    lastElapsedTimerEvent = -1;
 }
 
 void QCRefresher::markDirty(QObject *object)
@@ -22,25 +23,36 @@ void QCRefresher::markDirty(QObject *object)
         return;
     }
 
+    m_pending = true;
     int elapsed = timer.elapsed();
 
     int next = elapsed % m_interval;
+
+    if (next == 0 && lastElapsedTimerEvent == elapsed) {
+        // Condition: Mark a item dirty just after executed the refresh function.
+        next = m_interval - 1;
+    }
+
     startTimer(next);
 }
 
 void QCRefresher::timerEvent(QTimerEvent *event)
 {
     killTimer(event->timerId());
+    lastElapsedTimerEvent = timer.elapsed();
 
-    for (int i = 0 ; i < list.size() ; i++) {
-        QObject* target = list.at(i);
+    QList<QPointer<QObject> > queue = list;
+    list.clear();
+    dirtyObjects.clear();
+    m_pending = false;
+
+    for (int i = 0 ; i < queue.size() ; i++) {
+        QObject* target = queue.at(i);
         if (target) {
             QMetaObject::invokeMethod(target,"refresh",Qt::DirectConnection);
         }
     }
 
-    list.clear();
-    dirtyObjects.clear();
 }
 
 int QCRefresher::frameRate() const

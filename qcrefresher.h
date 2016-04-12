@@ -32,6 +32,9 @@ private:
 
     QTime timer;
 
+    // The elapsed time of last timer event
+    int lastElapsedTimerEvent;
+
     QMap<QObject*,bool > dirtyObjects;
     QList<QPointer<QObject> > list;
 };
