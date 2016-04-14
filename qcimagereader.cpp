@@ -27,6 +27,37 @@
  *
  */
 
+/*!
+    \qmlproperty bool ImageReader::isReady
+
+    This property indicate is the image ready to read
+ */
+
+/*!
+    \qmlproperty bool ImageReader::isError
+
+    This property indicate any error occured
+ */
+
+/*!
+    \qmlproperty bool ImageReader::isFinished
+
+    This property indicate is the read() function finished.
+ */
+
+/*!
+    \qmlproperty string ImageReader::errorString
+
+    This property indicate the error occured during read()
+ */
+
+/*!
+  \qmlsignal ImageReader::finished()
+
+  Once the image reader is finished to read an image. It will emit signal.
+
+  */
+
 static QImage readFromImageProvider(QQmlEngine* engine, const QString source) {
     QImage res;
     QSize readSize;
