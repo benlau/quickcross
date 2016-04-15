@@ -13,6 +13,10 @@ Time.prototype.elapsed = function() {
     return QC.Time.elapsed(this);
 }
 
+Time.prototype.restart = function() {
+    return QC.Time.restart(this);
+}
+
 function create() {
     return new Time();
 }

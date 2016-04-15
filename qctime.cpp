@@ -51,6 +51,17 @@ int QCTime::elapsed(QJSValue object)
     return time.elapsed();
 }
 
+int QCTime::restart(QJSValue object)
+{
+    QTime time = toTime(object);
+
+    int ret = time.restart();
+
+    object.setProperty("value",m_engine->toScriptValue<QTime>(time));
+
+    return ret;
+}
+
 QQmlEngine *QCTime::engine() const
 {
     return m_engine;

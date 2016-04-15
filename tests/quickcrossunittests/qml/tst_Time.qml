@@ -11,7 +11,12 @@ TestCase {
         compare(time.elapsed(), 0);
         time.start();
 
-        wait(0);
+        wait(8);
         compare(time.elapsed() > 8, true);
+
+        var ret = time.restart();
+        compare(ret > 8, true);
+        compare(time.elapsed() < 8 , true);
+
     }
 }

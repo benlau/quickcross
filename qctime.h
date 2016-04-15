@@ -27,6 +27,8 @@ public slots:
 
     int elapsed(QJSValue object);
 
+    int restart(QJSValue object);
+
 private:
     QQmlEngine* m_engine;
     QJSValue creator;
