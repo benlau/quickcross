@@ -205,8 +205,8 @@ void QuickCrossUnitTests::imageProvider()
 
     Automator::waitUntil(loader, "running", false);
 
-
     QCOMPARE(loader->count(), 2);
+    QVERIFY(loader->contains("button3"));
 
     Automator::waitUntil(loader, "isLoaded", true);
     QVERIFY(loader->isLoaded());
@@ -231,6 +231,13 @@ void QuickCrossUnitTests::imageProvider()
     QSize size = image->property("sourceSize").value<QSize>();
     QCOMPARE(size.width(), 381);
     QCOMPARE(size.height(), 500);
+
+    image = automator.findObject("image2");
+    QVERIFY(image);
+
+    size = image->property("sourceSize").value<QSize>();
+    QCOMPARE(size.width(), 258 / 3);
+    QCOMPARE(size.height(), 150 / 3);
 
     Q_ASSERT(warnings.size() == 0);
 

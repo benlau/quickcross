@@ -12,4 +12,10 @@ Window {
         source: "image://custom/qt-logo-medium"
     }
 
+    Image {
+        id: image2
+        objectName: "image2"
+        source: "image://custom/button3?scaleToFitDpi=true"
+    }
+
 }
