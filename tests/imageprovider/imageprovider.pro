@@ -13,3 +13,7 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 include(../../quickcross.pri)
+
+ios {
+    QTPLUGIN += modelsplugin
+}

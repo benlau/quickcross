@@ -1,5 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
+import QtQml.Models 2.1
 
 Window {
     id: component
@@ -7,33 +8,45 @@ Window {
     width: 640
     height: 480
 
-    ListModel {
-        id: listModel
+    ObjectModel {
+        id: objectModel
 
-        ListElement {
+        ListItem {
+            width: component.width
             source: "qrc:///img/Lenna.png"
             sourceWidth: 512
             sourceHeight: 512
         }
 
-        ListElement {
+        ListItem {
+            width: component.width;
             source: "image://arts/Lenna.png"
             sourceWidth: 512
             sourceHeight: 512
         }
 
+        BorderImageItem {
+            width: component.width;
+
+            source: "qrc:///img/button.png"
+            expectedWidth: 300
+            expectedHeight: 200
+        }
+
+        BorderImageItem {
+            width: component.width;
+
+            source: "image://arts/button"
+            expectedWidth: 300
+            expectedHeight: 200
+        }
+
     }
+
 
     ListView {
         anchors.fill: parent
-        model: listModel
-
-        delegate: ListItem {
-            source: model.source
-            sourceWidth: model.sourceWidth
-            sourceHeight: model.sourceHeight
-            width: component.width
-        }
+        model: objectModel
     }
 
 

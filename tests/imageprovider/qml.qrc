@@ -4,5 +4,7 @@
         <file>ListItem.qml</file>
         <file>img/Lenna.png</file>
         <file>img/Lenna2@3x.png</file>
+        <file>img/button.png</file>
+        <file>BorderImageItem.qml</file>
     </qresource>
 </RCC>
