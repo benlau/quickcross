@@ -161,8 +161,14 @@ void QuickCrossUnitTests::imageLoader_filter()
     input << "test@1.jpg" << "test@2.jpg";
 
     output = qcImageLoaderFilter(input, 3);
+    QCOMPARE(output.size(), 2);
+
+    input.clear();
+    input << "test@1x.jpg" << "test@2x.jpg";
+    output = qcImageLoaderFilter(input, 3);
     QCOMPARE(output.size(), 1);
-    QVERIFY(output.at(0) == "test@2.jpg");
+
+    QVERIFY(output.at(0) == "test@2x.jpg");
 
 }
 

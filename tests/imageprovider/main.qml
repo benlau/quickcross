@@ -35,6 +35,15 @@ Window {
 
         BorderImageItem {
             width: component.width;
+            borderMargin: 42 / 3
+
+            source: "qrc:///img/button2.png"
+            expectedWidth: 300
+            expectedHeight: 200
+        }
+
+        BorderImageItem {
+            width: component.width;
 
             source: "image://arts/button"
             expectedWidth: 300

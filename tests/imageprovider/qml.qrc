@@ -6,5 +6,6 @@
         <file>img/Lenna2@3x.png</file>
         <file>img/button.png</file>
         <file>BorderImageItem.qml</file>
+        <file>img/button2@3x.png</file>
     </qresource>
 </RCC>

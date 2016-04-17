@@ -13,7 +13,7 @@ static QStringList qcImageLoaderFilter(const QStringList& files, qreal ratio) {
     QMap<QString,qreal> keyRatioMap;
     QMap<QString,QString> keyFileMap;
 
-    QRegularExpression re("@[0-9]+");
+    QRegularExpression re("@[1-9]x+");
 
     for (int i = 0 ; i < files.size() ; i++) {
 
@@ -27,6 +27,7 @@ static QStringList qcImageLoaderFilter(const QStringList& files, qreal ratio) {
             key.remove(match.capturedStart(0) , match.capturedLength(0));
 
             QString ratioString = match.captured(0).remove(0,1);
+            ratioString.remove(ratioString.size() - 1,1);
             fileRatio = ratioString.toInt();
         }
 
