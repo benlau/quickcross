@@ -111,7 +111,7 @@ void QuickCrossUnitTests::imageLoader()
 
     QVERIFY(!loader->running());
 
-    QCOMPARE(loader->count(), 1);
+    QCOMPARE(loader->count(), 2);
 
     Automator::waitUntil(loader, "isLoaded", true);
     QVERIFY(loader->isLoaded());
@@ -124,8 +124,13 @@ void QuickCrossUnitTests::imageLoader()
     QImage image = loader->image("qt-logo-medium.png");
     QCOMPARE(image.width(), 381);
     QCOMPARE(image.height(), 500);
+    QVERIFY(image.devicePixelRatio() == 1);
 
     QVERIFY (loader->image("qt-logo-medium") == image);
+
+    QVERIFY(loader->contains("button3"));
+
+    QVERIFY(loader->image("button3").devicePixelRatio() == 3);
 }
 
 void QuickCrossUnitTests::imageLoader_qrc()
@@ -143,7 +148,7 @@ void QuickCrossUnitTests::imageLoader_qrc()
     QVERIFY(loader->count() == 0); // Not loaded yet
 
     loader->waitForLoaded();
-    QCOMPARE(loader->count(), 1);
+    QCOMPARE(loader->count(), 2);
 
     loader->clear();
 
@@ -151,11 +156,20 @@ void QuickCrossUnitTests::imageLoader_qrc()
     QVERIFY(loader->count() == 0); // Not loaded yet
 
     loader->waitForLoaded();
-    QCOMPARE(loader->count(), 1);
+    QCOMPARE(loader->count(), 2);
 }
 
 void QuickCrossUnitTests::imageLoader_filter()
 {
+    QString normalizedFile;
+    qreal ratio = 0;
+
+    normalizedFile = qcImageLoaderDecodeFileName("test@3x.png", &ratio);
+
+    QVERIFY(normalizedFile == "test.png");
+    QVERIFY(ratio == 3);
+
+
     QStringList input, output;
 
     input << "test@1.jpg" << "test@2.jpg";
@@ -192,7 +206,7 @@ void QuickCrossUnitTests::imageProvider()
     Automator::waitUntil(loader, "running", false);
 
 
-    QCOMPARE(loader->count(), 1);
+    QCOMPARE(loader->count(), 2);
 
     Automator::waitUntil(loader, "isLoaded", true);
     QVERIFY(loader->isLoaded());

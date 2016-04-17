@@ -3,5 +3,6 @@
         <file>img/qt-logo-medium.png</file>
         <file>json/test.json</file>
         <file>js/loader.js</file>
+        <file>img/button3@3x.png</file>
     </qresource>
 </RCC>

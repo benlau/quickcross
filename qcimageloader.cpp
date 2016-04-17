@@ -5,7 +5,7 @@
  *
  */
 
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QRunnable>
 #include <QPointer>
 #include <QThreadPool>
@@ -16,7 +16,7 @@
 #include <QEventLoop>
 #include "qcimageloader.h"
 #include "priv/qcmainthreadrunner.h"
-
+#include "priv/qcimageloader_p.h"
 
 static QString removeSuffix(QString fileName) {
     //@TODO - handle directory with "."
@@ -30,6 +30,18 @@ static QString genKey(QString name) {
     return removeSuffix(name).toLower();
 }
 
+static QStringList convert(QFileInfoList &input) {
+    QStringList res;
+
+    for (int i = 0 ; i < input.size() ; i++) {
+        QFileInfo info = input.at(i);
+        if (info.fileName() == "." || info.fileName() == "..")
+            continue;
+        res << info.absoluteFilePath();
+    }
+
+    return res;
+}
 
 QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
 {
@@ -71,6 +83,7 @@ void QCImageLoader::load(QString path)
         QPointer<QCImageLoader> owner;
         QString root;
         QMap<QString, QImage> images;
+        qreal devicePixelRatio;
 
         void run() {
             QStringList filters;
@@ -84,23 +97,24 @@ void QCImageLoader::load(QString path)
                 QString current = queue.dequeue();
                 QDir dir(current);
                 QFileInfoList infos = dir.entryInfoList(filters,QDir::Files);
+                QStringList files = convert(infos);
 
-                for (int i = 0 ; i < infos.size();i++) {
-                    QFileInfo info = infos.at(i);
-                    if (info.fileName() == "." || info.fileName() == "..")
-                        continue;
+                files = qcImageLoaderFilter(files, devicePixelRatio);
 
+                for (int i = 0 ; i < files.size();i++) {
                     QImageReader reader;
-                    reader.setFileName(info.absoluteFilePath());
+                    reader.setFileName(files.at(i));
 
                     QImage image = reader.read();
 
                     if (image.isNull()) {
                         qWarning() << reader.errorString();
                     } else {
-                        QString key = info.absoluteFilePath();
+                        qreal devicePixelRatio = 1;
+                        QString key = qcImageLoaderDecodeFileName(files.at(i), &devicePixelRatio);
                         key.remove(0,root.size() + 1);
                         key = genKey(key);
+                        image.setDevicePixelRatio(devicePixelRatio);
                         images[key] = image;
                     }
                 }
@@ -131,6 +145,7 @@ void QCImageLoader::load(QString path)
     runnable->setAutoDelete(false);
     runnable->owner = this;
     runnable->root = path;
+    runnable->devicePixelRatio = qobject_cast<QGuiApplication*>(QGuiApplication::instance())->devicePixelRatio();
 
     QThreadPool* pool = QThreadPool::globalInstance();
     pool->start(runnable);

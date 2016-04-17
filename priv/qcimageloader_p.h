@@ -7,29 +7,42 @@
 #include <QRegularExpressionMatch>
 #include <QRegularExpression>
 
+static QString qcImageLoaderDecodeFileName(const QString &input , qreal* ratio) {
+    static QRegularExpression re("@[1-9]x+");
+    QRegularExpressionMatch matcher;
+    qreal devicePixelRatio = 1;
+    QString normalizedFileName = input;
+
+    input.indexOf(re,0,&matcher);
+
+    if (matcher.hasMatch()) {
+        normalizedFileName.remove(matcher.capturedStart(0) , matcher.capturedLength(0));
+
+        QString ratioString = matcher.captured(0).remove(0,1);
+        ratioString.remove(ratioString.size() - 1,1);
+        devicePixelRatio = ratioString.toInt();
+    }
+
+    if (ratio) {
+        *ratio = devicePixelRatio;
+    }
+    return normalizedFileName;
+}
+
 static QStringList qcImageLoaderFilter(const QStringList& files, qreal ratio) {
     QStringList result;
 
     QMap<QString,qreal> keyRatioMap;
     QMap<QString,QString> keyFileMap;
 
-    QRegularExpression re("@[1-9]x+");
 
     for (int i = 0 ; i < files.size() ; i++) {
 
         QString file = files.at(i);
-        QRegularExpressionMatch match;
-        file.indexOf(re,0,&match);
         QString key = file;
         qreal fileRatio = 1;
 
-        if (match.hasMatch()) {
-            key.remove(match.capturedStart(0) , match.capturedLength(0));
-
-            QString ratioString = match.captured(0).remove(0,1);
-            ratioString.remove(ratioString.size() - 1,1);
-            fileRatio = ratioString.toInt();
-        }
+        key = qcImageLoaderDecodeFileName(file, &fileRatio);
 
         if (!keyRatioMap.contains(key)) {
             keyRatioMap[key] = fileRatio;
