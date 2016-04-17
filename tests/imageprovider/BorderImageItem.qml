@@ -64,4 +64,9 @@ Item {
         }
     }
 
+    Component.onCompleted: {
+        console.log(component.source);
+        console.log(image.sourceSize);
+    }
+
 }

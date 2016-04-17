@@ -35,7 +35,7 @@ Window {
 
         BorderImageItem {
             width: component.width;
-            borderMargin: 42 / 3
+            borderMargin: 42 / Screen.devicePixelRatio
 
             source: "qrc:///img/button2.png"
             expectedWidth: 300
@@ -45,7 +45,10 @@ Window {
         BorderImageItem {
             width: component.width;
 
-            source: "image://arts/button"
+            borderMargin: 42 / Screen.devicePixelRatio
+
+            source: "image://arts/button2"
+
             expectedWidth: 300
             expectedHeight: 200
         }
