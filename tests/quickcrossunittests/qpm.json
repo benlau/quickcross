@@ -2,7 +2,7 @@
   "name": "",
   "description": "",
   "dependencies": [
-    "com.github.benlau.testable@1.0.1"
+    "com.github.benlau.testable@1.0.2.4"
   ],
   "license": "NONE",
   "pri_filename": "",

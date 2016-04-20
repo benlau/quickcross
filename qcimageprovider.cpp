@@ -8,6 +8,7 @@
 #include <QtCore>
 #include <QUrlQuery>
 #include <QGuiApplication>
+#include <QPainter>
 #include "qcimageprovider.h"
 #include "qcimageloader.h"
 
@@ -19,7 +20,7 @@ public:
     }
 
     bool hasModification() const {
-        return scaleToFitDpi;
+        return scaleToFitDpi || tintColor.isValid();
     }
 
     QString removeSuffix(const QString& input) const {
@@ -45,6 +46,14 @@ public:
             outputQuery.addQueryItem("scaleToFitDpi", v.toString());
         }
 
+        if (inputQuery.hasQueryItem("tintColor")) {
+            QVariant v = inputQuery.queryItemValue("tintColor");
+            if (QColor::isValidColor(v.toString())) {
+                tintColor = QColor(v.toString());
+                outputQuery.addQueryItem("tintColor", inputQuery.queryItemValue("tintColor"));
+            }
+        }
+
         outputUrl.setQuery(outputQuery.query());
         cacheKey = outputUrl.toString();
     }
@@ -52,7 +61,62 @@ public:
     QString fileName;
     bool scaleToFitDpi;
     QString cacheKey;
+    QColor tintColor;
 };
+
+/// Copy from QuickAndroid project
+static void gray(QImage& dest,QImage& src)
+{
+    for (int y = 0; y < src.height(); ++y) {
+        unsigned int *data = (unsigned int *)src.scanLine(y);
+        unsigned int *outData = (unsigned int*)dest.scanLine(y);
+
+        for (int x = 0 ; x < src.width(); x++) {
+            int val = qGray(data[x]);
+            outData[x] = qRgba(val,val,val,qAlpha(data[x]));
+        }
+    }
+
+}
+
+/// Copy from QuickAndroid project
+static QImage colorize(QImage src, QColor tintColor) {
+    if (src.format() != QImage::Format_ARGB32) {
+        src = src.convertToFormat(QImage::Format_ARGB32);
+    }
+
+    QImage dst = QImage(src.size(), src.format());
+
+    gray(dst,src);
+
+    QPainter painter(&dst);
+
+    QColor pureColor = tintColor;
+    pureColor.setAlpha(255);
+
+    painter.setCompositionMode(QPainter::CompositionMode_Screen);
+    painter.fillRect(0,0,dst.width(),dst.height(),pureColor);
+    painter.end();
+
+    if (tintColor.alpha() != 255) {
+        QImage buffer = QImage(src.size(), src.format());
+        buffer.fill(QColor("transparent"));
+        QPainter bufPainter(&buffer);
+        qreal opacity = tintColor.alpha() / 255.0;
+        bufPainter.setOpacity(opacity);
+        bufPainter.drawImage(0,0,dst);
+        bufPainter.end();
+        dst = buffer;
+    }
+
+    if (src.hasAlphaChannel()) {
+        dst.setAlphaChannel(src.alphaChannel());
+    }
+
+    dst.setDevicePixelRatio(src.devicePixelRatio());
+
+    return dst;
+}
 
 static QImage process(const QCImageProviderQueryID& query, QImage image, qreal devicePixelRatio) {
     QImage output = image;
@@ -65,6 +129,10 @@ static QImage process(const QCImageProviderQueryID& query, QImage image, qreal d
             output.setDevicePixelRatio(devicePixelRatio);
         }
 
+    }
+
+    if (query.tintColor.isValid()) {
+        output = colorize(output, query.tintColor);
     }
 
     return output;

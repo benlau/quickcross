@@ -2,6 +2,7 @@
 #include <QtCore>
 #include <QTest>
 #include <QImageReader>
+#include "testrunner.h"
 #include "qcdevice.h"
 #include "quickcrossunittests.h"
 #include "qcimageloader.h"
@@ -239,7 +240,55 @@ void QuickCrossUnitTests::imageProvider()
     QCOMPARE(size.width(), 258 / 3);
     QCOMPARE(size.height(), 150 / 3);
 
+
+    TestRunner* runner = TestRunner::defautInstance();
+    int waitTime = runner->config()["waitTime"].toInt();
+
+    Automator::wait(waitTime);
+
     Q_ASSERT(warnings.size() == 0);
+
+}
+
+void QuickCrossUnitTests::imageProvider_tintcolor()
+{
+    QCImageLoader *loader = QCImageLoader::instance();
+
+    // Clear loaded images
+    loader->clear();
+    QVERIFY(!loader->isLoaded());
+
+    // No. of loaded image = 0
+    QVERIFY(loader->count() == 0);
+
+    loader->load(QString(SRCDIR) + "img");
+    QVERIFY(loader->count() == 0); // Not loaded yet
+
+    QVERIFY(loader->running());
+    QVERIFY(!loader->isLoaded());
+
+    Automator::waitUntil(loader, "running", false);
+
+    QCOMPARE(loader->count(), 2);
+
+    QQmlApplicationEngine engine;
+
+    engine.addImageProvider("custom", new QCImageProvider());
+
+    Automator automator(&engine);
+
+    QString source = QString(SRCDIR) + "/qml/imageProvider_tintColor.qml";
+
+    engine.load(QUrl::fromLocalFile(source));
+
+
+    TestRunner* runner = TestRunner::defautInstance();
+    int waitTime = runner->config()["waitTime"].toInt();
+
+    Automator::wait(waitTime);
+
+
+    QVERIFY(!automator.anyError());
 
 }
 
