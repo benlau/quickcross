@@ -3,6 +3,7 @@ url = https://github.com/benlau/quickcross
 description = Qt's Material Design and Support Library for Android
 sourcedirs = ./
 sourcedirs += ../
+headerdirs += ../
 sources.fileextensions = "*.qml *.qdoc *.cpp"
 headers.fileextensions = "*.h"
 version = 1.0

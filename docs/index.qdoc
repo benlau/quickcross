@@ -2,7 +2,7 @@
     \page index.html
     \title QuickCross Project
 
-Singleton Components
+QML Singleton Components
 
     \list
       \li \l Device
@@ -10,5 +10,10 @@ Singleton Components
       \li \l Rect
       \li \l Line
       \li \l ImageReader
+   \endlist
+
+C++ Classes
+   \list
+     \li \l QCImageProvider
    \endlist
  */
