@@ -43,6 +43,13 @@ static QStringList convert(QFileInfoList &input) {
     return res;
 }
 
+/*! \class QCImageLoader
+    \inmodule QuickCross
+
+    QCImageLoader is a singleton object that read and cache images from folder (include resource path)
+
+ */
+
 QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
 {
     m_count = 0;

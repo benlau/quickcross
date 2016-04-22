@@ -15,5 +15,6 @@ QML Singleton Components
 C++ Classes
    \list
      \li \l QCImageProvider
+     \li \l QCImageLoader
    \endlist
  */
