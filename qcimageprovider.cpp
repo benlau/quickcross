@@ -141,18 +141,26 @@ static QImage process(const QCImageProviderQueryID& query, QImage image, qreal d
 /*! \class QCImageProvider
     \inmodule QuickCross
 
-    QCImageProvider is an implementation of QQuickImageProvider class that provides an interface for supporint image data in QML.
+    QCImageProvider is an implementation of QQuickImageProvider that provides an interface for supporint image data in QML.
 
     This class offeres following features:
 
     1. Preload all image at startup via QCImageLoader
 
-    2. Image transformation by query string.
+    2. Support @2x , @3x image format
+
+    3. Perform image transformation by query string.
+
+    3.1. tintColor - Alters the colors of the source item by applying an tint color.
+
+    3.2. scaleToFitDpi - Scale up / down the source image to fit current DPI
+
+Example:
 
 \code
 
 Image {
-    // Convert a logo to black color
+    // Convert a logo to white color
     source: "image://custom/qt-logo-medium?tintColor=" + escape("#FFFFFF");
 }
 
@@ -167,13 +175,12 @@ Setup:
 
 \code
 
-    QCImageLoader *loader = QCImageLoader::instance();
-    loader->load(":/img"); // preload all image from ":/img"
-    loader->waitForLoaded();
+QCImageLoader *loader = QCImageLoader::instance();
+loader->load(":/img"); // preload all image from ":/img"
+loader->waitForLoaded();
 
-    QQmlApplicationEngine engine;
-    engine.addImageProvider("custom", new QCImageProvider());
-
+QQmlApplicationEngine engine;
+engine.addImageProvider("custom", new QCImageProvider());
 
 \endcode
 
