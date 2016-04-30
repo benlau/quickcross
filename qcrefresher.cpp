@@ -62,7 +62,7 @@ int QCRefresher::frameRate() const
 
 void QCRefresher::setFrameRate(int frameRate)
 {
-    if (m_frameRate <= 0 || m_frameRate > 1000) {
+    if (frameRate <= 0 || frameRate > 1000) {
         qWarning() << "Refersher::Invalid frame rate";
         return;
     }
