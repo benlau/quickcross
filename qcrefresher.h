@@ -10,6 +10,7 @@
 class QCRefresher : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int frameRate READ frameRate WRITE setFrameRate NOTIFY frameRateChanged)
 public:
     QCRefresher(QObject* parent = 0);
 
@@ -20,6 +21,8 @@ public slots:
 
     void markDirty(QObject* object);
 
+signals:
+    void frameRateChanged();
 
 protected:
     void timerEvent(QTimerEvent *event);
