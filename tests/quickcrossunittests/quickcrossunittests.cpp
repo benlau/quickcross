@@ -59,6 +59,11 @@ void QuickCrossUnitTests::utils()
     QVERIFY(!loader.isError());
     QVERIFY(loader.isCallable());
 
+    QVERIFY(QCUtils::find(".").size() > 0);
+    QVERIFY(QCUtils::find(QDir::current().path()).size() > 0);
+
+    QVERIFY(QCUtils::find("../").size() > 0);
+
 }
 
 void QuickCrossUnitTests::loader()

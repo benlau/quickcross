@@ -131,3 +131,43 @@ QString QCUtils::basename(const QString &path)
 
     return result;
 }
+
+QStringList QCUtils::find(const QString &root)
+{
+    QDir dir(root);
+    QString absRoot = dir.absolutePath();
+
+    QQueue<QString> queue;
+    queue.enqueue(absRoot);
+    QStringList result;
+
+    while (queue.size() > 0) {
+        QString current = queue.dequeue();
+        QDir dir(current);
+        QFileInfoList infos = dir.entryInfoList();
+
+        for (int i = 0 ; i < infos.size() ; i++) {
+            QFileInfo info = infos.at(i);
+
+            if (info.fileName() == "." || info.fileName() == "..") {
+                continue;
+            }
+
+
+            QString absPath = info.absoluteFilePath();
+
+            if (info.isDir()) {
+                queue.enqueue(absPath);
+                continue;
+            }
+
+            if (root != absRoot) {
+                absPath.replace(absRoot, root);
+            }
+
+            result << absPath;
+        }
+    }
+
+    return result;
+}

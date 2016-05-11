@@ -25,6 +25,8 @@ public:
     static QString dirname(const QString& path);
 
     static QString basename(const QString& path);
+
+    static QStringList find(const QString& path);
 };
 
 #endif // QCUTILS_H
