@@ -62,7 +62,11 @@ void QuickCrossUnitTests::utils()
     QVERIFY(QCUtils::find(".").size() > 0);
     QVERIFY(QCUtils::find(QDir::current().path()).size() > 0);
 
-    QVERIFY(QCUtils::find("../").size() > 0);
+    QVERIFY(QCUtils::find("..").size() > 0);
+
+    QStringList files = QCUtils::find("..", QStringList() << "*.h");
+
+    QVERIFY(files.filter(QRegExp("*.h",Qt::CaseInsensitive,QRegExp::Wildcard)).size() == files.size());
 
 }
 

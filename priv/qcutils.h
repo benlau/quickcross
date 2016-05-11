@@ -26,7 +26,7 @@ public:
 
     static QString basename(const QString& path);
 
-    static QStringList find(const QString& path);
+    static QStringList find(const QString& path, const QStringList& nameFilters = QStringList());
 };
 
 #endif // QCUTILS_H

@@ -3,6 +3,21 @@
 #include <QQmlComponent>
 #include "qcutils.h"
 
+static bool match(const QString&fileName,const QStringList &nameFilters) {
+    bool res = false;
+
+    for (int i = 0 ; i < nameFilters.size() ; i++) {
+        const QString& filter = nameFilters.at(i);
+        QRegExp rx(filter,Qt::CaseInsensitive,QRegExp::Wildcard);
+        if (rx.exactMatch(fileName))  {
+            res = true;
+            break;
+        }
+    }
+
+    return res;
+}
+
 bool QCUtils::isImageProviderUrl(const QString &url)
 {
     QUrl u(url);
@@ -132,7 +147,7 @@ QString QCUtils::basename(const QString &path)
     return result;
 }
 
-QStringList QCUtils::find(const QString &root)
+QStringList QCUtils::find(const QString &root, const QStringList &nameFilters)
 {
     QDir dir(root);
     QString absRoot = dir.absolutePath();
@@ -153,11 +168,16 @@ QStringList QCUtils::find(const QString &root)
                 continue;
             }
 
-
             QString absPath = info.absoluteFilePath();
 
             if (info.isDir()) {
                 queue.enqueue(absPath);
+                continue;
+            }
+
+            QString fileName = info.fileName();
+
+            if (nameFilters.size() > 0 && !match(fileName, nameFilters)) {
                 continue;
             }
 
