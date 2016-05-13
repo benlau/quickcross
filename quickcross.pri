@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/priv/qcimageloader_p.h \
     $$PWD/qctime.h \
     $$PWD/QCImageLoader \
-    $$PWD/QCImageProvider
+    $$PWD/QCImageProvider \
+    $$PWD/qcimagepool.h
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
@@ -36,7 +37,8 @@ SOURCES += \
     $$PWD/priv/qcreader.cpp \
     $$PWD/qceasingcurve.cpp \
     $$PWD/qcrefresher.cpp \
-    $$PWD/qctime.cpp
+    $$PWD/qctime.cpp \
+    $$PWD/qcimagepool.cpp
 
 DISTFILES +=
 
