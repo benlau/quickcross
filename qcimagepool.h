@@ -22,6 +22,8 @@ public:
 
     static QCImagePool* instance();
 
+    static QString normalizeKey(const QString& key);
+
 protected:
     QCImagePool(QObject* parent = 0);
 

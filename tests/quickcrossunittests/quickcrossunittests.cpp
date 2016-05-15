@@ -2,6 +2,7 @@
 #include <QtCore>
 #include <QTest>
 #include <QImageReader>
+#include "qcimagepool.h"
 #include "testrunner.h"
 #include "qcdevice.h"
 #include "quickcrossunittests.h"
@@ -98,6 +99,13 @@ void QuickCrossUnitTests::device()
 #endif
 
     delete device;
+}
+
+void QuickCrossUnitTests::imagePool()
+{
+    QVERIFY(QCImagePool::normalizeKey("example") == "example");
+    QVERIFY(QCImagePool::normalizeKey("example.png") == "example");
+    QVERIFY(QCImagePool::normalizeKey("example?scaleToDpi=true") == "example?scaletodpi=true");
 }
 
 void QuickCrossUnitTests::imageLoader()

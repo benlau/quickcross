@@ -9,9 +9,6 @@ static QString removeSuffix(const QString& fileName) {
     return info.baseName();
 }
 
-static QString normalizeKey(const QString &key) {
-    return removeSuffix(key).toLower();
-}
 
 QCImagePool::QCImagePool(QObject* parent) : QObject(parent)
 {
@@ -78,4 +75,9 @@ QCImagePool *QCImagePool::instance()
     }
 
     return m_instance;
+}
+
+QString QCImagePool::normalizeKey(const QString &key)
+{
+    return removeSuffix(key).toLower();
 }
