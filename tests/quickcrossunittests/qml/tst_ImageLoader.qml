@@ -5,10 +5,13 @@ import QuickCross 1.0
 TestCase {
     name: "ImageLoaderTests"
 
-    function test_interface() {
-        compare(ImageLoader.running, false);
-        compare(ImageLoader.isLoaded !== undefined, true);
+    ImageLoader {
+        id: loader
+    }
 
+    function test_interface() {
+        compare(loader.running, false);
+        compare(loader.isLoaded, false);
     }
 
 }

@@ -6,11 +6,11 @@
  */
 
 #include <QtQml>
+#include <QCImageLoader>
 #include "qcdevice.h"
 #include "qcstandardpaths.h"
 #include "qcrect.h"
 #include "qcline.h"
-#include "qcimageloaderwrapper.h"
 #include "qcimagereader.h"
 #include "qcjsonreader.h"
 #include "qceasingcurve.h"
@@ -83,8 +83,7 @@ public:
         qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
                                            "Line", provider<QCLine> );
 
-        qmlRegisterSingletonType<QCImageLoaderWrapper>("QuickCross", 1, 0,
-                                           "ImageLoader", provider<QCImageLoaderWrapper> );
+        qmlRegisterType<QCImageLoader>("QuickCross", 1, 0, "ImageLoader");
 
         qmlRegisterType<QCImageReader>("QuickCross", 1, 0, "ImageReader");
 

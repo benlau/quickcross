@@ -27,12 +27,9 @@ public:
     static QCImageLoader* instance();
 
     void clear();
-
-    // Load an image from path
-    void load(QString path);
-
     bool running() const;
 
+    // Return true if it has loaded any images
     bool isLoaded() const;
 
     bool waitForLoaded(int timeout = 10000);
@@ -43,6 +40,10 @@ signals:
     void loaded();
 
 public slots:
+
+    // Load an image from path
+    void load(QString path);
+
 
 private slots:
     void onFinished();
