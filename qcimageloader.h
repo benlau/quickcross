@@ -26,18 +26,12 @@ public:
 
     static QCImageLoader* instance();
 
-    int count() const;
-
     void clear();
 
     // Load an image from path
     void load(QString path);
 
     bool running() const;
-
-    QImage image(QString name) const;
-
-    bool contains(QString key) const;
 
     bool isLoaded() const;
 
@@ -51,7 +45,7 @@ signals:
 public slots:
 
 private slots:
-    void onFinished(const QVariant& result);
+    void onFinished();
 
 private:
     void updateRunning();
@@ -61,7 +55,6 @@ private:
     int m_count;
 
     bool m_running;
-    QMap<QString, QImage> m_images;
 
     // no. of pending queue
     int m_pending;

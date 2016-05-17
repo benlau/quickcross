@@ -7,6 +7,7 @@
 
 #include "qcimageloaderwrapper.h"
 #include "qcimageloader.h"
+#include "qcimagepool.h"
 
 QCImageLoaderWrapper::QCImageLoaderWrapper(QObject *parent) : QObject(parent)
 {
@@ -39,9 +40,9 @@ bool QCImageLoaderWrapper::isLoaded() const
 
 bool QCImageLoaderWrapper::contains(QString key) const
 {
-    QCImageLoader* loader = QCImageLoader::instance();
+    QCImagePool* pool = QCImagePool::instance();
 
-    return loader->contains(key);
+    return pool->contains(key);
 }
 
 void QCImageLoaderWrapper::updateRunning()

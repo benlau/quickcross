@@ -11,6 +11,7 @@
 #include <QPainter>
 #include "qcimageprovider.h"
 #include "qcimageloader.h"
+#include "qcimagepool.h"
 
 class QCImageProviderQueryID {
 public:
@@ -198,7 +199,7 @@ QImage QCImageProvider::requestImage(const QString &id, QSize *size, const QSize
 {
     Q_UNUSED(requestedSize);
 
-    QCImageLoader* loader = QCImageLoader::instance();
+    QCImagePool* pool = QCImagePool::instance();
     QImage result;
 
     QCImageProviderQueryID query;
@@ -210,15 +211,15 @@ QImage QCImageProvider::requestImage(const QString &id, QSize *size, const QSize
 
         if (m_cache.contains(query.cacheKey)) {
             result = *m_cache.object((query.cacheKey));
-        } else if (loader->contains(query.fileName)){
-            result = process(query,loader->image(query.fileName), devicePixelRatio);
+        } else if (pool->contains(query.fileName)){
+            result = process(query,pool->image(query.fileName), devicePixelRatio);
             m_cache.insert(query.cacheKey, new QImage(result), result.bytesPerLine() * result.height());
         }
 
         mutex.unlock();
 
-    } else if (loader->contains(query.fileName)) {
-        result = loader->image(query.fileName);
+    } else if (pool->contains(query.fileName)) {
+        result = pool->image(query.fileName);
     }
 
     if (!result.isNull()) {

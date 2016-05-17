@@ -15,20 +15,9 @@
 #include <QQueue>
 #include <QEventLoop>
 #include "qcimageloader.h"
+#include "qcimagepool.h"
 #include "priv/qcmainthreadrunner.h"
 #include "priv/qcimageloader_p.h"
-
-static QString removeSuffix(QString fileName) {
-    //@TODO - handle directory with "."
-
-    QStringList token = fileName.split(".");
-
-    return token[0];
-}
-
-static QString genKey(QString name) {
-    return removeSuffix(name).toLower();
-}
 
 static QStringList convert(QFileInfoList &input) {
     QStringList res;
@@ -72,14 +61,8 @@ QCImageLoader* QCImageLoader::instance()
     return m_instance;
 }
 
-int QCImageLoader::count() const
-{
-    return m_images.count();
-}
-
 void QCImageLoader::clear()
 {
-    m_images.clear();
     m_isLoaded = false;
 }
 
@@ -89,7 +72,6 @@ void QCImageLoader::load(QString path)
     public:
         QPointer<QCImageLoader> owner;
         QString root;
-        QMap<QString, QImage> images;
         qreal devicePixelRatio;
 
         void run() {
@@ -120,9 +102,8 @@ void QCImageLoader::load(QString path)
                         qreal devicePixelRatio = 1;
                         QString key = qcImageLoaderDecodeFileName(files.at(i), &devicePixelRatio);
                         key.remove(0,root.size() + 1);
-                        key = genKey(key);
                         image.setDevicePixelRatio(devicePixelRatio);
-                        images[key] = image;
+                        QCImagePool::instance()->insert(key, image);
                     }
                 }
             }
@@ -134,8 +115,7 @@ void QCImageLoader::load(QString path)
             Runnable* runnable = (Runnable*) data;
 
             if (!runnable->owner.isNull()) {
-                QMetaObject::invokeMethod(runnable->owner.data(), "onFinished", Qt::DirectConnection,
-                                          Q_ARG(QVariant , QVariant::fromValue(runnable->images)));
+                QMetaObject::invokeMethod(runnable->owner.data(), "onFinished", Qt::DirectConnection);
             }
 
             delete runnable;
@@ -165,34 +145,8 @@ bool QCImageLoader::running() const
     return m_running;
 }
 
-QImage QCImageLoader::image(QString name) const
+void QCImageLoader::onFinished()
 {
-    QString key = genKey(name);
-
-    QImage res;
-    if (m_images.contains(key)) {
-        res = m_images[key];
-    }
-
-    return res;
-}
-
-bool QCImageLoader::contains(QString name) const
-{
-    return m_images.contains(genKey(name));
-}
-
-void QCImageLoader::onFinished(const QVariant &result)
-{
-    QMap<QString,QImage> images = result.value<QMap<QString, QImage> >();
-
-    QMap<QString,QImage>::Iterator iter = images.begin();
-
-    while (iter != images.end()) {
-        m_images.insert(iter.key(), iter.value());
-        iter++;
-    }
-
     m_pending--;
     updateRunning();
 
