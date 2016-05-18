@@ -11,7 +11,7 @@
 #include <QPainter>
 #include "qcimageprovider.h"
 #include "qcimageloader.h"
-#include "qcimagepool.h"
+#include "QCImagePool"
 
 class QCImageProviderQueryID {
 public:

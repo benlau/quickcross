@@ -14,8 +14,8 @@
 #include <QtCore>
 #include <QQueue>
 #include <QEventLoop>
+#include "QCImagePool"
 #include "qcimageloader.h"
-#include "qcimagepool.h"
 #include "priv/qcmainthreadrunner.h"
 #include "priv/qcimageloader_p.h"
 

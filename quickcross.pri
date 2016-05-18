@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/qctime.h \
     $$PWD/QCImageLoader \
     $$PWD/QCImageProvider \
-    $$PWD/qcimagepool.h
+    $$PWD/qcimagepool.h \
+    $$PWD/QCImagePool
 
 SOURCES += \
     $$PWD/qcdevice.cpp \

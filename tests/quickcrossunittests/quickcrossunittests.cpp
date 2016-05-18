@@ -2,7 +2,7 @@
 #include <QtCore>
 #include <QTest>
 #include <QImageReader>
-#include "qcimagepool.h"
+#include "QCImagePool"
 #include "testrunner.h"
 #include "qcdevice.h"
 #include "quickcrossunittests.h"
@@ -13,7 +13,6 @@
 #include "priv/qcmainthreadrunner.h"
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
-#include "qcimagepool.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
