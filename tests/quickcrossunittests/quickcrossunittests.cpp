@@ -110,7 +110,7 @@ void QuickCrossUnitTests::imagePool()
 
 void QuickCrossUnitTests::imageLoader()
 {
-    QCImageLoader *loader = QCImageLoader::instance();
+    QScopedPointer<QCImageLoader> loader(new QCImageLoader());
     QCImagePool* pool = QCImagePool::instance();
 
     // Clear loaded images
@@ -126,13 +126,13 @@ void QuickCrossUnitTests::imageLoader()
     QVERIFY(loader->running());
     QVERIFY(!loader->isLoaded());
 
-    QVERIFY(loader->waitForLoaded(10000));
+    loader->waitForLoaded(10000);
 
     QVERIFY(!loader->running());
 
     QCOMPARE(pool->count(), 2);
 
-    Automator::waitUntil(loader, "isLoaded", true);
+    Automator::waitUntil(loader.data(), "isLoaded", true);
     QVERIFY(loader->isLoaded());
 
 
@@ -154,11 +154,10 @@ void QuickCrossUnitTests::imageLoader()
 
 void QuickCrossUnitTests::imageLoader_qrc()
 {
-    QCImageLoader *loader = QCImageLoader::instance();
+    QScopedPointer<QCImageLoader> loader(new QCImageLoader());
     QCImagePool* pool = QCImagePool::instance();
 
     // Clear loaded images
-    loader->clear();
     pool->clear();
     QVERIFY(!loader->isLoaded());
 
@@ -172,7 +171,6 @@ void QuickCrossUnitTests::imageLoader_qrc()
     QCOMPARE(pool->count(), 2);
 
     pool->clear();
-    loader->clear();
 
     loader->load("qrc:///unittests/img");
     QVERIFY(pool->count() == 0); // Not loaded yet
@@ -210,12 +208,11 @@ void QuickCrossUnitTests::imageLoader_filter()
 
 void QuickCrossUnitTests::imageProvider()
 {
-    QCImageLoader *loader = QCImageLoader::instance();
+    QScopedPointer<QCImageLoader> loader(new QCImageLoader());
     QCImagePool* pool = QCImagePool::instance();
 
     // Clear loaded images
     pool->clear();
-    loader->clear();
     QVERIFY(!loader->isLoaded());
 
     // No. of loaded image = 0
@@ -227,12 +224,12 @@ void QuickCrossUnitTests::imageProvider()
     QVERIFY(loader->running());
     QVERIFY(!loader->isLoaded());
 
-    Automator::waitUntil(loader, "running", false);
+    Automator::waitUntil(loader.data(), "running", false);
 
     QCOMPARE(pool->count(), 2);
     QVERIFY(pool->contains("button3"));
 
-    Automator::waitUntil(loader, "isLoaded", true);
+    Automator::waitUntil(loader.data(), "isLoaded", true);
     QVERIFY(loader->isLoaded());
 
 
@@ -275,12 +272,11 @@ void QuickCrossUnitTests::imageProvider()
 
 void QuickCrossUnitTests::imageProvider_tintcolor()
 {
-    QCImageLoader *loader = QCImageLoader::instance();
+    QScopedPointer<QCImageLoader> loader(new QCImageLoader());
     QCImagePool* pool = QCImagePool::instance();
 
     // Clear loaded images
     pool->clear();
-    loader->clear();
     QVERIFY(!loader->isLoaded());
 
     // No. of loaded image = 0
@@ -292,7 +288,7 @@ void QuickCrossUnitTests::imageProvider_tintcolor()
     QVERIFY(loader->running());
     QVERIFY(!loader->isLoaded());
 
-    Automator::waitUntil(loader, "running", false);
+    Automator::waitUntil(loader.data(), "running", false);
 
     QCOMPARE(pool->count(), 2);
 
@@ -350,12 +346,12 @@ void QuickCrossUnitTests::imageReader()
 {
     //Read from absolute path
 
-    QCImageLoader* loader = QCImageLoader::instance();
+    QScopedPointer<QCImageLoader> loader(new QCImageLoader());
     QCImagePool* pool = QCImagePool::instance();
 
     pool->clear();
     loader->load(QString(SRCDIR) + "img");
-    QVERIFY(loader->waitForLoaded(10000));
+    loader->waitForLoaded(10000);
 
     QQmlApplicationEngine engine;
     Automator automator(&engine);

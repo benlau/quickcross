@@ -24,15 +24,12 @@ class QCImageLoader : public QObject
 public:
     explicit QCImageLoader(QObject *parent = 0);
 
-    static QCImageLoader* instance();
-
-    void clear();
     bool running() const;
 
     // Return true if it has loaded any images
     bool isLoaded() const;
 
-    bool waitForLoaded(int timeout = 10000);
+    void waitForLoaded(int timeout = 10000);
 
 signals:
     void runningChanged();

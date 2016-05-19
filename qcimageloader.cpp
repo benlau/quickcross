@@ -47,25 +47,6 @@ QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
     m_isLoaded = false;
 }
 
-QCImageLoader* QCImageLoader::instance()
-{
-    static QCImageLoader* m_instance = 0;
-
-    if (!m_instance) {
-        QCoreApplication* app = QCoreApplication::instance();
-
-        m_instance = new QCImageLoader(app);
-
-    }
-
-    return m_instance;
-}
-
-void QCImageLoader::clear()
-{
-    m_isLoaded = false;
-}
-
 void QCImageLoader::load(QString path)
 {
     class Runnable : public QRunnable {
@@ -152,8 +133,9 @@ void QCImageLoader::onFinished()
 
     if (!m_isLoaded) {
         setIsLoaded(true);
-        emit loaded();
     }
+
+    emit loaded();
 }
 
 void QCImageLoader::updateRunning()
@@ -171,10 +153,10 @@ bool QCImageLoader::isLoaded() const
     return m_isLoaded;
 }
 
-bool QCImageLoader::waitForLoaded(int timeout)
+void QCImageLoader::waitForLoaded(int timeout)
 {
-    if (m_isLoaded) {
-        return true;
+    if (!m_running) {
+        return;
     }
 
     QTimer timer;
@@ -187,8 +169,6 @@ bool QCImageLoader::waitForLoaded(int timeout)
             &loop, SLOT(quit()));
     timer.start();
     loop.exec();
-
-    return m_isLoaded;
 }
 
 void QCImageLoader::setIsLoaded(bool isLoaded)
