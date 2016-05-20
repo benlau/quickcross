@@ -49,8 +49,18 @@ void QCJsonReader::read()
         return;
     }
 
-
     QString path = QCUtils::normalizeResourceUrl(m_source);
+
+    QFileInfo info(path);
+
+    if (!info.exists()) {
+        // Avoid to return "Unknown error" if source is not existed in qrc:///
+        setErrorString("No such file or directory");
+        setIsError(true);
+        finish();
+        return;
+    }
+
     QFile file(path);
 
     if (!file.open(QIODevice::ReadOnly)) {

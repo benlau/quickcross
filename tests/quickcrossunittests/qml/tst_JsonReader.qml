@@ -49,4 +49,14 @@ TestCase {
 
     }
 
+    JsonReader {
+        id: reader3
+        autoRead: true
+        source: ":a-file-not-existed";
+    }
+
+    function test_file_not_found() {
+        compare(reader3.errorString, "No such file or directory");
+    }
+
 }
