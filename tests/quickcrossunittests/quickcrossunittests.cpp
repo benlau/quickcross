@@ -206,6 +206,23 @@ void QuickCrossUnitTests::imageLoader_filter()
 
 }
 
+void QuickCrossUnitTests::imageLoader_destroyAtRunning()
+{
+    QCImageLoader* loader = new QCImageLoader();
+    QCImagePool* pool = QCImagePool::instance();
+    pool->clear();
+
+    loader->load(QString(SRCDIR) + "img");
+    QVERIFY(pool->count() == 0); // Not loaded yet
+
+    QVERIFY(loader->running());
+    QVERIFY(!loader->isLoaded());
+
+    delete loader;
+
+    Automator::wait(500);
+}
+
 void QuickCrossUnitTests::imageProvider()
 {
     QScopedPointer<QCImageLoader> loader(new QCImageLoader());

@@ -31,6 +31,8 @@ private Q_SLOTS:
 
     void imageLoader_filter();
 
+    void imageLoader_destroyAtRunning();
+
     void imageProvider();
 
     void imageProvider_tintcolor();
