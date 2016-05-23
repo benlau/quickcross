@@ -35,8 +35,7 @@ static QStringList convert(QFileInfoList &input) {
 /*! \class QCImageLoader
     \inmodule QuickCross
 
-    QCImageLoader is a singleton object that read and cache images from folder (include resource path)
-
+    QCImageLoader is an asynchronous image loader. It load images from a folder to QCImagePool
  */
 
 QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
@@ -46,6 +45,13 @@ QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
     m_running = false;
     m_isLoaded = false;
 }
+
+/*! \fn void QCImageLoader::load(QString path)
+
+  Load images on target path. It will be executed in thread with QThreadPool.
+  Once it is loaded, it will emit the loaded signal
+
+ */
 
 void QCImageLoader::load(QString path)
 {
@@ -121,6 +127,11 @@ void QCImageLoader::load(QString path)
     updateRunning();
 }
 
+/*! \fn bool QCImageLoader::running() const
+
+  Return true if the image loader is loading images
+
+ */
 bool QCImageLoader::running() const
 {
     return m_running;
@@ -152,6 +163,11 @@ bool QCImageLoader::isLoaded() const
 {
     return m_isLoaded;
 }
+
+/*! \fn void QCImageLoader::waitForLoaded(int timeout)
+
+  Block the execution of current program and wait until images loaded.
+ */
 
 void QCImageLoader::waitForLoaded(int timeout)
 {
