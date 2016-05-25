@@ -127,11 +127,10 @@ void QCImageLoader::load(QString path)
     updateRunning();
 }
 
-/*! \fn bool QCImageLoader::running() const
-
-  Return true if the image loader is loading images
-
+/*! \property QCImageLoader::running
+    \brief The property indicate whether is the loader running.
  */
+
 bool QCImageLoader::running() const
 {
     return m_running;
@@ -158,6 +157,9 @@ void QCImageLoader::updateRunning()
         emit runningChanged();
     }
 }
+/*! \property QCImageLoader::isLoaded
+    \brief The property indicate whether is the loader loaded anything.
+ */
 
 bool QCImageLoader::isLoaded() const
 {
