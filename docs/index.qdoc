@@ -16,5 +16,6 @@ C++ Classes
    \list
      \li \l QCImageProvider
      \li \l QCImageLoader
+     \li \l QCImagePool
    \endlist
  */
