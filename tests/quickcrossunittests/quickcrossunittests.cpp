@@ -140,7 +140,7 @@ void QuickCrossUnitTests::imageLoader()
     QVERIFY(pool->contains("qt-logo-medium"));
     QVERIFY(!pool->contains("not-existed"));
 
-    QImage image = pool->image("qt-logo-medium.png");
+    QImage image = pool->image(QCImagePool::normalizeKey("qt-logo-medium.png"));
     QCOMPARE(image.width(), 381);
     QCOMPARE(image.height(), 500);
     QVERIFY(image.devicePixelRatio() == 1);

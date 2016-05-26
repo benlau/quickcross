@@ -80,11 +80,10 @@ QImage QCImagePool::image(const QString &key) const
     QMutexLocker locker(&mutex);
     Q_UNUSED(locker);
 
-    QString k = normalizeKey(key);
     QImage res;
 
-    if (m_images.contains(k)) {
-        res = m_images[k];
+    if (m_images.contains(key)) {
+        res = m_images[key];
     }
 
     return res;
@@ -100,9 +99,7 @@ void QCImagePool::insert(const QString &key, const QImage &image)
     QMutexLocker locker(&mutex);
     Q_UNUSED(locker);
 
-    QString k = normalizeKey(key);
-
-    m_images[k] = image;
+    m_images[key] = image;
 }
 
 QCImagePool *QCImagePool::instance()

@@ -90,7 +90,7 @@ void QCImageLoader::load(QString path)
                         QString key = qcImageLoaderDecodeFileName(files.at(i), &devicePixelRatio);
                         key.remove(0,root.size() + 1);
                         image.setDevicePixelRatio(devicePixelRatio);
-                        QCImagePool::instance()->insert(key, image);
+                        QCImagePool::instance()->insert(QCImagePool::normalizeKey(key), image);
                     }
                 }
             }
