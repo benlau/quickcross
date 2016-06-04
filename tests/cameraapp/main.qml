@@ -29,7 +29,16 @@ Window {
 
             onImageSaved: {
                 console.log("Saved", requestId, path);
+                globalImageReader.source = path;
+                globalImageReader.fetch();
             }
+        }
+    }
+
+    ImageReader {
+        id: globalImageReader
+        onFetched: {
+            console.log(source , ": Size = ", size);
         }
     }
 

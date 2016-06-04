@@ -21,7 +21,7 @@ public:
     }
 
     bool hasModification() const {
-        return scaleToFitDpi || tintColor.isValid();
+        return scaleToFitDpi || tintColor.isValid() || !clipRect.isEmpty();
     }
 
     QString removeSuffix(const QString& input) const {
@@ -47,6 +47,34 @@ public:
             outputQuery.addQueryItem("scaleToFitDpi", v.toString());
         }
 
+
+        if (inputQuery.hasQueryItem("clip")) {
+            QVariant v= inputQuery.queryItemValue("clip");
+            QStringList token = v.toString().split(",");
+            if (token.size() != 4) {
+                qWarning() << "Invalid clip parameter:" << token;
+            } else {
+                QList<int> coordination;
+                foreach(QString str, token) {
+                    bool ok;
+                    int i = str.toInt(&ok);
+                    if (ok) {
+                        coordination << i;
+                    } else {
+                        qWarning() << "Invalid clip parameter:" << token;
+                    }
+                }
+
+                if (coordination.size() == 4) {
+                    clipRect = QRect(coordination[0],
+                            coordination[1],
+                            coordination[2],
+                            coordination[3]);
+                    outputQuery.addQueryItem("clip", v.toString());
+                }
+            }
+        }
+
         if (inputQuery.hasQueryItem("tintColor")) {
             QVariant v = inputQuery.queryItemValue("tintColor");
             if (QColor::isValidColor(v.toString())) {
@@ -63,6 +91,7 @@ public:
     bool scaleToFitDpi;
     QString cacheKey;
     QColor tintColor;
+    QRect clipRect;
 };
 
 /// Copy from QuickAndroid project
@@ -129,7 +158,10 @@ static QImage process(const QCImageProviderQueryID& query, QImage image, qreal d
             output = output.scaled(output.width() * ratio, output.height() * ratio, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             output.setDevicePixelRatio(devicePixelRatio);
         }
+    }
 
+    if (!query.clipRect.isEmpty() ) {
+        output = output.copy(query.clipRect);
     }
 
     if (query.tintColor.isValid()) {
@@ -168,6 +200,11 @@ Image {
 Image {
     // Scale the image to fit current DPI. It is useful for handling BorderImage
     source: "image://custom/qt-logo-medium?scaleToFitDpi=true"
+}
+
+Image {
+    // clip part of the image (x,y,width,height)
+    source: "image://custom/qt-logo-medium?clip=10,20,100,100";
 }
 
 \endcode

@@ -26,7 +26,8 @@ DISTFILES += \
     qml/tst_EasingCurve.qml \
     qml/tst_Refresher.qml \
     qml/tst_Time.qml \
-    qml/imageProvider_tintColor.qml
+    qml/imageProvider_tintColor.qml \
+    qml/imageProvider_clip.qml
 
 include(../../quickcross.pri)
 include(vendor/vendor.pri)

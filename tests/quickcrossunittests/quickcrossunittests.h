@@ -37,6 +37,8 @@ private Q_SLOTS:
 
     void imageProvider_tintcolor();
 
+    void imageProvider_clip();
+
     void mainThreadRunner();
 
     void imageReader();

@@ -330,6 +330,42 @@ void QuickCrossUnitTests::imageProvider_tintcolor()
 
 }
 
+void QuickCrossUnitTests::imageProvider_clip()
+{
+    QScopedPointer<QCImageLoader> loader(new QCImageLoader());
+    QCImagePool* pool = QCImagePool::instance();
+
+    // Clear loaded images
+    pool->clear();
+    loader->load(QString(SRCDIR) + "img");
+    loader->waitForLoaded();
+
+    QQmlApplicationEngine engine;
+
+    engine.addImageProvider("custom", new QCImageProvider());
+
+    Automator automator(&engine);
+
+    QString source = QString(SRCDIR) + "/qml/imageProvider_clip.qml";
+
+    engine.load(QUrl::fromLocalFile(source));
+
+    QObject *image1 = automator.findObject("image1");
+    QVERIFY(image1);
+
+    QSize size = image1->property("sourceSize").value<QSize>();
+    QVERIFY(size == QSize(190,200));
+
+    TestRunner* runner = TestRunner::defautInstance();
+    int waitTime = runner->config()["waitTime"].toInt();
+
+    Automator::wait(waitTime);
+
+    QVERIFY(!automator.anyError());
+
+
+}
+
 void QuickCrossUnitTests::mainThreadRunner()
 {
     QCMainThreadRunner::prepare();
