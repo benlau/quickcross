@@ -18,9 +18,11 @@ static QString removeSuffix(const QString& fileName) {
 /*! \class QCImagePool
     \inmodule QuickCross
 
-    QCImagePool is a singleton component for holding images data.
+    QCImagePool is a singleton component for holding image data.
 
-    The images loaded by QCImageLoader will be saved in this component, and allow to be read by QCImageProvider.
+    You may insert images to this object manually, or uses QCImageLoader to load a batch of images from a folder.
+
+    Then the load images can be used by component like QCImageProvider.
 
     All the functions within QCImagePool are thread safe.
  */
@@ -89,7 +91,7 @@ QImage QCImagePool::image(const QString &key) const
     return res;
 }
 
-/*! void QCImagePool::insert(const QString &key, const QImage &image)
+/*! \fn void QCImagePool::insert(const QString &key, const QImage &image)
 
   Insert the image with key into the image pool.
 
@@ -101,6 +103,11 @@ void QCImagePool::insert(const QString &key, const QImage &image)
 
     m_images[key] = image;
 }
+
+/*! \fn QCImagePool *QCImagePool::instance()
+
+  Returns the global QCImagePool instance.
+ */
 
 QCImagePool *QCImagePool::instance()
 {
@@ -114,6 +121,12 @@ QCImagePool *QCImagePool::instance()
 
     return m_instance;
 }
+
+
+/*! \fn QString QCImagePool::normalizeKey(const QString &key)
+
+  Remove suffix and convert to lowercase.
+ */
 
 QString QCImagePool::normalizeKey(const QString &key)
 {
