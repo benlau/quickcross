@@ -10,7 +10,7 @@ before_install:
     - apt-cache search qt5
     - sudo apt-get install --force-yes -qq qt55quickcontrols  qt55declarative qt55script qt55graphicaleffects qpm
     - sh -e /etc/init.d/xvfb start
-
+    - openssl aes-256-cbc -K $encrypted_33bab58a9e7d_key -iv $encrypted_33bab58a9e7d_iv -in .travis/deploy_key.enc -out .travis/deploy_key -d
 script:
     - source /opt/qt55/bin/qt55-env.sh
     - cd tests/quickcrossunittests
@@ -19,4 +19,8 @@ script:
     - make
     - ls
     - ./tst_quickcrossunittests
+    - cd ../../
+    - eval `ssh-agent -s`
+    - ssh-add .travis/deploy_key
+    - bash .travis/deploy_pages.sh
 
