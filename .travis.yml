@@ -25,5 +25,7 @@ script:
     - eval `ssh-agent -s`
     - ssh-add .travis/deploy_key
     - export QT_DOCS_STYLE=/opt/qt55/doc/global/html/style/offline.css
+    - git config --global user.email "xbenlau@gmail.com"
+    - git config --global user.name "Ben Lau"
     - bash .travis/deploy_pages.sh
 
