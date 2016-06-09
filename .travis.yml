@@ -4,7 +4,7 @@ env:
 compiler:
   - gcc
 before_install:
-    - export PATH=$PWD/.travis
+    - export PATH=$PWD/.travis:$PATH
     - sudo add-apt-repository --yes "deb http://download.opensuse.org/repositories/home:/benlau/xUbuntu_15.10 ./"
     - sudo apt-get update -qq
     - sudo apt-get install --force-yes -qq qpm
