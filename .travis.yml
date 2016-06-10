@@ -15,7 +15,7 @@ before_install:
 
 script:
     - source qt-5.5.1.env
-    - export QT_DOCS_STYLE=$PWD/Qt/global/template/style/offline.css
+    - export QT_DOCS_STYLE=$PWD/Qt/Docs/Qt-5.5/global/template/style/offline.css
     - cd tests/quickcrossunittests
     - qpm install
     - qmake
