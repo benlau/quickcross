@@ -188,6 +188,8 @@ static QImage process(const QCImageProviderQueryID& query, QImage image, qreal d
 
     3.2. scaleToFitDpi - Scale up / down the source image to fit current DPI
 
+    3.3. clip - Returns a sub-area of the source image
+
 Example:
 
 \code
