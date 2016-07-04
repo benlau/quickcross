@@ -66,39 +66,34 @@ static QObject *standardPathsProvider(QQmlEngine *engine, QJSEngine *scriptEngin
     return object;
 }
 
-class QCQmlTypes {
+static void registerQmlTypes() {
+    qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
+                                       "Device", deviceProvider);
 
-public:
-    QCQmlTypes() {
+    qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
+                                       "StandardPaths", standardPathsProvider);
 
-        qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
-                                           "Device", deviceProvider);
+    qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
+                                       "Rect", rectProvider);
 
-        qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
-                                           "StandardPaths", standardPathsProvider);
+    qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
+                                       "Line", provider<QCLine> );
 
-        qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
-                                           "Rect", rectProvider);
+    qmlRegisterType<QCImageLoader>("QuickCross", 1, 0, "ImageLoader");
 
-        qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
-                                           "Line", provider<QCLine> );
+    qmlRegisterType<QCImageReader>("QuickCross", 1, 0, "ImageReader");
 
-        qmlRegisterType<QCImageLoader>("QuickCross", 1, 0, "ImageLoader");
+    qmlRegisterType<QCJsonReader>("QuickCross", 1, 0, "JsonReader");
 
-        qmlRegisterType<QCImageReader>("QuickCross", 1, 0, "ImageReader");
+    qmlRegisterSingletonType<QCEasingCurve>("QuickCross", 1, 0,
+                                       "EasingCurve", providerWithEngine<QCEasingCurve> );
 
-        qmlRegisterType<QCJsonReader>("QuickCross", 1, 0, "JsonReader");
+    qmlRegisterSingletonType<QCRefresher>("QuickCross", 1, 0,
+                                       "Refresher", provider<QCRefresher> );
 
-        qmlRegisterSingletonType<QCEasingCurve>("QuickCross", 1, 0,
-                                           "EasingCurve", providerWithEngine<QCEasingCurve> );
+    qmlRegisterSingletonType<QCTime>("QuickCross", 1, 0,
+                                       "Time", providerWithEngine<QCTime>);
 
-        qmlRegisterSingletonType<QCRefresher>("QuickCross", 1, 0,
-                                           "Refresher", provider<QCRefresher> );
+}
 
-        qmlRegisterSingletonType<QCTime>("QuickCross", 1, 0,
-                                           "Time", providerWithEngine<QCTime>);
-
-    }
-};
-
-static QCQmlTypes registerHelper;
+Q_COREAPP_STARTUP_FUNCTION(registerQmlTypes)
