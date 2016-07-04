@@ -202,8 +202,6 @@ void QCImageReader::fetch()
         }
     };
 
-    QCMainThreadRunner::prepare();
-
     Runnable* runnable = new Runnable();
     runnable->setAutoDelete(false);
     runnable->owner = this;
@@ -266,8 +264,6 @@ void QCImageReader::read()
             delete runnable;
         }
     };
-
-    QCMainThreadRunner::prepare();
 
     Runnable* runnable = new Runnable();
     runnable->setAutoDelete(false);

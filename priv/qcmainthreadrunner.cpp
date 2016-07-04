@@ -19,11 +19,6 @@ QCMainThreadRunner *QCMainThreadRunner::instance()
     return m_instance;
 }
 
-void QCMainThreadRunner::prepare()
-{
-    instance();
-}
-
 void QCMainThreadRunner::start(QCMainThreadRunner::Callback func, void *data)
 {
     QVariant f = QVariant::fromValue<void*>((void*) func );
@@ -41,3 +36,16 @@ void QCMainThreadRunner::run(QVariant func, QVariant data)
 
     f(d);
 }
+
+class QCMainThreadRunnerPriv : public QCMainThreadRunner {
+public:
+    static void instance() {
+        QCMainThreadRunner::instance();
+    }
+};
+
+static void preload() {
+    QCMainThreadRunnerPriv::instance();
+}
+
+Q_COREAPP_STARTUP_FUNCTION(preload)

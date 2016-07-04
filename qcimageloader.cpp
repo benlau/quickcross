@@ -114,7 +114,6 @@ void QCImageLoader::load(QString path)
         path = QString(":") + url.path();
     }
 
-    QCMainThreadRunner::prepare();
     Runnable *runnable = new Runnable();
     runnable->setAutoDelete(false);
     runnable->owner = this;

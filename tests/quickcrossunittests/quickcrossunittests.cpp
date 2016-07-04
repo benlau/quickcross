@@ -368,7 +368,6 @@ void QuickCrossUnitTests::imageProvider_clip()
 
 void QuickCrossUnitTests::mainThreadRunner()
 {
-    QCMainThreadRunner::prepare();
 
     static bool success = false;
 
