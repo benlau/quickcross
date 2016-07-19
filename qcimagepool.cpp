@@ -132,3 +132,10 @@ QString QCImagePool::normalizeKey(const QString &key)
 {
     return removeSuffix(key).toLower();
 }
+
+static void preload() {
+    QCImagePool::instance();
+}
+
+Q_COREAPP_STARTUP_FUNCTION(preload)
+
