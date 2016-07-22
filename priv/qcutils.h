@@ -27,6 +27,8 @@ public:
     static QString basename(const QString& path);
 
     static QStringList find(const QString& path, const QStringList& nameFilters = QStringList());
+
+    static bool rmdir(const QString& path, bool recursive = false);
 };
 
 #endif // QCUTILS_H

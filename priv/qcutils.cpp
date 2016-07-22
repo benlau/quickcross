@@ -1,6 +1,7 @@
 #include <QtCore>
 #include <QUrl>
 #include <QQmlComponent>
+#include <QStandardPaths>
 #include "qcutils.h"
 
 static bool match(const QString&fileName,const QStringList &nameFilters) {
@@ -16,6 +17,20 @@ static bool match(const QString&fileName,const QStringList &nameFilters) {
     }
 
     return res;
+}
+
+/// Take out "." and ".." files
+static QStringList filterLocalFiles(const QStringList& files) {
+    QStringList result;
+    for (int i = 0 ; i < files.size() ; i++) {
+        QString file = files[i];
+        if (file == "." || file == "..") {
+            continue;
+        }
+        result << file;
+    }
+
+    return result;
 }
 
 bool QCUtils::isImageProviderUrl(const QString &url)
@@ -190,4 +205,31 @@ QStringList QCUtils::find(const QString &root, const QStringList &nameFilters)
     }
 
     return result;
+}
+
+bool QCUtils::rmdir(const QString &path, bool recursive)
+{
+    QStringList preservePaths;
+    preservePaths << "/";
+
+    for (int i = QStandardPaths::DesktopLocation ;
+         i <= QStandardPaths::AppConfigLocation; i++) {
+        QStringList paths =  QStandardPaths::standardLocations((QStandardPaths::StandardLocation) i);
+        preservePaths.append(paths);
+    }
+
+    if (preservePaths.indexOf(path) >= 0) {
+        qWarning() <<  "rmdir() - It can't remove preserve paths";
+        return false;
+    }
+
+    QDir dir(path);
+
+    if (!recursive) {
+        QStringList entry = filterLocalFiles(dir.entryList());
+        if (entry.size() > 0) {
+            return false;
+        }
+    }
+    return dir.removeRecursively();
 }
