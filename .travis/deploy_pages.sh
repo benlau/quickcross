@@ -13,6 +13,7 @@ REPO=$(git config remote.origin.url)
 # go to the out directory and create a *new* Git repo
 cd build 
 cp -a ../docs/html/* .
+rm *.index
 git init
 
 # The first and only commit to this new Git repo contains all the

@@ -1,6 +1,6 @@
-project = QuickAndroid
+project = QuickCross
 url = https://github.com/benlau/quickcross
-description = Qt's Material Design and Support Library for Android
+description = Cross Platform Utility Library 
 sourcedirs = ./
 sourcedirs += ../
 headerdirs += ../
