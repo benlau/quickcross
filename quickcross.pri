@@ -29,7 +29,6 @@ SOURCES += \
     $$PWD/qcline.cpp \
     $$PWD/qcimageloader.cpp \
     $$PWD/qcimageprovider.cpp \
-    $$PWD/priv/qcmainthreadrunner.cpp \
     $$PWD/qcimagereader.cpp \
     $$PWD/priv/qcutils.cpp \
     $$PWD/qcjsonreader.cpp \

@@ -2,6 +2,7 @@
 #include <QtCore>
 #include <QTest>
 #include <QImageReader>
+#include <QtConcurrent>
 #include "QCImagePool"
 #include "testrunner.h"
 #include "qcdevice.h"
@@ -407,7 +408,7 @@ void QuickCrossUnitTests::mainThreadRunner()
     class Runnable : public QRunnable {
     public:
         virtual void run() {
-            QCMainThreadRunner::start(Inner::test, 0);
+            QCMainThreadRunner::start(Inner::test, (void*) 0);
         }
     };
 
@@ -417,6 +418,33 @@ void QuickCrossUnitTests::mainThreadRunner()
 
     Automator::wait(100);
     QVERIFY(success);
+
+    /* lambda function */
+    success = false;
+
+    auto callback = [&] {
+        success = QThread::currentThread() == QCoreApplication::instance()->thread();
+    };
+
+    auto func = [=]() {
+        QCMainThreadRunner::start(callback);
+    };
+
+    QtConcurrent::run(func);
+
+    Automator::wait(100);
+    QVERIFY(success);
+
+    success = false;
+
+    // Call the function on main thread. Make sure it has
+    QCMainThreadRunner::start(callback);
+    QVERIFY(!success);
+    Automator::wait(10);
+    QVERIFY(success);
+
+
+
 }
 
 void QuickCrossUnitTests::imageReader()

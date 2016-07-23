@@ -3,31 +3,41 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QEVent>
+#include <QCoreApplication>
 
-class QCMainThreadRunner : public QObject
+class QCMainThreadRunner
 {
-    Q_OBJECT
+
 public:
 
-    typedef void (*Callback)(void* data);
+    /// Run a function on main thread. If it is already in main thread, it will be executed in next tick.
+    template <typename F>
+    static void start(F func) {
+        QObject tmp;
+        QObject::connect(&tmp, &QObject::destroyed, QCoreApplication::instance(), std::move(func), Qt::QueuedConnection);
+    }
 
     /// Run a function with custom data on main thread. If it is already in main thread, it will be executed in next tick.
-    /** @threadsafe
-     */
-    static void start(Callback func, void* data);
+    template <typename F,typename P1>
+    static void start(F func,P1 p1) {
+        auto wrapper = [=]() -> void{
+            func(p1);
+        };
 
-signals:
+        QObject tmp;
+        QObject::connect(&tmp, &QObject::destroyed, QCoreApplication::instance(), std::move(wrapper), Qt::QueuedConnection);
+    }
 
-public slots:
+    template <typename F,typename P1, typename P2>
+    static void start(F func,P1 p1, P2 p2) {
+        auto wrapper = [=]() -> void{
+            func(p1, p2);
+        };
 
-private slots:
-    void run(QVariant func, QVariant data);
-
-protected:
-    static QCMainThreadRunner* instance();
-
-private:
-    explicit QCMainThreadRunner(QObject *parent = 0);
+        QObject tmp;
+        QObject::connect(&tmp, &QObject::destroyed, QCoreApplication::instance(), std::move(wrapper), Qt::QueuedConnection);
+    }
 };
 
 #endif // QCMAINTHREADRUNNER_H

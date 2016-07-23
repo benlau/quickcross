@@ -1,4 +1,4 @@
-QT       += testlib qml qmltest
+QT       += testlib qml qmltest concurrent
 
 QT       -= gui
 
