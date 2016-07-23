@@ -2,8 +2,6 @@
 #define QCMAINTHREADRUNNER_H
 
 #include <QObject>
-#include <QVariant>
-#include <QEVent>
 #include <QCoreApplication>
 
 class QCMainThreadRunner
