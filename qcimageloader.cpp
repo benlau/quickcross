@@ -14,6 +14,7 @@
 #include <QtCore>
 #include <QQueue>
 #include <QEventLoop>
+#include <QtConcurrent>
 #include "QCImagePool"
 #include "qcimageloader.h"
 #include "priv/qcmainthreadrunner.h"
@@ -53,77 +54,65 @@ QCImageLoader::QCImageLoader(QObject *parent) : QObject(parent)
 
  */
 
-void QCImageLoader::load(QString path)
+void QCImageLoader::load(const QString &path)
 {
-    class Runnable : public QRunnable {
-    public:
-        QPointer<QCImageLoader> owner;
-        QString root;
-        qreal devicePixelRatio;
+    QPointer<QCImageLoader> thiz = this;
+    qreal devicePixelRatio = qobject_cast<QGuiApplication*>(QGuiApplication::instance())->devicePixelRatio();
+    QString root = path;
 
-        void run() {
-            QStringList filters;
-            QQueue<QString> queue;
-
-            queue.enqueue(root);
-            filters << "*.png" << "*.jpg";
-
-            while (queue.size() > 0) {
-                //@TODO - Load sub-folder
-                QString current = queue.dequeue();
-                QDir dir(current);
-                QFileInfoList infos = dir.entryInfoList(filters,QDir::Files);
-                QStringList files = convert(infos);
-
-                files = qcImageLoaderFilter(files, devicePixelRatio);
-
-                for (int i = 0 ; i < files.size();i++) {
-                    QImageReader reader;
-                    reader.setFileName(files.at(i));
-
-                    QImage image = reader.read();
-
-                    if (image.isNull()) {
-                        qWarning() << reader.errorString();
-                    } else {
-                        qreal devicePixelRatio = 1;
-                        QString key = qcImageLoaderDecodeFileName(files.at(i), &devicePixelRatio);
-                        key.remove(0,root.size() + 1);
-                        image.setDevicePixelRatio(devicePixelRatio);
-                        QCImagePool::instance()->insert(QCImagePool::normalizeKey(key), image);
-                    }
-                }
-            }
-
-            QCMainThreadRunner::start(Runnable::cleanup, this);
-        }
-
-        static void cleanup(void *data) {
-            Runnable* runnable = (Runnable*) data;
-
-            if (!runnable->owner.isNull()) {
-                QMetaObject::invokeMethod(runnable->owner.data(), "onFinished", Qt::DirectConnection);
-            }
-
-            delete runnable;
-        }
-    };
-
-    QUrl url(path);
+    QUrl url(root);
     if (url.scheme() == "qrc") {
-        path = QString(":") + url.path();
+        root = QString(":") + url.path();
     }
 
-    Runnable *runnable = new Runnable();
-    runnable->setAutoDelete(false);
-    runnable->owner = this;
-    runnable->root = path;
-    runnable->devicePixelRatio = qobject_cast<QGuiApplication*>(QGuiApplication::instance())->devicePixelRatio();
+    auto func = [=] {
 
-    QThreadPool* pool = QThreadPool::globalInstance();
-    pool->start(runnable);
+        QStringList filters;
+
+        QQueue<QString> queue;
+
+        queue.enqueue(root);
+        filters << "*.png" << "*.jpg";
+
+        while (queue.size() > 0) {
+            //@TODO - Load sub-folder
+            QString current = queue.dequeue();
+            QDir dir(current);
+            QFileInfoList infos = dir.entryInfoList(filters,QDir::Files);
+            QStringList files = convert(infos);
+
+            files = qcImageLoaderFilter(files, devicePixelRatio);
+
+            for (int i = 0 ; i < files.size();i++) {
+                QImageReader reader;
+                reader.setFileName(files.at(i));
+
+                QImage image = reader.read();
+
+                if (image.isNull()) {
+                    qWarning() << reader.errorString();
+                } else {
+                    qreal devicePixelRatio = 1;
+                    QString key = qcImageLoaderDecodeFileName(files.at(i), &devicePixelRatio);
+                    key.remove(0,root.size() + 1);
+                    image.setDevicePixelRatio(devicePixelRatio);
+                    QCImagePool::instance()->insert(QCImagePool::normalizeKey(key), image);
+                }
+            }
+        }
+
+        QCMainThreadRunner::start([=](){
+            if (thiz.isNull()) {
+                return;
+            }
+            QMetaObject::invokeMethod(thiz.data(), "onFinished", Qt::DirectConnection);
+        });
+    };
+
     m_pending++;
     updateRunning();
+
+    QtConcurrent::run(func);
 }
 
 /*! \property QCImageLoader::running

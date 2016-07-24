@@ -29,6 +29,7 @@ static QString qcImageLoaderDecodeFileName(const QString &input , qreal* ratio) 
     return normalizedFileName;
 }
 
+/// Given a set of image files. choose the best resolution according to current ratio
 static QStringList qcImageLoaderFilter(const QStringList& files, qreal ratio) {
     QStringList result;
 

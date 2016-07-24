@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
 
-    QCImageLoader* loader = QCImageLoader::instance();
+    QCImageLoader loader;
 
-    loader->load("qrc:///img");
-    loader->waitForLoaded();
+    loader.load("qrc:///img");
+    loader.waitForLoaded();
 
     QQmlApplicationEngine engine;
     engine.addImageProvider("arts", new QCImageProvider());

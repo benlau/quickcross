@@ -1,5 +1,7 @@
 CONFIG += c++11
 
+QT += concurrent
+
 INCLUDEPATH += $$PWD
 
 HEADERS += \

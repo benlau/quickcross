@@ -39,7 +39,7 @@ signals:
 public slots:
 
     // Load an image from path
-    void load(QString path);
+    void load(const QString &path);
 
 
 private slots:
