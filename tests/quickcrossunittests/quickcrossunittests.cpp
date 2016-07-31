@@ -95,6 +95,22 @@ void QuickCrossUnitTests::utils()
 
     QVERIFY(QCUtils::rmdir(tmpPath,true));
     QVERIFY(!dir.exists());
+
+    /* touch */
+    QFileInfo info("tmp.txt");
+    if (info.exists()) {
+        QFile::remove("tmp.txt");
+    }
+
+    info = QFileInfo("tmp.txt");
+    QVERIFY(!info.exists());
+
+    QCUtils::touch("tmp.txt");
+
+    info = QFileInfo("tmp.txt");
+    QVERIFY(info.exists());
+
+    QCUtils::touch("tmp.txt");
 }
 
 void QuickCrossUnitTests::loader()

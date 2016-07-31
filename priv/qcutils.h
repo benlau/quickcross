@@ -29,6 +29,8 @@ public:
     static QStringList find(const QString& path, const QStringList& nameFilters = QStringList());
 
     static bool rmdir(const QString& path, bool recursive = false);
+
+    static void touch(const QString &path);
 };
 
 #endif // QCUTILS_H

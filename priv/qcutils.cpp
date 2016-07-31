@@ -2,6 +2,13 @@
 #include <QUrl>
 #include <QQmlComponent>
 #include <QStandardPaths>
+
+#ifdef WIN32
+#include <sys/utime.h>
+#else
+#include <utime.h>
+#endif
+
 #include "qcutils.h"
 
 static bool match(const QString&fileName,const QStringList &nameFilters) {
@@ -232,4 +239,25 @@ bool QCUtils::rmdir(const QString &path, bool recursive)
         }
     }
     return dir.removeRecursively();
+}
+
+void QCUtils::touch(const QString &path)
+{
+
+    QFileInfo info(path);
+
+    if (!info.exists()) {
+
+        QFile file(path);
+        if (!file.open(QIODevice::WriteOnly)) {
+            qWarning() << "Failed to create file:" << path;
+        }
+        file.close();
+
+    } else {
+
+        if (utime(path.toLocal8Bit().constData(), 0) == -1) {
+            qWarning() << "utimes failed:" << path;
+        }
+    }
 }
