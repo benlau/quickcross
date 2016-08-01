@@ -189,7 +189,7 @@ void QCImageReader::fetch()
                 }
             }
 
-            QCMainThreadRunner::start(Runnable::cleanup, this);
+            QCMainThreadRunner::run(Runnable::cleanup, this);
         }
 
         static void cleanup(void *data) {
@@ -252,7 +252,7 @@ void QCImageReader::read()
                 }
             }
 
-            QCMainThreadRunner::start(Runnable::cleanup, this);
+            QCMainThreadRunner::run(Runnable::cleanup, this);
         }
 
         static void cleanup(void *data) {

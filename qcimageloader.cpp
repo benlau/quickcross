@@ -101,7 +101,7 @@ void QCImageLoader::load(const QString &path)
             }
         }
 
-        QCMainThreadRunner::start([=](){
+        QCMainThreadRunner::run([=](){
             if (thiz.isNull()) {
                 return;
             }

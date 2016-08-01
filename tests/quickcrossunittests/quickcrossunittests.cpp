@@ -424,7 +424,7 @@ void QuickCrossUnitTests::mainThreadRunner()
     class Runnable : public QRunnable {
     public:
         virtual void run() {
-            QCMainThreadRunner::start(Inner::test, (void*) 0);
+            QCMainThreadRunner::run(Inner::test, (void*) 0);
         }
     };
 
@@ -443,7 +443,7 @@ void QuickCrossUnitTests::mainThreadRunner()
     };
 
     auto func = [=]() {
-        QCMainThreadRunner::start(callback);
+        QCMainThreadRunner::run(callback);
     };
 
     QtConcurrent::run(func);
@@ -454,7 +454,7 @@ void QuickCrossUnitTests::mainThreadRunner()
     success = false;
 
     // Call the function on main thread. Make sure it has
-    QCMainThreadRunner::start(callback);
+    QCMainThreadRunner::run(callback);
     QVERIFY(!success);
     Automator::wait(10);
     QVERIFY(success);
