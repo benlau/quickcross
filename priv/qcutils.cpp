@@ -40,6 +40,32 @@ static QStringList filterLocalFiles(const QStringList& files) {
     return result;
 }
 
+static QList<QFileInfo> filterLocalFiles(const QList<QFileInfo>& files) {
+    QList<QFileInfo> result;
+    for (int i = 0 ; i < files.size() ; i++) {
+        QFileInfo file = files[i];
+        if (file.fileName() == "." || file.fileName() == "..") {
+            continue;
+        }
+        result << file;
+    }
+
+    return result;
+}
+
+static QStringList preservedPaths() {
+    QStringList preservePaths;
+    preservePaths << "/";
+
+    for (int i = QStandardPaths::DesktopLocation ;
+         i <= QStandardPaths::AppConfigLocation; i++) {
+        QStringList paths =  QStandardPaths::standardLocations((QStandardPaths::StandardLocation) i);
+        preservePaths.append(paths);
+    }
+
+    return preservePaths;
+}
+
 bool QCUtils::isImageProviderUrl(const QString &url)
 {
     QUrl u(url);
@@ -144,8 +170,9 @@ QString QCUtils::dirname(const QString &path)
 {
     QFileInfo info(path);
     QString parent = info.absolutePath();
-    if (parent.isEmpty())
+    if (parent.isEmpty()) {
        parent = "/";
+    }
 
     // No tailing "/" for dirname command
 
@@ -216,14 +243,7 @@ QStringList QCUtils::find(const QString &root, const QStringList &nameFilters)
 
 bool QCUtils::rmdir(const QString &path, bool recursive)
 {
-    QStringList preservePaths;
-    preservePaths << "/";
-
-    for (int i = QStandardPaths::DesktopLocation ;
-         i <= QStandardPaths::AppConfigLocation; i++) {
-        QStringList paths =  QStandardPaths::standardLocations((QStandardPaths::StandardLocation) i);
-        preservePaths.append(paths);
-    }
+    QStringList preservePaths = preservedPaths();
 
     if (preservePaths.indexOf(path) >= 0) {
         qWarning() <<  "rmdir() - It can't remove preserve paths";
@@ -241,7 +261,7 @@ bool QCUtils::rmdir(const QString &path, bool recursive)
     return dir.removeRecursively();
 }
 
-void QCUtils::touch(const QString &path)
+bool QCUtils::touch(const QString &path)
 {
     bool res = true;
     QFileInfo info(path);
@@ -259,6 +279,39 @@ void QCUtils::touch(const QString &path)
 
         if (utime(path.toLocal8Bit().constData(), 0) == -1) {
             qWarning() << "utimes failed:" << path;
+            res = false;
+        }
+    }
+
+    return res;
+}
+
+// @TODO wildcard
+bool QCUtils::rm(const QString &file)
+{
+    bool res = true;
+    QString folder = dirname(file);
+    QString filter = basename(file);
+
+    QDir dir(folder);
+
+    QList<QFileInfo> files = dir.entryInfoList(QStringList() << filter);
+    files = filterLocalFiles(files);
+
+    if (files.size() == 0) {
+        qWarning() << QString("rm: %1: No such file or directory").arg(filter);
+        return false;
+    }
+
+    foreach (QFileInfo file, files) {
+        if (file.isDir()) {
+            qWarning() << QString("rm: %1: is a directory").arg(file.fileName());
+            res = false;
+            continue;
+        }
+
+        if (!QFile::remove(file.absoluteFilePath()) ) {
+            qWarning() << QString("rm: %1: can not remove the file").arg(file.fileName());
             res = false;
         }
     }

@@ -110,7 +110,14 @@ void QuickCrossUnitTests::utils()
     info = QFileInfo("tmp.txt");
     QVERIFY(info.exists());
 
-    QCUtils::touch("tmp.txt");
+    QVERIFY(QCUtils::touch("tmp.txt"));
+
+    /* rm */
+    QVERIFY(QCUtils::rm("tmp.txt"));
+
+    info = QFileInfo("tmp.txt");
+    QVERIFY(!info.exists());
+
 }
 
 void QuickCrossUnitTests::loader()
