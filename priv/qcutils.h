@@ -30,7 +30,7 @@ public:
 
     static bool rmdir(const QString& path, bool recursive = false);
 
-    static void touch(const QString &path);
+    static bool touch(const QString &path);
 };
 
 #endif // QCUTILS_H

@@ -243,7 +243,7 @@ bool QCUtils::rmdir(const QString &path, bool recursive)
 
 void QCUtils::touch(const QString &path)
 {
-
+    bool res = true;
     QFileInfo info(path);
 
     if (!info.exists()) {
@@ -251,6 +251,7 @@ void QCUtils::touch(const QString &path)
         QFile file(path);
         if (!file.open(QIODevice::WriteOnly)) {
             qWarning() << "Failed to create file:" << path;
+            res = false;
         }
         file.close();
 
@@ -258,6 +259,9 @@ void QCUtils::touch(const QString &path)
 
         if (utime(path.toLocal8Bit().constData(), 0) == -1) {
             qWarning() << "utimes failed:" << path;
+            res = false;
         }
     }
+
+    return res;
 }
