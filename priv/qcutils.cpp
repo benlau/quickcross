@@ -286,7 +286,6 @@ bool QCUtils::touch(const QString &path)
     return res;
 }
 
-// @TODO wildcard
 bool QCUtils::rm(const QString &file)
 {
     bool res = true;
