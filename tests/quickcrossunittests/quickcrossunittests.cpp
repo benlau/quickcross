@@ -466,8 +466,17 @@ void QuickCrossUnitTests::mainThreadRunner()
     Automator::wait(10);
     QVERIFY(success);
 
+    /* QCMainThreadRunner */
 
-
+    success = false;
+    QFuture<void> future = QtConcurrent::run([&]() {
+        QCMainThreadRunner::blockingRun([&]() {
+            success = QThread::currentThread() == QCoreApplication::instance()->thread();
+        });
+    });
+    QVERIFY(!success);
+    future.waitForFinished();
+    QVERIFY(success);
 }
 
 void QuickCrossUnitTests::imageReader()
