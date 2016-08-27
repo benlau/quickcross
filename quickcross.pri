@@ -11,7 +11,7 @@ HEADERS += \
     $$PWD/qcline.h \
     $$PWD/qcimageloader.h \
     $$PWD/qcimageprovider.h \
-    $$PWD/priv/qcmainthreadrunner.h \
+    $$PWD/qcmainthreadrunner.h \
     $$PWD/qcimagereader.h \
     $$PWD/priv/qcutils.h \
     $$PWD/qcjsonreader.h \
@@ -20,10 +20,11 @@ HEADERS += \
     $$PWD/qcrefresher.h \
     $$PWD/priv/qcimageloader_p.h \
     $$PWD/qctime.h \
+    $$PWD/qcimagepool.h \
     $$PWD/QCImageLoader \
     $$PWD/QCImageProvider \
-    $$PWD/qcimagepool.h \
-    $$PWD/QCImagePool
+    $$PWD/QCImagePool \
+    $$PWD/QCMainThreadRunner
 
 SOURCES += \
     $$PWD/qcdevice.cpp \

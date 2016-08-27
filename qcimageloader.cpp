@@ -17,8 +17,8 @@
 #include <QtConcurrent>
 #include "QCImagePool"
 #include "qcimageloader.h"
-#include "priv/qcmainthreadrunner.h"
 #include "priv/qcimageloader_p.h"
+#include "QCMainThreadRunner"
 
 static QStringList convert(QFileInfoList &input) {
     QStringList res;

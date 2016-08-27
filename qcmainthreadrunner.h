@@ -1,5 +1,4 @@
-#ifndef QCMAINTHREADRUNNER_H
-#define QCMAINTHREADRUNNER_H
+#pragma once
 
 #include <QObject>
 #include <QCoreApplication>
@@ -60,5 +59,3 @@ public:
         delete loop;
     }
 };
-
-#endif // QCMAINTHREADRUNNER_H

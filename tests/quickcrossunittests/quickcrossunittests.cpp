@@ -11,9 +11,9 @@
 #include "automator.h"
 #include "qcimageprovider.h"
 #include "qcimagereader.h"
-#include "priv/qcmainthreadrunner.h"
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
+#include "QCMainThreadRunner"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {

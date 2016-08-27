@@ -11,9 +11,9 @@
 #include <QImageReader>
 #include <QtQml>
 #include <QQuickImageProvider>
-#include "priv/qcmainthreadrunner.h"
 #include "priv/qcutils.h"
 #include "qcimagereader.h"
+#include "QCMainThreadRunner"
 
 /*!
  * \qmltype ImageReader
