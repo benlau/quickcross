@@ -43,6 +43,8 @@ private Q_SLOTS:
 
     void imageReader();
 
+    void refresher();
+
 private:
     QList<QQmlError> warnings;
 };

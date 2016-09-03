@@ -18,10 +18,13 @@ public:
     void setFrameRate(int frameRate);
 
 public slots:
+    void requestRefresh();
 
     void markDirty(QObject* object);
 
 signals:
+    void refresh();
+
     void frameRateChanged();
 
 protected:

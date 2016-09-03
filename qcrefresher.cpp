@@ -19,21 +19,7 @@ void QCRefresher::markDirty(QObject *object)
     list << object;
     dirtyObjects[object] = true;
 
-    if (m_pending) {
-        return;
-    }
-
-    m_pending = true;
-    int elapsed = timer.elapsed();
-
-    int next = elapsed % m_interval;
-
-    if (next == 0 && lastElapsedTimerEvent == elapsed) {
-        // Condition: Mark a item dirty just after executed the refresh function.
-        next = m_interval - 1;
-    }
-
-    startTimer(next);
+    requestRefresh();
 }
 
 void QCRefresher::timerEvent(QTimerEvent *event)
@@ -53,6 +39,8 @@ void QCRefresher::timerEvent(QTimerEvent *event)
         }
     }
 
+    emit refresh();
+
 }
 
 int QCRefresher::frameRate() const
@@ -70,4 +58,24 @@ void QCRefresher::setFrameRate(int frameRate)
     m_frameRate = frameRate;
     m_interval = 1000 / m_frameRate;
     emit frameRateChanged();
+}
+
+void QCRefresher::requestRefresh()
+{
+
+    if (m_pending) {
+        return;
+    }
+
+    m_pending = true;
+    int elapsed = timer.elapsed();
+
+    int next = elapsed % m_interval;
+
+    if (next == 0 && lastElapsedTimerEvent == elapsed) {
+        // Condition: Mark a item dirty just after executed the refresh function.
+        next = m_interval - 1;
+    }
+
+    startTimer(next);
 }

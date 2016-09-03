@@ -14,6 +14,7 @@
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
 #include "QCMainThreadRunner"
+#include "qcrefresher.h"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -460,13 +461,13 @@ void QuickCrossUnitTests::mainThreadRunner()
 
     success = false;
 
-    // Call the function on main thread. Make sure it has
+    // Call the function on main thread. It won't run immediately.
     QCMainThreadRunner::run(callback);
     QVERIFY(!success);
     Automator::wait(10);
     QVERIFY(success);
 
-    /* QCMainThreadRunner */
+    /* blockingRun */
 
     success = false;
     QFuture<void> future = QtConcurrent::run([&]() {
@@ -561,4 +562,25 @@ void QuickCrossUnitTests::imageReader()
     QVERIFY(reader1->size() == QSize(381,500));
 
     Q_ASSERT(warnings.size() == 0);
+}
+
+void QuickCrossUnitTests::refresher()
+{
+    QCRefresher refresher;
+    int count = 0;
+
+    connect(&refresher,&QCRefresher::refresh, [&]{
+        count++;
+    });
+    refresher.requestRefresh();
+    refresher.requestRefresh();
+    QCOMPARE(count, 0);
+    Automator::wait(1000);
+    QCOMPARE(count, 1);
+
+    refresher.requestRefresh();
+    QCOMPARE(count, 1);
+
+    Automator::wait(1000);
+    QCOMPARE(count, 2);
 }
