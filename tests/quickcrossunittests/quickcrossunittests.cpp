@@ -14,7 +14,7 @@
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
 #include "QCMainThreadRunner"
-#include "qcrefresher.h"
+#include "QCRefresher"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {

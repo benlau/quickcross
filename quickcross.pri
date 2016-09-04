@@ -24,7 +24,8 @@ HEADERS += \
     $$PWD/QCImageLoader \
     $$PWD/QCImageProvider \
     $$PWD/QCImagePool \
-    $$PWD/QCMainThreadRunner
+    $$PWD/QCMainThreadRunner \
+    $$PWD/QCRefresher
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
