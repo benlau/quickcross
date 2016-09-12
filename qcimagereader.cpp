@@ -58,7 +58,7 @@
 
   */
 
-static QImage readFromImageProvider(QQmlEngine* engine, const QString source) {
+QImage QCImageReader::readFromImageProvider(QQmlEngine* engine, const QString source) {
     QImage res;
     QSize readSize;
     QSize requestSize;
@@ -353,6 +353,11 @@ void QCImageReader::setImage(const QImage &image)
     if (image.size() != m_size) {
         setSize(image.size());
     }
+}
+
+bool QCImageReader::isImageProviderUrl(const QString &source)
+{
+    return QCUtils::isImageProviderUrl(source);
 }
 
 /*! \qmlproperty url ImageReader::source

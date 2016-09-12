@@ -46,7 +46,13 @@ public:
     void setSource(const QString &source);
 
     QImage image() const;
+
     void setImage(const QImage &image);
+
+    static bool isImageProviderUrl(const QString& source);
+
+    // Read image from image provider.
+    static QImage readFromImageProvider(QQmlEngine* engine, const QString source);
 
 public slots:
 
