@@ -59,12 +59,13 @@ public:
         delete loop;
     }
 
-    template <typename T, typename F>
-    static T blockingRunReturn(F func) {
+    template <typename F, typename ... Args>
+    static auto blockingRunReturn(F func, Args && ... args) -> decltype(func(std::forward<Args>(args)...)) {
         QEventLoop* loop = new QEventLoop();
-        T t;
+        decltype(func(std::forward<Args>(args)...)) t;
+
         auto wrapper = [&]() -> void {
-            t = func();
+            t = func(std::forward<Args>(args)...);
 
             QObject emitter2;
             QObject::connect(&emitter2, &QObject::destroyed,

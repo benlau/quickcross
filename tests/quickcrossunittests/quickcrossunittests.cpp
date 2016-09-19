@@ -16,6 +16,28 @@
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
 
+void waitForFinished(QFuture<void> future) {
+    QFutureWatcher<void> watcher;
+    watcher.setFuture(future);
+
+    QEventLoop loop;
+    QObject::connect(&watcher, SIGNAL(finished()), &loop, SLOT(quit()));
+
+    loop.exec();
+}
+
+template <typename T>
+static T waitForFinished(QFuture<T> future) {
+    QFutureWatcher<T> watcher;
+    watcher.setFuture(future);
+
+    QEventLoop loop;
+    QObject::connect(&watcher, SIGNAL(finished()), &loop, SLOT(quit()));
+
+    loop.exec();
+    return future.result();
+}
+
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
 }
@@ -476,7 +498,7 @@ void QuickCrossUnitTests::mainThreadRunner()
         });
     });
     QVERIFY(!success);
-    future.waitForFinished();
+    waitForFinished(future);
     QVERIFY(success);
 
     /* blockingRunReturn */
@@ -485,14 +507,14 @@ void QuickCrossUnitTests::mainThreadRunner()
 
         QFuture<int> future = QtConcurrent::run([=]() {
 
-            return QCMainThreadRunner::blockingRunReturn<int>([]() {
+            return QCMainThreadRunner::blockingRunReturn([](int a) {
                 success = QThread::currentThread() == QCoreApplication::instance()->thread();
 
-                return 9;
-            });
+                return a * a;
+            },3);
         });
 
-        future.waitForFinished();
+        waitForFinished(future);
         QCOMPARE(future.result(), 9);
         QVERIFY(success);
     }
