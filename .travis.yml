@@ -14,6 +14,7 @@ before_install:
     - chmod 400 .travis/deploy_key
 
 script:
+    - set -e
     - source qt-5.5.1.env
     - export QT_DOCS_STYLE=$PWD/Qt/Docs/Qt-5.5/global/template/style/offline.css
     - cd tests/quickcrossunittests

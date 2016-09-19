@@ -507,11 +507,11 @@ void QuickCrossUnitTests::mainThreadRunner()
 
         QFuture<int> future = QtConcurrent::run([=]() {
 
-            return QCMainThreadRunner::blockingRunReturn([](int a) {
+            return QCMainThreadRunner::blockingRunReturn([]() {
                 success = QThread::currentThread() == QCoreApplication::instance()->thread();
 
-                return a * a;
-            },3);
+                return 9;
+            });
         });
 
         waitForFinished(future);

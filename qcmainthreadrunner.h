@@ -60,12 +60,12 @@ public:
     }
 
     template <typename F, typename ... Args>
-    static auto blockingRunReturn(F func, Args && ... args) -> decltype(func(std::forward<Args>(args)...)) {
+    static auto blockingRunReturn(F func) -> decltype(func()) {
         QEventLoop* loop = new QEventLoop();
-        decltype(func(std::forward<Args>(args)...)) t;
+        decltype(func()) t;
 
         auto wrapper = [&]() -> void {
-            t = func(std::forward<Args>(args)...);
+            t = func();
 
             QObject emitter2;
             QObject::connect(&emitter2, &QObject::destroyed,
