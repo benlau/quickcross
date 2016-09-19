@@ -4,6 +4,8 @@
 #include <QImageReader>
 #include <QtConcurrent>
 #include "QCImagePool"
+#include "QCMainThreadRunner"
+#include "QCRefresher"
 #include "testrunner.h"
 #include "qcdevice.h"
 #include "quickcrossunittests.h"
@@ -13,8 +15,6 @@
 #include "qcimagereader.h"
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
-#include "QCMainThreadRunner"
-#include "QCRefresher"
 
 QuickCrossUnitTests::QuickCrossUnitTests()
 {
@@ -478,6 +478,25 @@ void QuickCrossUnitTests::mainThreadRunner()
     QVERIFY(!success);
     future.waitForFinished();
     QVERIFY(success);
+
+    /* blockingRunReturn */
+    {
+        success = false;
+
+        QFuture<int> future = QtConcurrent::run([=]() {
+
+            return QCMainThreadRunner::blockingRunReturn<int>([]() {
+                success = QThread::currentThread() == QCoreApplication::instance()->thread();
+
+                return 9;
+            });
+        });
+
+        future.waitForFinished();
+        QCOMPARE(future.result(), 9);
+        QVERIFY(success);
+    }
+
 }
 
 void QuickCrossUnitTests::imageReader()

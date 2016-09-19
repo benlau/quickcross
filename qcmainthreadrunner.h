@@ -58,4 +58,28 @@ public:
         loop->exec();
         delete loop;
     }
+
+    template <typename T, typename F>
+    static T blockingRunReturn(F func) {
+        QEventLoop* loop = new QEventLoop();
+        T t;
+        auto wrapper = [&]() -> void {
+            t = func();
+
+            QObject emitter2;
+            QObject::connect(&emitter2, &QObject::destroyed,
+                             loop, &QEventLoop::quit, Qt::QueuedConnection);
+        };
+
+        QObject* emitter1 = new QObject();
+
+        QObject::connect(emitter1, &QObject::destroyed, QCoreApplication::instance(),
+                         std::move(wrapper), Qt::QueuedConnection);
+        delete emitter1;
+
+        loop->exec();
+        delete loop;
+
+        return t;
+    }
 };
