@@ -507,7 +507,7 @@ void QuickCrossUnitTests::mainThreadRunner()
 
         QFuture<int> future = QtConcurrent::run([=]() {
 
-            return QCMainThreadRunner::blockingRunReturn([]() {
+            return QCMainThreadRunner::blockingRunRet([]() {
                 success = QThread::currentThread() == QCoreApplication::instance()->thread();
 
                 return 9;

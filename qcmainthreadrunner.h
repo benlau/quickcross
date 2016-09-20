@@ -60,7 +60,7 @@ public:
     }
 
     template <typename F, typename ... Args>
-    static auto blockingRunReturn(F func) -> decltype(func()) {
+    static auto blockingRunRet(F func) -> decltype(func()) {
         QEventLoop* loop = new QEventLoop();
         decltype(func()) t;
 
