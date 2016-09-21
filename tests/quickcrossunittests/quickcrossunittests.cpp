@@ -519,6 +519,21 @@ void QuickCrossUnitTests::mainThreadRunner()
         QVERIFY(success);
     }
 
+    /* waitForFinished */
+    {
+        QThreadPool pool;
+        bool success = false;
+        QtConcurrent::run(&pool, [&]() {
+            Automator::wait(1000);
+            QCMainThreadRunner::blockingRun([&]() {
+                success = true;
+            });
+        });
+
+        // pool.waitForDone will hang on this case.
+        QCMainThreadRunner::waitForFinished(pool);
+    }
+
 }
 
 void QuickCrossUnitTests::imageReader()

@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QThreadPool>
 
 class QCMainThreadRunner
 {
@@ -83,4 +84,11 @@ public:
 
         return t;
     }
+
+    /// Wait until all threads to exit and removes all threads from this thread pool
+    /// Unlike QThreadPool::waitForDone(). It will process events from event loop while waiting.
+
+    static void waitForFinished(QThreadPool& pool);
+
 };
+

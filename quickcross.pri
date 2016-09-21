@@ -42,7 +42,8 @@ SOURCES += \
     $$PWD/qceasingcurve.cpp \
     $$PWD/qcrefresher.cpp \
     $$PWD/qctime.cpp \
-    $$PWD/qcimagepool.cpp
+    $$PWD/qcimagepool.cpp \
+    $$PWD/qcmainthreadrunner.cpp
 
 DISTFILES +=
 
