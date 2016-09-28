@@ -22,19 +22,7 @@ public:
 
     static QJSValue loadJavascript(QQmlEngine* engine, const QString& url, const QString &member);
 
-    /* Shell Style Utilities */
 
-    static QString dirname(const QString& path);
-
-    static QString basename(const QString& path);
-
-    static QStringList find(const QString& path, const QStringList& nameFilters = QStringList());
-
-    static bool rmdir(const QString& path, bool recursive = false);
-
-    static bool touch(const QString &path);
-
-    static bool rm(const QString& file);
 };
 
 #endif // QCUTILS_H

@@ -83,64 +83,6 @@ void QuickCrossUnitTests::utils()
 
     QVERIFY(!loader.isError());
     QVERIFY(loader.isCallable());
-
-    QVERIFY(QCUtils::find(".").size() > 0);
-    QVERIFY(QCUtils::find(QDir::current().path()).size() > 0);
-
-    QVERIFY(QCUtils::find("..").size() > 0);
-
-    QStringList files = QCUtils::find("..", QStringList() << "*.h");
-
-    QVERIFY(files.filter(QRegExp("*.h",Qt::CaseInsensitive,QRegExp::Wildcard)).size() == files.size());
-
-    /* rmdir */
-    QDir dir("tmp");
-    QString tmpPath = dir.absolutePath();;
-
-    if (dir.exists()) {
-        dir.removeRecursively();
-    }
-
-    dir.mkpath(tmpPath);
-
-    qDebug() << tmpPath;
-    QVERIFY(dir.exists());
-    QVERIFY(QCUtils::rmdir(tmpPath));
-    QVERIFY(!dir.exists());
-
-    dir.mkdir(tmpPath);
-    QFile file(tmpPath + "/files.txt");
-    file.open(QIODevice::WriteOnly);
-    file.close();
-
-    QVERIFY(!QCUtils::rmdir(tmpPath));
-    QVERIFY(dir.exists());
-
-    QVERIFY(QCUtils::rmdir(tmpPath,true));
-    QVERIFY(!dir.exists());
-
-    /* touch */
-    QFileInfo info("tmp.txt");
-    if (info.exists()) {
-        QFile::remove("tmp.txt");
-    }
-
-    info = QFileInfo("tmp.txt");
-    QVERIFY(!info.exists());
-
-    QCUtils::touch("tmp.txt");
-
-    info = QFileInfo("tmp.txt");
-    QVERIFY(info.exists());
-
-    QVERIFY(QCUtils::touch("tmp.txt"));
-
-    /* rm */
-    QVERIFY(QCUtils::rm("tmp.txt"));
-
-    info = QFileInfo("tmp.txt");
-    QVERIFY(!info.exists());
-
 }
 
 void QuickCrossUnitTests::loader()
