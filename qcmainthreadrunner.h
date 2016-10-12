@@ -90,5 +90,16 @@ public:
 
     static void waitForFinished(QThreadPool& pool);
 
+    QCMainThreadRunner();
+
 };
+
+template <typename F>
+const QCMainThreadRunner& operator<<(const QCMainThreadRunner& runner,F f) {
+    QCMainThreadRunner::blockingRun(f);
+    return runner;
+}
+
+#define MAIN_THREAD \
+    QCMainThreadRunner() << [&]()
 

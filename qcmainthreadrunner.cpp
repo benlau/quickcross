@@ -8,3 +8,9 @@ void QCMainThreadRunner::waitForFinished(QThreadPool &pool)
         loop.processEvents();
     }
 }
+
+QCMainThreadRunner::QCMainThreadRunner()
+{
+
+}
+

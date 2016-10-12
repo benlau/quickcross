@@ -476,6 +476,24 @@ void QuickCrossUnitTests::mainThreadRunner()
         QCMainThreadRunner::waitForFinished(pool);
     }
 
+    /* MAIN_THREAD Macro */
+    {
+        success = false;
+
+        QFuture<void> future = QtConcurrent::run([=]() {
+
+            MAIN_THREAD {
+                success = QThread::currentThread() == QCoreApplication::instance()->thread();
+            };
+
+            MAIN_THREAD {
+            };
+        });
+
+        waitForFinished(future);
+        QCOMPARE(success, true);
+    }
+
 }
 
 void QuickCrossUnitTests::imageReader()
