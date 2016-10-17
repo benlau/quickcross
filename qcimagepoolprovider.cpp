@@ -9,7 +9,7 @@
 #include <QUrlQuery>
 #include <QGuiApplication>
 #include <QPainter>
-#include "qcimageprovider.h"
+#include "qcimagepoolprovider.h"
 #include "qcimageloader.h"
 #include "QCImagePool"
 
@@ -226,7 +226,7 @@ engine.addImageProvider("custom", new QCImageProvider());
 
  */
 
-QCImageProvider::QCImageProvider() : QQuickImageProvider(QQmlImageProviderBase::Image)
+QCImagePoolProvider::QCImagePoolProvider() : QQuickImageProvider(QQmlImageProviderBase::Image)
 {
     m_cache.setMaxCost(1024 * 1024 * 10);
 
@@ -234,7 +234,7 @@ QCImageProvider::QCImageProvider() : QQuickImageProvider(QQmlImageProviderBase::
     devicePixelRatio = app->devicePixelRatio();
 }
 
-QImage QCImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
+QImage QCImagePoolProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
     Q_UNUSED(requestedSize);
 
@@ -268,12 +268,12 @@ QImage QCImageProvider::requestImage(const QString &id, QSize *size, const QSize
     return result;
 }
 
-int QCImageProvider::cacheSize() const
+int QCImagePoolProvider::cacheSize() const
 {
     return m_cache.maxCost();
 }
 
-void QCImageProvider::setCacheSize(int cacheSize)
+void QCImagePoolProvider::setCacheSize(int cacheSize)
 {
     m_cache.setMaxCost(cacheSize);
 }

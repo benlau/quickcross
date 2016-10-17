@@ -11,7 +11,7 @@
 #include "quickcrossunittests.h"
 #include "qcimageloader.h"
 #include "automator.h"
-#include "qcimageprovider.h"
+#include "qcimagepoolprovider.h"
 #include "qcimagereader.h"
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
@@ -266,7 +266,7 @@ void QuickCrossUnitTests::imageProvider()
 
     QQmlApplicationEngine engine;
 
-    engine.addImageProvider("custom", new QCImageProvider());
+    engine.addImageProvider("custom", new QCImagePoolProvider());
 
     connect(&engine,SIGNAL(warnings(QList<QQmlError>)),
             this,SLOT(onWarning(QList<QQmlError>)));
@@ -325,7 +325,7 @@ void QuickCrossUnitTests::imageProvider_tintcolor()
 
     QQmlApplicationEngine engine;
 
-    engine.addImageProvider("custom", new QCImageProvider());
+    engine.addImageProvider("custom", new QCImagePoolProvider());
 
     Automator automator(&engine);
 
@@ -356,7 +356,7 @@ void QuickCrossUnitTests::imageProvider_clip()
 
     QQmlApplicationEngine engine;
 
-    engine.addImageProvider("custom", new QCImageProvider());
+    engine.addImageProvider("custom", new QCImagePoolProvider());
 
     Automator automator(&engine);
 
@@ -510,7 +510,7 @@ void QuickCrossUnitTests::imageReader()
     QQmlApplicationEngine engine;
     Automator automator(&engine);
 
-    engine.addImageProvider("custom", new QCImageProvider());
+    engine.addImageProvider("custom", new QCImagePoolProvider());
 
     connect(&engine,SIGNAL(warnings(QList<QQmlError>)),
             this,SLOT(onWarning(QList<QQmlError>)));

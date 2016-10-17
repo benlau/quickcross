@@ -1,6 +1,3 @@
-#ifndef QCIMAGEPROVIDER_H
-#define QCIMAGEPROVIDER_H
-
 /* QuickCross Project
  * License: APACHE-2.0
  * Author: Ben Lau
@@ -8,14 +5,15 @@
  *
  */
 
+#pragma once
 #include <QQuickImageProvider>
 #include <QCache>
 #include <QMutex>
 
-class QCImageProvider : public QQuickImageProvider
+class QCImagePoolProvider : public QQuickImageProvider
 {
 public:
-    QCImageProvider();
+    QCImagePoolProvider();
 
     virtual QImage requestImage(const QString & id, QSize * size, const QSize & requestedSize);
 
@@ -31,4 +29,3 @@ private:
     QMutex mutex;
 };
 
-#endif // QCIMAGEPROVIDER_H

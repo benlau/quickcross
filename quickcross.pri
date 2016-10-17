@@ -10,7 +10,6 @@ HEADERS += \
     $$PWD/qcrect.h \
     $$PWD/qcline.h \
     $$PWD/qcimageloader.h \
-    $$PWD/qcimageprovider.h \
     $$PWD/qcmainthreadrunner.h \
     $$PWD/qcimagereader.h \
     $$PWD/priv/qcutils.h \
@@ -22,10 +21,11 @@ HEADERS += \
     $$PWD/qctime.h \
     $$PWD/qcimagepool.h \
     $$PWD/QCImageLoader \
-    $$PWD/QCImageProvider \
     $$PWD/QCImagePool \
     $$PWD/QCMainThreadRunner \
-    $$PWD/QCRefresher
+    $$PWD/QCRefresher \
+    $$PWD/qcimagepoolprovider.h \
+    $$PWD/QCImagePoolProvider
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
@@ -34,7 +34,6 @@ SOURCES += \
     $$PWD/qcrect.cpp \
     $$PWD/qcline.cpp \
     $$PWD/qcimageloader.cpp \
-    $$PWD/qcimageprovider.cpp \
     $$PWD/qcimagereader.cpp \
     $$PWD/priv/qcutils.cpp \
     $$PWD/qcjsonreader.cpp \
@@ -43,7 +42,8 @@ SOURCES += \
     $$PWD/qcrefresher.cpp \
     $$PWD/qctime.cpp \
     $$PWD/qcimagepool.cpp \
-    $$PWD/qcmainthreadrunner.cpp
+    $$PWD/qcmainthreadrunner.cpp \
+    $$PWD/qcimagepoolprovider.cpp
 
 DISTFILES +=
 
