@@ -14,12 +14,12 @@ class QCDevice : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString os READ os)
-    Q_PROPERTY(bool isAndroid READ isAndroid)
-    Q_PROPERTY(bool isLinux READ isLinux)
-    Q_PROPERTY(bool isMac READ isMac)
-    Q_PROPERTY(bool isIOS READ isIOS)
-    Q_PROPERTY(bool isWindows READ isWindows)
-    Q_PROPERTY(qreal dp READ dp)
+    Q_PROPERTY(bool isAndroid READ isAndroid NOTIFY neverEmitChanged)
+    Q_PROPERTY(bool isLinux READ isLinux NOTIFY neverEmitChanged)
+    Q_PROPERTY(bool isMac READ isMac NOTIFY neverEmitChanged)
+    Q_PROPERTY(bool isIOS READ isIOS NOTIFY neverEmitChanged)
+    Q_PROPERTY(bool isWindows READ isWindows NOTIFY neverEmitChanged)
+    Q_PROPERTY(qreal dp READ dp NOTIFY neverEmitChanged)
         
 public:
     explicit QCDevice(QObject *parent = 0);
@@ -39,6 +39,7 @@ public:
     qreal dp() const;
 
 signals:
+    void neverEmitChanged();
 
 public slots:
 };
