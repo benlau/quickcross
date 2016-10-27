@@ -40,47 +40,26 @@ public:
 
     template <typename F>
     static void blockingRun(F func) {
-        QEventLoop* loop = new QEventLoop();
-
-        auto wrapper = [=]() -> void {
-            func();
-
-            QObject emitter2;
-            QObject::connect(&emitter2, &QObject::destroyed,
-                             loop, &QEventLoop::quit, Qt::QueuedConnection);
-        };
-
         QObject* emitter1 = new QObject();
 
         QObject::connect(emitter1, &QObject::destroyed, QCoreApplication::instance(),
-                         std::move(wrapper), Qt::QueuedConnection);
+                         func, Qt::BlockingQueuedConnection);
         delete emitter1;
-
-        loop->exec();
-        delete loop;
     }
 
     template <typename F, typename ... Args>
     static auto blockingRunRet(F func) -> decltype(func()) {
-        QEventLoop* loop = new QEventLoop();
         decltype(func()) t;
 
         auto wrapper = [&]() -> void {
             t = func();
-
-            QObject emitter2;
-            QObject::connect(&emitter2, &QObject::destroyed,
-                             loop, &QEventLoop::quit, Qt::QueuedConnection);
         };
 
         QObject* emitter1 = new QObject();
 
         QObject::connect(emitter1, &QObject::destroyed, QCoreApplication::instance(),
-                         std::move(wrapper), Qt::QueuedConnection);
+                         wrapper, Qt::BlockingQueuedConnection);
         delete emitter1;
-
-        loop->exec();
-        delete loop;
 
         return t;
     }

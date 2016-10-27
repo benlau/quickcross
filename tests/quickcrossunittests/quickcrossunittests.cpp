@@ -383,13 +383,13 @@ void QuickCrossUnitTests::imageProvider_clip()
 void QuickCrossUnitTests::mainThreadRunner()
 {
 
-    static bool success = false;
+    static bool isRunInMainThread = false;
 
     class Inner {
     public:
         static void test(void* data) {
             Q_UNUSED(data);
-            success = QThread::currentThread() == QCoreApplication::instance()->thread();
+            isRunInMainThread = QThread::currentThread() == QCoreApplication::instance()->thread();
         }
     };
 
@@ -405,13 +405,13 @@ void QuickCrossUnitTests::mainThreadRunner()
     QThreadPool::globalInstance()->start(runnable);
 
     Automator::wait(100);
-    QVERIFY(success);
+    QVERIFY(isRunInMainThread);
 
     /* lambda function */
-    success = false;
+    isRunInMainThread = false;
 
     auto callback = [&] {
-        success = QThread::currentThread() == QCoreApplication::instance()->thread();
+        isRunInMainThread = QThread::currentThread() == QCoreApplication::instance()->thread();
     };
 
     auto func = [=]() {
@@ -421,36 +421,43 @@ void QuickCrossUnitTests::mainThreadRunner()
     QtConcurrent::run(func);
 
     Automator::wait(100);
-    QVERIFY(success);
+    QVERIFY(isRunInMainThread);
 
-    success = false;
+    isRunInMainThread = false;
 
     // Call the function on main thread. It won't run immediately.
     QCMainThreadRunner::run(callback);
-    QVERIFY(!success);
+    QVERIFY(!isRunInMainThread);
     Automator::wait(10);
-    QVERIFY(success);
+    QVERIFY(isRunInMainThread);
 
     /* blockingRun */
-
-    success = false;
-    QFuture<void> future = QtConcurrent::run([&]() {
-        QCMainThreadRunner::blockingRun([&]() {
-            success = QThread::currentThread() == QCoreApplication::instance()->thread();
+    {
+        isRunInMainThread = false;
+        QList<int> seq, expectedSeq;
+        expectedSeq << 1 << 2 << 3;
+        QFuture<void> future = QtConcurrent::run([&]() {
+            seq << 1;
+            QCMainThreadRunner::blockingRun([&]() {
+                seq << 2;
+                isRunInMainThread = QThread::currentThread() == QCoreApplication::instance()->thread();
+            });
+            seq << 3;
         });
-    });
-    QVERIFY(!success);
-    waitForFinished(future);
-    QVERIFY(success);
+        QVERIFY(!isRunInMainThread);
+        waitForFinished(future);
+        QVERIFY(isRunInMainThread);
+        QVERIFY(seq == expectedSeq);
+    }
 
     /* blockingRunReturn */
     {
-        success = false;
+        isRunInMainThread = false;
 
         QFuture<int> future = QtConcurrent::run([=]() {
 
             return QCMainThreadRunner::blockingRunRet([]() {
-                success = QThread::currentThread() == QCoreApplication::instance()->thread();
+                isRunInMainThread = QThread::currentThread() == QCoreApplication::instance()->thread();
 
                 return 9;
             });
@@ -458,7 +465,7 @@ void QuickCrossUnitTests::mainThreadRunner()
 
         waitForFinished(future);
         QCOMPARE(future.result(), 9);
-        QVERIFY(success);
+        QVERIFY(isRunInMainThread);
     }
 
     /* waitForFinished */
@@ -478,20 +485,31 @@ void QuickCrossUnitTests::mainThreadRunner()
 
     /* MAIN_THREAD Macro */
     {
-        success = false;
+        isRunInMainThread = false;
+        QList<int> seq, expectedSeq;
+        expectedSeq << 1 << 2 << 3 << 4 << 5;
 
-        QFuture<void> future = QtConcurrent::run([=]() {
+        QFuture<void> future = QtConcurrent::run([&]() {
+            seq << 1;
 
             MAIN_THREAD {
-                success = QThread::currentThread() == QCoreApplication::instance()->thread();
+                seq << 2;
+
+                isRunInMainThread = QThread::currentThread() == QCoreApplication::instance()->thread();
             };
 
+            seq << 3;
+
             MAIN_THREAD {
+                seq << 4;
             };
+
+            seq << 5;
         });
 
         waitForFinished(future);
-        QCOMPARE(success, true);
+        QCOMPARE(isRunInMainThread, true);
+        QVERIFY(seq == expectedSeq);
     }
 
 }
