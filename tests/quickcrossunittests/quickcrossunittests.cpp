@@ -133,6 +133,7 @@ void QuickCrossUnitTests::imageLoader()
 
     // No. of loaded image = 0
     QVERIFY(pool->count() == 0);
+    QVERIFY(pool->byteCount() == 0);
 
     loader->load(QString(SRCDIR) + "img");
     QVERIFY(pool->count() == 0); // Not loaded yet
@@ -145,6 +146,7 @@ void QuickCrossUnitTests::imageLoader()
     QVERIFY(!loader->running());
 
     QCOMPARE(pool->count(), 2);
+    QCOMPARE(pool->byteCount(), 916800);
 
     Automator::waitUntil(loader.data(), "isLoaded", true);
     QVERIFY(loader->isLoaded());

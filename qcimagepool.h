@@ -12,6 +12,8 @@ public:
 
     int count() const;
 
+    int byteCount() const;
+
     void clear();
 
     bool contains(const QString& key) const;

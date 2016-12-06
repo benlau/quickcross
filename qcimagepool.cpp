@@ -45,6 +45,22 @@ int QCImagePool::count() const
     return m_images.count();
 }
 
+int QCImagePool::byteCount() const
+{
+    QMutexLocker locker(&mutex);
+    Q_UNUSED(locker);
+
+    int res = 0;
+
+    QMap<QString, QImage>::const_iterator i = m_images.constBegin();
+    while (i != m_images.constEnd()) {
+        res += i.value().byteCount();
+        ++i;
+    }
+
+    return res;
+}
+
 /*! \fn void QCImagePool::clear()
 
   Remove all the images
