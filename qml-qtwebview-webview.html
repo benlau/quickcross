@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qquickwebview.cpp -->
+  <title>WebView QML Type | QuickCross 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">WebView QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$WebView-brief -->
+<p>A component for displaying web content <a href="#details">More...</a></p>
+<!-- @@@WebView -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import QtWebView 1.0</td></tr></table></div><ul>
+<li><a href="qml-qtwebview-webview-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-qtwebview-webview.html#canGoBack-prop">canGoBack</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-qtwebview-webview.html#canGoForward-prop">canGoForward</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-qtwebview-webview.html#loadProgress-prop">loadProgress</a></b></b> : int</li>
+<li class="fn"><b><b><a href="qml-qtwebview-webview.html#loading-prop">loading</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-qtwebview-webview.html#title-prop">title</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qtwebview-webview.html#url-prop">url</a></b></b> : url</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn">void <b><b><a href="qml-qtwebview-webview.html#goBack-method">goBack</a></b></b>()</li>
+<li class="fn">void <b><b><a href="qml-qtwebview-webview.html#goForward-method">goForward</a></b></b>()</li>
+<li class="fn">void <b><b><a href="qml-qtwebview-webview.html#loadHtml-method">loadHtml</a></b></b>(string <i> html</i>, url <i> baseUrl</i>)</li>
+<li class="fn">void <b><b><a href="qml-qtwebview-webview.html#reload-method">reload</a></b></b>()</li>
+<li class="fn">void <b><b><a href="qml-qtwebview-webview.html#runJavaScript-method">runJavaScript</a></b></b>(string <i> script</i>, variant <i> callback</i>)</li>
+<li class="fn">void <b><b><a href="qml-qtwebview-webview.html#stop-method">stop</a></b></b>()</li>
+</ul>
+<!-- $$$WebView-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+</p>
+<p><a href="qml-qtwebview-webview.html">WebView</a> is a component for displaying web content which is implemented using native APIs on the platforms where this is available, thus it does not necessarily require including a full web browser stack as part of the application.</p>
+<p><b>Note: </b>Due to platform limitations overlapping the <a href="qml-qtwebview-webview.html">WebView</a> and other QML components is not supported.</p><!-- @@@WebView -->
+<h2>Property Documentation</h2>
+<!-- $$$canGoBack -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="canGoBack-prop"><td class="tblQmlPropNode"><p><a name="canGoBack-prop"></a><span class="name">canGoBack</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>True if it's currently possible to navigate back in the web history.</p>
+</div></div><!-- @@@canGoBack -->
+<br/>
+<!-- $$$canGoForward -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="canGoForward-prop"><td class="tblQmlPropNode"><p><a name="canGoForward-prop"></a><span class="name">canGoForward</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>True if it's currently possible to navigate forward in the web history.</p>
+</div></div><!-- @@@canGoForward -->
+<br/>
+<!-- $$$loadProgress -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="loadProgress-prop"><td class="tblQmlPropNode"><p><a name="loadProgress-prop"></a><span class="name">loadProgress</span> : <span class="type">int</span></p></td></tr></table></div></div><div class="qmldoc"><p>The current load progress of the web content, represented as an integer between 0 and 100.</p>
+</div></div><!-- @@@loadProgress -->
+<br/>
+<!-- $$$loading -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="loading-prop"><td class="tblQmlPropNode"><p><a name="loading-prop"></a><span class="name">loading</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>True if the <a href="qml-qtwebview-webview.html">WebView</a> is currently in the process of loading new content, and false if not.</p>
+</div></div><!-- @@@loading -->
+<br/>
+<!-- $$$title -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="title-prop"><td class="tblQmlPropNode"><p><a name="title-prop"></a><span class="name">title</span> : <span class="type">string</span></p></td></tr></table></div></div><div class="qmldoc"><p>The title of the currently loaded web page.</p>
+</div></div><!-- @@@title -->
+<br/>
+<!-- $$$url -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="url-prop"><td class="tblQmlPropNode"><p><a name="url-prop"></a><span class="name">url</span> : <span class="type"><a href="qml-qtwebview-webview.html#url-prop">url</a></span></p></td></tr></table></div></div><div class="qmldoc"><p>The url of currently loaded web page. Changing this will trigger loading new content.</p>
+<p>The url is used as-is. Urls that originate from user input should be parsed with <a href="qurl.html#fromUserInput">QUrl::fromUserInput</a>.</p>
+</div></div><!-- @@@url -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$goBack -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="goBack-method"><td class="tblQmlFuncNode"><p><a name="goBack-method"></a><span class="type">void</span> <span class="name">goBack</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Navigates back in the web history.</p>
+</div></div><!-- @@@goBack -->
+<br/>
+<!-- $$$goForward -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="goForward-method"><td class="tblQmlFuncNode"><p><a name="goForward-method"></a><span class="type">void</span> <span class="name">goForward</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Navigates forward in the web history.</p>
+</div></div><!-- @@@goForward -->
+<br/>
+<!-- $$$loadHtml -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="loadHtml-method"><td class="tblQmlFuncNode"><p><a name="loadHtml-method"></a><span class="type">void</span> <span class="name">loadHtml</span>(<span class="type">string</span><i> html</i>, <span class="type"><a href="qml-qtwebview-webview.html#url-prop">url</a></span><i> baseUrl</i>)</p></td></tr></table></div></div><div class="qmldoc"><p>Loads the specified <i>html</i> content to the web view.</p>
+<p>This method offers a lower-level alternative to the <code>url</code> property, which references HTML pages via URL.</p>
+<p>External objects such as stylesheets or images referenced in the HTML document should be located relative to <i>baseUrl</i>. For example, if <i>html</i> is retrieved from <code>http://www.example.com/documents/overview.html</code>, which is the base url, then an image referenced with the relative url, <code>diagram.png</code>, should be at <code>http://www.example.com/documents/diagram.png</code>.</p>
+<p><b>See also </b><a href="qml-qtwebview-webview.html#url-prop">QtWebView::WebView::url</a>.</p>
+</div></div><!-- @@@loadHtml -->
+<br/>
+<!-- $$$reload -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="reload-method"><td class="tblQmlFuncNode"><p><a name="reload-method"></a><span class="type">void</span> <span class="name">reload</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Reloads the current url.</p>
+</div></div><!-- @@@reload -->
+<br/>
+<!-- $$$runJavaScript -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="runJavaScript-method"><td class="tblQmlFuncNode"><p><a name="runJavaScript-method"></a><span class="type">void</span> <span class="name">runJavaScript</span>(<span class="type">string</span><i> script</i>, <span class="type">variant</span><i> callback</i>)</p></td></tr></table></div></div><div class="qmldoc"><p>Runs the specified JavaScript. In case a callback function is provided, it will be invoked after the script finished running.</p>
+<pre class="cpp">runJavaScript(&quot;document.title&quot;, function(result) { console.log(result); });</pre>
+</div></div><!-- @@@runJavaScript -->
+<br/>
+<!-- $$$stop -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="stop-method"><td class="tblQmlFuncNode"><p><a name="stop-method"></a><span class="type">void</span> <span class="name">stop</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Stops loading the current url.</p>
+</div></div><!-- @@@stop -->
+<br/>
+</body>
+</html>

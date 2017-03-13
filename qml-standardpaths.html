@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qcstandardpaths.cpp -->
+  <title>StandardPaths QML Type | QuickCross 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">StandardPaths QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$StandardPaths-brief -->
+<p>QML Wrapper of QStandardPaths <a href="#details">More...</a></p>
+<!-- @@@StandardPaths -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import  .</td></tr></table></div><ul>
+<li><a href="qml-standardpaths-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-standardpaths.html#stanardLocation-prop">stanardLocation</a></b></b> : enumeration</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn">string <b><b><a href="qml-standardpaths.html#displayName-method">displayName</a></b></b>(int <i> standardLocation</i>)</li>
+<li class="fn">array <b><b><a href="qml-standardpaths.html#standardLocations-method">standardLocations</a></b></b>(int <i> standardLocation</i>)</li>
+<li class="fn">string <b><b><a href="qml-standardpaths.html#writableLocation-method">writableLocation</a></b></b>(int <i> standardLocation</i>)</li>
+</ul>
+<!-- $$$StandardPaths-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+</p>
+<p>It is a singleton component</p>
+<!-- @@@StandardPaths -->
+<h2>Property Documentation</h2>
+<!-- $$$stanardLocation -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="stanardLocation-prop"><td class="tblQmlPropNode"><p><a name="stanardLocation-prop"></a><span class="name">stanardLocation</span> : <span class="type">enumeration</span></p></td></tr></table></div></div><div class="qmldoc"><p>It is equivalent to QStandardPaths::standardLocation()</p>
+<pre class="cpp"><span class="keyword">enum</span> StandardLocation {
+    DesktopLocation<span class="operator">,</span>
+    DocumentsLocation<span class="operator">,</span>
+    FontsLocation<span class="operator">,</span>
+    ApplicationsLocation<span class="operator">,</span>
+    MusicLocation<span class="operator">,</span>
+    MoviesLocation<span class="operator">,</span>
+    PicturesLocation<span class="operator">,</span>
+    TempLocation<span class="operator">,</span>
+    HomeLocation<span class="operator">,</span>
+    DataLocation<span class="operator">,</span>
+    CacheLocation<span class="operator">,</span>
+    GenericDataLocation<span class="operator">,</span>
+    RuntimeLocation<span class="operator">,</span>
+    ConfigLocation<span class="operator">,</span>
+    DownloadLocation<span class="operator">,</span>
+    GenericCacheLocation<span class="operator">,</span>
+    GenericConfigLocation<span class="operator">,</span>
+    AppDataLocation<span class="operator">,</span>
+    AppConfigLocation<span class="operator">,</span>
+    AppLocalDataLocation <span class="operator">=</span> DataLocation
+};</pre>
+<p>Example:</p>
+<pre class="cpp">console<span class="operator">.</span>log(StandardPaths<span class="operator">.</span>standardLocations(StandardPaths<span class="operator">.</span>ConfigLocation)); <span class="comment">// Get standard location patsh of config.</span></pre>
+</div></div><!-- @@@stanardLocation -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$displayName -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="displayName-method"><td class="tblQmlFuncNode"><p><a name="displayName-method"></a><span class="type">string</span> <span class="name">displayName</span>(<span class="type">int</span><i> standardLocation</i>)</p></td></tr></table></div></div><div class="qmldoc"><p>It is equivalent to QStandardPaths::displayName()</p>
+</div></div><!-- @@@displayName -->
+<br/>
+<!-- $$$standardLocations -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="standardLocations-method"><td class="tblQmlFuncNode"><p><a name="standardLocations-method"></a><span class="type">array</span> <span class="name">standardLocations</span>(<span class="type">int</span><i> standardLocation</i>)</p></td></tr></table></div></div><div class="qmldoc"><p>It is equivalent to QStandardPaths::standardLocations()</p>
+</div></div><!-- @@@standardLocations -->
+<br/>
+<!-- $$$writableLocation -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="writableLocation-method"><td class="tblQmlFuncNode"><p><a name="writableLocation-method"></a><span class="type">string</span> <span class="name">writableLocation</span>(<span class="type">int</span><i> standardLocation</i>)</p></td></tr></table></div></div><div class="qmldoc"><p>It is equivalent to QStandardPaths::writableLocation()</p>
+</div></div><!-- @@@writableLocation -->
+<br/>
+</body>
+</html>

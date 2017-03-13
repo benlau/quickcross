@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qcimagereader.cpp -->
+  <title>ImageReader QML Type | QuickCross 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">ImageReader QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$ImageReader-brief -->
+<p><a href="qml-imagereader.html">ImageReader</a> is a wrapper of QImageReader that support asynchronous operation and read from image provider. <a href="#details">More...</a></p>
+<!-- @@@ImageReader -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import  .</td></tr></table></div><ul>
+<li><a href="qml-imagereader-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-imagereader.html#canRead-prop">canRead</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#errorString-prop">errorString</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#image-prop">image</a></b></b> : QImage</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#isError-prop">isError</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#isFetch-prop">isFetch</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#isFinished-prop">isFinished</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#isReady-prop">isReady</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#size-prop">size</a></b></b> : size</li>
+<li class="fn"><b><b><a href="qml-imagereader.html#source-prop">source</a></b></b> : url</li>
+</ul>
+<a name="signals"></a>
+<h2 id="signals">Signals</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-imagereader.html#finished-signal">finished</a></b></b>()</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn">void <b><b><a href="qml-imagereader.html#clear-method">clear</a></b></b>()</li>
+<li class="fn">void <b><b><a href="qml-imagereader.html#fetch-method">fetch</a></b></b>()</li>
+<li class="fn">void <b><b><a href="qml-imagereader.html#read-method">read</a></b></b>()</li>
+</ul>
+<!-- $$$ImageReader-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+</p>
+<p>It is a singleton component</p>
+<!-- @@@ImageReader -->
+<h2>Property Documentation</h2>
+<!-- $$$canRead -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="canRead-prop"><td class="tblQmlPropNode"><p><a name="canRead-prop"></a><span class="name">canRead</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>Returns true if an image can be read for the device (i.e&#x2e;, the image format is supported, and the device seems to contain valid data); otherwise returns false.</p>
+<p>You need to call <a href="qml-imagereader.html#fetch-method">fetch()</a> before access this property.</p>
+</div></div><!-- @@@canRead -->
+<br/>
+<!-- $$$errorString -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="errorString-prop"><td class="tblQmlPropNode"><p><a name="errorString-prop"></a><span class="name">errorString</span> : <span class="type">string</span></p></td></tr></table></div></div><div class="qmldoc"><p>This property indicate the error occured during <a href="qml-imagereader.html#read-method">read()</a></p>
+</div></div><!-- @@@errorString -->
+<br/>
+<!-- $$$image -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="image-prop"><td class="tblQmlPropNode"><p><a name="image-prop"></a><span class="name">image</span> : <span class="type">QImage</span></p></td></tr></table></div></div><div class="qmldoc"><p>This property holds the image read by the reader. You need to call <a href="qml-imagereader.html#read-method">read()</a> before access this property</p>
+</div></div><!-- @@@image -->
+<br/>
+<!-- $$$isError -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="isError-prop"><td class="tblQmlPropNode"><p><a name="isError-prop"></a><span class="name">isError</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>This property indicate any error occured</p>
+</div></div><!-- @@@isError -->
+<br/>
+<!-- $$$isFetch -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="isFetch-prop"><td class="tblQmlPropNode"><p><a name="isFetch-prop"></a><span class="name">isFetch</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>Returns TRUE if the <a href="qml-imagereader.html#fetch-method">fetch()</a> function is completed. Otherwise, it will returns false.</p>
+</div></div><!-- @@@isFetch -->
+<br/>
+<!-- $$$isFinished -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="isFinished-prop"><td class="tblQmlPropNode"><p><a name="isFinished-prop"></a><span class="name">isFinished</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>This property indicate is the <a href="qml-imagereader.html#read-method">read()</a> function finished.</p>
+</div></div><!-- @@@isFinished -->
+<br/>
+<!-- $$$isReady -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="isReady-prop"><td class="tblQmlPropNode"><p><a name="isReady-prop"></a><span class="name">isReady</span> : <span class="type">bool</span></p></td></tr></table></div></div><div class="qmldoc"><p>This property indicate is the image ready to read</p>
+</div></div><!-- @@@isReady -->
+<br/>
+<!-- $$$size -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="size-prop"><td class="tblQmlPropNode"><p><a name="size-prop"></a><span class="name">size</span> : <span class="type"><a href="qml-imagereader.html#size-prop">size</a></span></p></td></tr></table></div></div><div class="qmldoc"><p>Returns the size of the image.</p>
+<p>You need to call <a href="qml-imagereader.html#fetch-method">fetch()</a> before access this property.</p>
+</div></div><!-- @@@size -->
+<br/>
+<!-- $$$source -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="source-prop"><td class="tblQmlPropNode"><p><a name="source-prop"></a><span class="name">source</span> : <span class="type">url</span></p></td></tr></table></div></div><div class="qmldoc"><p>This property holds the location of image.</p>
+</div></div><!-- @@@source -->
+<br/>
+<h2>Signal Documentation</h2>
+<!-- $$$finished -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="finished-signal"><td class="tblQmlFuncNode"><p><a name="finished-signal"></a><span class="name">finished</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Once the image reader is finished to read an image. It will emit signal.</p>
+</div></div><!-- @@@finished -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$clear -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="clear-method"><td class="tblQmlFuncNode"><p><a name="clear-method"></a><span class="type">void</span> <span class="name">clear</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Clear all the content of property then restore to initial status.</p>
+</div></div><!-- @@@clear -->
+<br/>
+<!-- $$$fetch -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="fetch-method"><td class="tblQmlFuncNode"><p><a name="fetch-method"></a><span class="type">void</span> <span class="name">fetch</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Fetch the information of the image without actually reading the image content. It is asynchronous call. Once it is fetched, it will emit fetched() signal and set isFetched property to true.</p>
+</div></div><!-- @@@fetch -->
+<br/>
+<!-- $$$read -->
+<div class="qmlitem"><div class="qmlproto"><div class="table"><table class="qmlname"><tr valign="top" class="odd" id="read-method"><td class="tblQmlFuncNode"><p><a name="read-method"></a><span class="type">void</span> <span class="name">read</span>()</p></td></tr></table></div></div><div class="qmldoc"><p>Reads an image from the source. On success, it will set the <a href="qml-imagereader.html#isReady-prop">isReady</a> and image property.</p>
+<p>Otherwise, it will set <a href="qml-imagereader.html#isError-prop">isError</a> to true. You can then access <a href="qml-imagereader.html#errorString-prop">errorString</a> poroperty to find out the type of error that occurred.</p>
+</div></div><!-- @@@read -->
+<br/>
+</body>
+</html>

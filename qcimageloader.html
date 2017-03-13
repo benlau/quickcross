@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qcimageloader.cpp -->
+  <title>QCImageLoader Class | QuickCross 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<li>QCImageLoader</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-slots">Public Slots</a></li>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">QCImageLoader Class</h1>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign"> <span class="preprocessor">#include &lt;QCImageLoader&gt;</span>
+</td></tr></table></div><ul>
+<li><a href="qcimageloader-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><a href="qcimageloader.html#isLoaded-prop">isLoaded</a></b> : const bool</li>
+<li class="fn"><b><a href="qcimageloader.html#running-prop">running</a></b> : const bool</li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#QCImageLoader">QCImageLoader</a></b>(QObject *<i> parent</i> = 0)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#isLoaded-prop">isLoaded</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#running-prop">running</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#waitForLoaded">waitForLoaded</a></b>(int<i> timeout</i> = 10000)</td></tr>
+</table></div>
+<a name="public-slots"></a>
+<h2 id="public-slots">Public Slots</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#load">load</a></b>(const QString &amp;<i> path</i>)</td></tr>
+</table></div>
+<a name="signals"></a>
+<h2 id="signals">Signals</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#isLoaded-prop">isLoadedChanged</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#loaded">loaded</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimageloader.html#running-prop">runningChanged</a></b>()</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$QCImageLoader-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p><a href="qcimageloader.html">QCImageLoader</a> is an asynchronous image loader. It load images from a folder to <a href="qcimagepool.html">QCImagePool</a></p>
+</div>
+<!-- @@@QCImageLoader -->
+<div class="prop">
+<h2>Property Documentation</h2>
+<!-- $$$isLoaded-prop$$$isLoaded$$$isLoadedChanged -->
+<h3 class="fn" id="isLoaded-prop"><a name="isLoaded-prop"></a><span class="name">isLoaded</span> : const <span class="type">bool</span></h3>
+<p>This property holds the property indicate whether is the loader loaded anything.</p>
+<p><b>Access functions:</b></p>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft topAlign rightAlign"> bool </td><td class="memItemRight bottomAlign"><span class="name"><b>isLoaded</b></span>() const</td></tr>
+</table></div>
+<p><b>Notifier signal:</b></p>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft topAlign rightAlign"> void </td><td class="memItemRight bottomAlign"><span class="name"><b>isLoadedChanged</b></span>()</td></tr>
+</table></div>
+<!-- @@@isLoaded -->
+<!-- $$$running-prop$$$running$$$runningChanged -->
+<h3 class="fn" id="running-prop"><a name="running-prop"></a><span class="name">running</span> : const <span class="type">bool</span></h3>
+<p>This property holds the property indicate whether is the loader running.</p>
+<p><b>Access functions:</b></p>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft topAlign rightAlign"> bool </td><td class="memItemRight bottomAlign"><span class="name"><b>running</b></span>() const</td></tr>
+</table></div>
+<p><b>Notifier signal:</b></p>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft topAlign rightAlign"> void </td><td class="memItemRight bottomAlign"><span class="name"><b>runningChanged</b></span>()</td></tr>
+</table></div>
+<!-- @@@running -->
+</div>
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$QCImageLoader[overload1]$$$QCImageLoaderQObject* -->
+<h3 class="fn" id="QCImageLoader"><a name="QCImageLoader"></a>QCImageLoader::<span class="name">QCImageLoader</span>(<span class="type">QObject</span> *<i> parent</i> = 0)</h3>
+<!-- @@@QCImageLoader -->
+<!-- $$$load[overload1]$$$loadconstQString& -->
+<h3 class="fn" id="load"><a name="load"></a><code>[slot] </code><span class="type">void</span> QCImageLoader::<span class="name">load</span>(const <span class="type">QString</span> &amp;<i> path</i>)</h3>
+<!-- @@@load -->
+<!-- $$$loaded[overload1]$$$loaded -->
+<h3 class="fn" id="loaded"><a name="loaded"></a><code>[signal] </code><span class="type">void</span> QCImageLoader::<span class="name">loaded</span>()</h3>
+<!-- @@@loaded -->
+<!-- $$$waitForLoaded[overload1]$$$waitForLoadedint -->
+<h3 class="fn" id="waitForLoaded"><a name="waitForLoaded"></a><span class="type">void</span> QCImageLoader::<span class="name">waitForLoaded</span>(<span class="type">int</span><i> timeout</i> = 10000)</h3>
+<p>Block the execution of current program and wait until images loaded.</p>
+<!-- @@@waitForLoaded -->
+</div>
+</body>
+</html>

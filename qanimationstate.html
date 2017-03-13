@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qanimationstate.cpp -->
+  <title>QAnimationState Class | QuickCross 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<li>QAnimationState</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#reimplemented-protected-functions">Reimplemented Protected Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">QAnimationState Class</h1>
+<!-- $$$QAnimationState-brief -->
+<p>The <a href="qanimationstate.html">QAnimationState</a> class provides state that handle an animation and emit a signal when this animation is finished. <a href="#details">More...</a></p>
+<!-- @@@QAnimationState -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign"> <span class="preprocessor">#include &lt;QAnimationState&gt;</span>
+</td></tr></table></div><ul>
+<li><a href="qanimationstate-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#QAnimationState">QAnimationState</a></b>(QState *<i> parent</i> = 0)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#dtor.QAnimationState">~QAnimationState</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QAbstractAnimation * </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#animation">animation</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#setAnimation">setAnimation</a></b>(QAbstractAnimation *<i> animation</i>)</td></tr>
+</table></div>
+<a name="signals"></a>
+<h2 id="signals">Signals</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#animationFinished">animationFinished</a></b>()</td></tr>
+</table></div>
+<a name="reimplemented-protected-functions"></a>
+<h2 id="reimplemented-protected-functions">Reimplemented Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> virtual bool </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#event">event</a></b>(QEvent *<i> e</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual void </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#onEntry">onEntry</a></b>(QEvent *)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual void </td><td class="memItemRight bottomAlign"><b><a href="qanimationstate.html#onExit">onExit</a></b>(QEvent *)</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$QAnimationState-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="qanimationstate.html">QAnimationState</a> class provides state that handle an animation and emit a signal when this animation is finished.</p>
+<p><a href="qanimationstate.html">QAnimationState</a> provides a state that handle an animation. It will start this animation when the state is entered and stop it when it is leaved. When the animation has finished the state emit <a href="qanimationstate.html#animationFinished">animationFinished</a> signal. <a href="qanimationstate.html">QAnimationState</a> is part of The State Machine Framework.</p>
+<pre class="cpp"><span class="type">QStateMachine</span> machine;
+<span class="type"><a href="qanimationstate.html#QAnimationState">QAnimationState</a></span> <span class="operator">*</span>s <span class="operator">=</span> <span class="keyword">new</span> <span class="type"><a href="qanimationstate.html#QAnimationState">QAnimationState</a></span>(machine<span class="operator">-</span><span class="operator">&gt;</span>rootState());
+<span class="type">QPropertyAnimation</span> <span class="operator">*</span>animation <span class="operator">=</span> <span class="keyword">new</span> <span class="type">QPropertyAnimation</span>(obj<span class="operator">,</span> <span class="string">&quot;pos&quot;</span>);
+s<span class="operator">-</span><span class="operator">&gt;</span><a href="qanimationstate.html#setAnimation">setAnimation</a>(animation);
+<span class="type">QState</span> <span class="operator">*</span>s2 <span class="operator">=</span> <span class="keyword">new</span> <span class="type">QState</span>(machine<span class="operator">-</span><span class="operator">&gt;</span>rootState());
+s<span class="operator">-</span><span class="operator">&gt;</span>addTransition(s<span class="operator">,</span> SIGNAL(animationFinished())<span class="operator">,</span> s2);
+machine<span class="operator">.</span>start();</pre>
+</div>
+<p><b>See also </b>QState and The Animation Framework.</p>
+<!-- @@@QAnimationState -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$QAnimationState[overload1]$$$QAnimationStateQState* -->
+<h3 class="fn" id="QAnimationState"><a name="QAnimationState"></a>QAnimationState::<span class="name">QAnimationState</span>(<span class="type">QState</span> *<i> parent</i> = 0)</h3>
+<p>Constructs a new state with the given <i>parent</i> state.</p>
+<!-- @@@QAnimationState -->
+<!-- $$$~QAnimationState[overload1]$$$~QAnimationState -->
+<h3 class="fn" id="dtor.QAnimationState"><a name="dtor.QAnimationState"></a>QAnimationState::<span class="name">~QAnimationState</span>()</h3>
+<p>Destroys the animation state.</p>
+<!-- @@@~QAnimationState -->
+<!-- $$$animation[overload1]$$$animation -->
+<h3 class="fn" id="animation"><a name="animation"></a><span class="type">QAbstractAnimation</span> * QAnimationState::<span class="name">animation</span>() const</h3>
+<p>Returns the animation handle by this animation state, or 0 if there is no animation.</p>
+<p><b>See also </b><a href="qanimationstate.html#setAnimation">setAnimation</a>().</p>
+<!-- @@@animation -->
+<!-- $$$animationFinished[overload1]$$$animationFinished -->
+<h3 class="fn" id="animationFinished"><a name="animationFinished"></a><code>[signal] </code><span class="type">void</span> QAnimationState::<span class="name">animationFinished</span>()</h3>
+<!-- @@@animationFinished -->
+<!-- $$$event[overload1]$$$eventQEvent* -->
+<h3 class="fn" id="event"><a name="event"></a><code>[virtual protected] </code><span class="type">bool</span> QAnimationState::<span class="name">event</span>(<span class="type">QEvent</span> *<i> e</i>)</h3>
+<!-- @@@event -->
+<!-- $$$onEntry[overload1]$$$onEntryQEvent* -->
+<h3 class="fn" id="onEntry"><a name="onEntry"></a><code>[virtual protected] </code><span class="type">void</span> QAnimationState::<span class="name">onEntry</span>(<span class="type">QEvent</span> *)</h3>
+<!-- @@@onEntry -->
+<!-- $$$onExit[overload1]$$$onExitQEvent* -->
+<h3 class="fn" id="onExit"><a name="onExit"></a><code>[virtual protected] </code><span class="type">void</span> QAnimationState::<span class="name">onExit</span>(<span class="type">QEvent</span> *)</h3>
+<!-- @@@onExit -->
+<!-- $$$setAnimation[overload1]$$$setAnimationQAbstractAnimation* -->
+<h3 class="fn" id="setAnimation"><a name="setAnimation"></a><span class="type">void</span> QAnimationState::<span class="name">setAnimation</span>(<span class="type">QAbstractAnimation</span> *<i> animation</i>)</h3>
+<p>Set an <i>animation</i> for this <a href="qanimationstate.html">QAnimationState</a>. If an animation was previously handle by this state then it won't emit <a href="qanimationstate.html#animationFinished">animationFinished</a> for the old animation. The <a href="qanimationstate.html">QAnimationState</a> doesn't take the ownership of the animation.</p>
+<p><b>See also </b><a href="qanimationstate.html#animation">animation</a>().</p>
+<!-- @@@setAnimation -->
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qcimagepool.cpp -->
+  <title>QCImagePool Class | QuickCross 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<li>QCImagePool</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#static-public-members">Static Public Members</a></li>
+<li class="level1"><a href="#protected-functions">Protected Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">QCImagePool Class</h1>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign"> <span class="preprocessor">#include &lt;QCImagePool&gt;</span>
+</td></tr></table></div><ul>
+<li><a href="qcimagepool-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#byteCount">byteCount</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#clear">clear</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#contains">contains</a></b>(const QString &amp;<i> key</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#count">count</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QImage </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#image">image</a></b>(const QString &amp;<i> key</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#insert">insert</a></b>(const QString &amp;<i> key</i>, const QImage &amp;<i> image</i>)</td></tr>
+</table></div>
+<a name="static-public-members"></a>
+<h2 id="static-public-members">Static Public Members</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> QCImagePool * </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#instance">instance</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#normalizeKey">normalizeKey</a></b>(const QString &amp;<i> key</i>)</td></tr>
+</table></div>
+<a name="protected-functions"></a>
+<h2 id="protected-functions">Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="qcimagepool.html#QCImagePool">QCImagePool</a></b>(QObject *<i> parent</i> = 0)</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$QCImagePool-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p><a href="qcimagepool.html">QCImagePool</a> is a singleton component for holding image data.</p>
+<p>You may insert images to this object manually, or uses <a href="qcimageloader.html">QCImageLoader</a> to load a batch of images from a folder.</p>
+<p>Then the load images can be used by component like QCImageProvider.</p>
+<p>All the functions within <a href="qcimagepool.html">QCImagePool</a> are thread safe.</p>
+</div>
+<!-- @@@QCImagePool -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$QCImagePool[overload1]$$$QCImagePoolQObject* -->
+<h3 class="fn" id="QCImagePool"><a name="QCImagePool"></a><code>[protected] </code>QCImagePool::<span class="name">QCImagePool</span>(<span class="type">QObject</span> *<i> parent</i> = 0)</h3>
+<!-- @@@QCImagePool -->
+<!-- $$$byteCount[overload1]$$$byteCount -->
+<h3 class="fn" id="byteCount"><a name="byteCount"></a><span class="type">int</span> QCImagePool::<span class="name">byteCount</span>() const</h3>
+<!-- @@@byteCount -->
+<!-- $$$clear[overload1]$$$clear -->
+<h3 class="fn" id="clear"><a name="clear"></a><span class="type">void</span> QCImagePool::<span class="name">clear</span>()</h3>
+<p>Remove all the images</p>
+<!-- @@@clear -->
+<!-- $$$contains[overload1]$$$containsconstQString& -->
+<h3 class="fn" id="contains"><a name="contains"></a><span class="type">bool</span> QCImagePool::<span class="name">contains</span>(const <span class="type">QString</span> &amp;<i> key</i>) const</h3>
+<p>Return TRUE if the image pool contains the image with key.</p>
+<!-- @@@contains -->
+<!-- $$$count[overload1]$$$count -->
+<h3 class="fn" id="count"><a name="count"></a><span class="type">int</span> QCImagePool::<span class="name">count</span>() const</h3>
+<p>Return number of images in <a href="qcimagepool.html">QCImagePool</a></p>
+<!-- @@@count -->
+<!-- $$$image[overload1]$$$imageconstQString& -->
+<h3 class="fn" id="image"><a name="image"></a><span class="type">QImage</span> QCImagePool::<span class="name">image</span>(const <span class="type">QString</span> &amp;<i> key</i>) const</h3>
+<p>Get the image with key. If it is not existed, it will return an empty image.</p>
+<!-- @@@image -->
+<!-- $$$insert[overload1]$$$insertconstQString&constQImage& -->
+<h3 class="fn" id="insert"><a name="insert"></a><span class="type">void</span> QCImagePool::<span class="name">insert</span>(const <span class="type">QString</span> &amp;<i> key</i>, const <span class="type">QImage</span> &amp;<i> image</i>)</h3>
+<p>Insert the image with key into the image pool.</p>
+<!-- @@@insert -->
+<!-- $$$instance[overload1]$$$instance -->
+<h3 class="fn" id="instance"><a name="instance"></a><code>[static] </code><span class="type"><a href="qcimagepool.html#QCImagePool">QCImagePool</a></span> * QCImagePool::<span class="name">instance</span>()</h3>
+<p>Returns the global <a href="qcimagepool.html">QCImagePool</a> instance.</p>
+<!-- @@@instance -->
+<!-- $$$normalizeKey[overload1]$$$normalizeKeyconstQString& -->
+<h3 class="fn" id="normalizeKey"><a name="normalizeKey"></a><code>[static] </code><span class="type">QString</span> QCImagePool::<span class="name">normalizeKey</span>(const <span class="type">QString</span> &amp;<i> key</i>)</h3>
+<p>Remove suffix and convert to lowercase.</p>
+<!-- @@@normalizeKey -->
+</div>
+</body>
+</html>

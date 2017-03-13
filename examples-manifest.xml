@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instructionals module="QuickCross">
+    <examples>
+        <example name="Qt WebView Examples - Minibrowser" docUrl="qthelp:////quickcross-minibrowser-example.html">
+            <description><![CDATA[Minibrowser example demonstrates how to use the Qt WebView module with Qt Quick.]]></description>
+            <tags>quick,webview,cross,minibrowser</tags>
+        </example>
+        <example name="Qt WebView Examples - Minibrowser" docUrl="qthelp:////quickcross-minibrowser-example.html">
+            <description><![CDATA[Minibrowser example demonstrates how to use the Qt WebView module with Qt Quick.]]></description>
+            <tags>quick,webview,cross,minibrowser</tags>
+        </example>
+    </examples>
+</instructionals>
