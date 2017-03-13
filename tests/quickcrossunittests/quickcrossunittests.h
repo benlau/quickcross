@@ -45,6 +45,8 @@ private Q_SLOTS:
 
     void refresher();
 
+    void test_future();
+
 private:
     QList<QQmlError> warnings;
 };

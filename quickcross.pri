@@ -25,7 +25,8 @@ HEADERS += \
     $$PWD/QCMainThreadRunner \
     $$PWD/QCRefresher \
     $$PWD/qcimagepoolprovider.h \
-    $$PWD/QCImagePoolProvider
+    $$PWD/QCImagePoolProvider \
+    $$PWD/qcfuture.h
 
 SOURCES += \
     $$PWD/qcdevice.cpp \
@@ -43,7 +44,8 @@ SOURCES += \
     $$PWD/qctime.cpp \
     $$PWD/qcimagepool.cpp \
     $$PWD/qcmainthreadrunner.cpp \
-    $$PWD/qcimagepoolprovider.cpp
+    $$PWD/qcimagepoolprovider.cpp \
+    $$PWD/qcfuture.cpp
 
 DISTFILES +=
 

@@ -15,6 +15,7 @@
 #include "qcimagereader.h"
 #include "priv/qcutils.h"
 #include "priv/qcimageloader_p.h"
+#include "qcfuture.h"
 
 void waitForFinished(QFuture<void> future) {
     QFutureWatcher<void> watcher;
@@ -36,6 +37,20 @@ static T waitForFinished(QFuture<T> future) {
 
     loop.exec();
     return future.result();
+}
+
+template <typename F>
+static bool waitUntil(F f, int timeout = -1) {
+    QTime time;
+    time.start();
+
+    while (!f()) {
+        Automator::wait(10);
+        if (timeout > 0 && time.elapsed() > timeout) {
+            return false;
+        }
+    }
+    return true;
 }
 
 QuickCrossUnitTests::QuickCrossUnitTests()
@@ -619,4 +634,35 @@ void QuickCrossUnitTests::refresher()
 
     Automator::wait(1000);
     QCOMPARE(count, 2);
+}
+
+void QuickCrossUnitTests::test_future()
+{
+    QFuture<bool> bFuture;
+    QFuture<int> iFuture;
+    QFuture<void> vFuture;
+
+    /* Case 1. QFuture<bool> + int(bool) */
+
+    auto bWorker = [=]() -> bool {
+        Automator::wait(50);
+        return true;
+    };
+
+    auto iCleanupBool = [&](bool value) -> int {
+        Q_UNUSED(value);
+        return 5;
+    };
+
+    bFuture = QtConcurrent::run(bWorker);
+    iFuture = QCFuture::subscribe(bFuture, iCleanupBool, this);
+    QCOMPARE(iFuture.isFinished(), false);
+
+    QVERIFY(waitUntil([&](){
+        return iFuture.isFinished();
+    }, 1000));
+
+    QCOMPARE(iFuture.isFinished(), true);
+    QCOMPARE(iFuture.result(), 5);
+
 }
