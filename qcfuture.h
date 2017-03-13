@@ -9,21 +9,32 @@ namespace QCFuture
     namespace Private {
 
         template <typename T>
-        class VoidCaller { // Used by Delegate<void>
+        class Invoker {
         public:
             template <typename F>
-            static void call(QFuture<T> future, F f) {
+            static void voidInvoke(QFuture<T> future, F f) {
                 f(future.result());
+            }
+
+            template <typename R, typename F>
+            static R invoke(QFuture<T> future, F f) {
+                return f(future.result());
             }
         };
 
         template <>
-        class VoidCaller<void> {
+        class Invoker<void> {
         public:
             template <typename F>
-            static void call(QFuture<void> future, F f) {
+            static void voidInvoke(QFuture<void> future, F f) {
                 Q_UNUSED(future);
                 f();
+            }
+
+            template <typename R, typename F>
+            static R invoke(QFuture<void> future, F f) {
+                Q_UNUSED(future);
+                return f();
             }
         };
 
@@ -33,7 +44,7 @@ namespace QCFuture
 
             template <typename T, typename F, typename D>
             static void call(QFuture<T> future,F f, D defer)  {
-                R r = f(future.result());
+                R r = Invoker<T>::template invoke<R>(future, f);
                 defer->reportResult(r);
             }
 
@@ -46,7 +57,7 @@ namespace QCFuture
             template<typename T, typename F, typename D>
             static void call(QFuture<T> future, F f, D defer) {
                 Q_UNUSED(defer);
-                VoidCaller<T>::call(future, f);
+                Invoker<T>::voidInvoke(future, f);
             }
         };
 

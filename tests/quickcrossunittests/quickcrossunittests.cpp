@@ -687,10 +687,10 @@ void QuickCrossUnitTests::test_future()
 
     /* Case3: QFuture<void> + void(void) */
 
-    bool vCleanupBoolVoid = false;
+    bool vCleanupVoidCalled = false;
 
     auto vCleanupVoid = [&]() -> void {
-        vCleanupBoolVoid = true;
+        vCleanupVoidCalled = true;
     };
 
     auto vWorker = []() -> void {
@@ -706,5 +706,23 @@ void QuickCrossUnitTests::test_future()
     }, 1000));
 
     QCOMPARE(vFuture2.isFinished(), true);
-    QCOMPARE(vCleanupBoolVoid, true);
+    QCOMPARE(vCleanupVoidCalled, true);
+
+    /* Remarks: QFuture<void> + void(bool) */
+    /* It is not a valid situation */
+
+    /* Extra case. Depend on a finished future */
+    vCleanupVoidCalled = false;
+    vFuture = QFuture<void>();
+    QCOMPARE(vFuture.isFinished(), true);
+    vFuture2 = QCFuture::subscribe(vFuture, vCleanupVoid, this);
+    QCOMPARE(vFuture2.isFinished(), false);
+
+    QVERIFY(waitUntil([&](){
+        return vFuture2.isFinished();
+    }, 1000));
+
+    QCOMPARE(vFuture2.isFinished(), true);
+    QCOMPARE(vCleanupVoidCalled, true);
+
 }
