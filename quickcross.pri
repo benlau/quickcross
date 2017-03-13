@@ -44,8 +44,7 @@ SOURCES += \
     $$PWD/qctime.cpp \
     $$PWD/qcimagepool.cpp \
     $$PWD/qcmainthreadrunner.cpp \
-    $$PWD/qcimagepoolprovider.cpp \
-    $$PWD/qcfuture.cpp
+    $$PWD/qcimagepoolprovider.cpp
 
 DISTFILES +=
 
