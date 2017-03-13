@@ -6,6 +6,32 @@
 
 namespace QCFuture
 {
+    namespace Private {
+
+        template <typename R>
+        class Delegate {
+        public:
+
+            template <typename T, typename F, typename D>
+            static void call(QFuture<T> future,F f, D defer)  {
+                R r = f(future.result());
+                defer->reportResult(r);
+            }
+
+        };
+
+        template <>
+        class Delegate<void> {
+        public:
+
+            template<typename T, typename F, typename D>
+            static void call(QFuture<T> future, F f, D defer) {
+                Q_UNUSED(defer);
+                f(future.result());
+            }
+        };
+
+    }
 
     template <typename T>
     class Defer : public QObject, public QFutureInterface<T>{
@@ -15,15 +41,15 @@ namespace QCFuture
 
 
     template <typename T,typename F>
-    auto subscribe(QFuture<T> future, F func, QObject* lifetime) -> QFuture<decltype(func(future.result()))>  {
+    auto subscribe(QFuture<T> future, F func, QObject* context) -> QFuture<decltype(func(future.result()))>  {
 
-        auto *defer = new Defer<decltype(func(future.result()))> (lifetime);
+        auto *defer = new Defer<decltype(func(future.result()))> (context);
 
-        QFutureWatcher<T> *watcher = new QFutureWatcher<T>(lifetime);
+        QFutureWatcher<T> *watcher = new QFutureWatcher<T>(context);
         watcher->setFuture(future);
 
         QObject::connect(watcher, &QFutureWatcher<T>::finished,[=](){
-            defer->reportResult(func(future.result()));
+            Private::Delegate<decltype(func(future.result()))>::call(future, func, defer);
             defer->reportFinished();
             watcher->deleteLater();
             defer->deleteLater();

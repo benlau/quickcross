@@ -665,4 +665,23 @@ void QuickCrossUnitTests::test_future()
     QCOMPARE(iFuture.isFinished(), true);
     QCOMPARE(iFuture.result(), 5);
 
+    /* Case 2: QFuture<bool> + void(bool) */
+
+    bool vCleanupBoolCalled = false;
+
+    auto vCleanupBool = [&](bool value) -> void {
+        Q_UNUSED(value);
+        vCleanupBoolCalled = true;
+    };
+
+    bFuture = QtConcurrent::run(bWorker);
+    vFuture = QCFuture::subscribe(bFuture, vCleanupBool, this);
+    QCOMPARE(vFuture.isFinished(), false);
+
+    QVERIFY(waitUntil([&](){
+        return vFuture.isFinished();
+    }, 1000));
+
+    QCOMPARE(vFuture.isFinished(), true);
+    QCOMPARE(vCleanupBoolCalled, true);
 }
